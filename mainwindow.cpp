@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     //setup window
     ui->setupUi(this);
-    this->setWindowTitle(QString("System 1, v.0.2"));
+    this->setWindowTitle(QString("System 1, v.0.3"));
 
     //hide the Segmentation boxes
     ui->Global_Sobel_box->hide();
