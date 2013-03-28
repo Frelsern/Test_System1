@@ -163,6 +163,7 @@ void MainWindow::processFrameAndUpdateGUI()
         break;
     case LOCAL_OTSU:
         on_Local_Otsu_clicked();
+
         break;
     case THRESHOLDING:
         on_Thresholding_clicked();
@@ -172,6 +173,10 @@ void MainWindow::processFrameAndUpdateGUI()
         break;
     }
 
+    qDebug() << "dadadtdf"
+
+    int a = eight;
+    qDebug() << a << "dad";
     //operations to improve the segmentation result
     if(!Segmented_image.empty())
     {        
@@ -583,7 +588,7 @@ void MainWindow::on_Local_Scharr_clicked()
                  {
                     cv::Sobel(sub_image2,sub_image,CV_32F,1,0,CV_SCHARR,1,0,cv::BORDER_REPLICATE);
                     //Segmented_image.convertTo(Segmented_image,CV_8U);
-                    qDebug() << "dx";
+                   // qDebug() << "dx";
                  }
                  else if(ui->Local_Scharr_dy_checkBox->isChecked())
                  {
@@ -630,7 +635,7 @@ void MainWindow::on_Global_Otsu_clicked()
 void MainWindow::on_Local_Otsu_clicked()
 {
     thresh_met = LOCAL_OTSU;
-
+    processed_image = Local_Otsu(processed_image);
     //hide the different group boxes and show the global sobel one.
     ui->Global_Sobel_box->hide();
     ui->Local_Sobel_box->hide();
