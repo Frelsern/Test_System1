@@ -175,10 +175,10 @@ public:
     QVBoxLayout *verticalLayout;
     QRadioButton *Adaptive_Thresholding_gaussian_radioButton;
     QRadioButton *Adaptive_thresholding_mean_radioButton;
-    QGroupBox *Adaptive_Thresholding_Kernel;
+    QGroupBox *Adaptive_Thresholding_Kernel_box;
     QSlider *Adaptive_Thresholding_kernel_slider;
     QLCDNumber *Adaptive_Thresholding_kernel_lcdNumber;
-    QGroupBox *Adaptive_Thresholding_Kernel_2;
+    QGroupBox *Adaptive_Thresholding_C_box;
     QSlider *Adaptive_Thresholding_C_slider;
     QLCDNumber *Adaptive_Thresholding_C_lcdNumber;
     QCheckBox *Otsu_in_edge_checkBox;
@@ -859,10 +859,10 @@ public:
 
         verticalLayout->addWidget(Adaptive_thresholding_mean_radioButton);
 
-        Adaptive_Thresholding_Kernel = new QGroupBox(Adaptive_Thresholding_box);
-        Adaptive_Thresholding_Kernel->setObjectName(QStringLiteral("Adaptive_Thresholding_Kernel"));
-        Adaptive_Thresholding_Kernel->setGeometry(QRect(124, 8, 173, 45));
-        Adaptive_Thresholding_kernel_slider = new QSlider(Adaptive_Thresholding_Kernel);
+        Adaptive_Thresholding_Kernel_box = new QGroupBox(Adaptive_Thresholding_box);
+        Adaptive_Thresholding_Kernel_box->setObjectName(QStringLiteral("Adaptive_Thresholding_Kernel_box"));
+        Adaptive_Thresholding_Kernel_box->setGeometry(QRect(124, 8, 173, 45));
+        Adaptive_Thresholding_kernel_slider = new QSlider(Adaptive_Thresholding_Kernel_box);
         Adaptive_Thresholding_kernel_slider->setObjectName(QStringLiteral("Adaptive_Thresholding_kernel_slider"));
         Adaptive_Thresholding_kernel_slider->setGeometry(QRect(4, 16, 84, 19));
         Adaptive_Thresholding_kernel_slider->setMinimum(3);
@@ -871,23 +871,23 @@ public:
         Adaptive_Thresholding_kernel_slider->setValue(3);
         Adaptive_Thresholding_kernel_slider->setSliderPosition(3);
         Adaptive_Thresholding_kernel_slider->setOrientation(Qt::Horizontal);
-        Adaptive_Thresholding_kernel_lcdNumber = new QLCDNumber(Adaptive_Thresholding_Kernel);
+        Adaptive_Thresholding_kernel_lcdNumber = new QLCDNumber(Adaptive_Thresholding_Kernel_box);
         Adaptive_Thresholding_kernel_lcdNumber->setObjectName(QStringLiteral("Adaptive_Thresholding_kernel_lcdNumber"));
         Adaptive_Thresholding_kernel_lcdNumber->setGeometry(QRect(100, 16, 64, 23));
         Adaptive_Thresholding_kernel_lcdNumber->setProperty("intValue", QVariant(3));
-        Adaptive_Thresholding_Kernel_2 = new QGroupBox(Adaptive_Thresholding_box);
-        Adaptive_Thresholding_Kernel_2->setObjectName(QStringLiteral("Adaptive_Thresholding_Kernel_2"));
-        Adaptive_Thresholding_Kernel_2->setGeometry(QRect(124, 52, 173, 45));
-        Adaptive_Thresholding_C_slider = new QSlider(Adaptive_Thresholding_Kernel_2);
+        Adaptive_Thresholding_C_box = new QGroupBox(Adaptive_Thresholding_box);
+        Adaptive_Thresholding_C_box->setObjectName(QStringLiteral("Adaptive_Thresholding_C_box"));
+        Adaptive_Thresholding_C_box->setGeometry(QRect(124, 52, 173, 45));
+        Adaptive_Thresholding_C_slider = new QSlider(Adaptive_Thresholding_C_box);
         Adaptive_Thresholding_C_slider->setObjectName(QStringLiteral("Adaptive_Thresholding_C_slider"));
         Adaptive_Thresholding_C_slider->setGeometry(QRect(4, 16, 84, 19));
         Adaptive_Thresholding_C_slider->setMinimum(0);
-        Adaptive_Thresholding_C_slider->setMaximum(200);
+        Adaptive_Thresholding_C_slider->setMaximum(25);
         Adaptive_Thresholding_C_slider->setSingleStep(2);
         Adaptive_Thresholding_C_slider->setValue(0);
         Adaptive_Thresholding_C_slider->setSliderPosition(0);
         Adaptive_Thresholding_C_slider->setOrientation(Qt::Horizontal);
-        Adaptive_Thresholding_C_lcdNumber = new QLCDNumber(Adaptive_Thresholding_Kernel_2);
+        Adaptive_Thresholding_C_lcdNumber = new QLCDNumber(Adaptive_Thresholding_C_box);
         Adaptive_Thresholding_C_lcdNumber->setObjectName(QStringLiteral("Adaptive_Thresholding_C_lcdNumber"));
         Adaptive_Thresholding_C_lcdNumber->setGeometry(QRect(100, 16, 64, 23));
         Adaptive_Thresholding_C_lcdNumber->setProperty("intValue", QVariant(0));
@@ -1009,8 +1009,8 @@ public:
         groupBox->setTitle(QApplication::translate("MainWindow", "Thresholding method", 0));
         Adaptive_Thresholding_gaussian_radioButton->setText(QApplication::translate("MainWindow", "Gaussian", 0));
         Adaptive_thresholding_mean_radioButton->setText(QApplication::translate("MainWindow", "Mean", 0));
-        Adaptive_Thresholding_Kernel->setTitle(QApplication::translate("MainWindow", "Kernel size", 0));
-        Adaptive_Thresholding_Kernel_2->setTitle(QApplication::translate("MainWindow", "C", 0));
+        Adaptive_Thresholding_Kernel_box->setTitle(QApplication::translate("MainWindow", "Kernel size", 0));
+        Adaptive_Thresholding_C_box->setTitle(QApplication::translate("MainWindow", "C", 0));
         Otsu_in_edge_checkBox->setText(QApplication::translate("MainWindow", "Use Otsu with\n"
 "Edge Segmentation\n"
 "", 0));

@@ -1359,7 +1359,7 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QGroupBox" name="Adaptive_Thresholding_Kernel">
+    <widget class="QGroupBox" name="Adaptive_Thresholding_Kernel_box">
      <property name="geometry">
       <rect>
        <x>124</x>
@@ -1413,7 +1413,7 @@
       </property>
      </widget>
     </widget>
-    <widget class="QGroupBox" name="Adaptive_Thresholding_Kernel_2">
+    <widget class="QGroupBox" name="Adaptive_Thresholding_C_box">
      <property name="geometry">
       <rect>
        <x>124</x>
@@ -1438,7 +1438,7 @@
        <number>0</number>
       </property>
       <property name="maximum">
-       <number>200</number>
+       <number>25</number>
       </property>
       <property name="singleStep">
        <number>2</number>
