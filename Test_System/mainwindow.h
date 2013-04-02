@@ -5,7 +5,6 @@
 #include <QFileDialog>
 #include <QTimer>
 #include <QList>
-#include "segmentation_techniques.h"
 
 #include<opencv2/core/core.hpp>
 #include<opencv2/highgui/highgui.hpp>

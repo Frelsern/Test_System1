@@ -694,7 +694,7 @@
     <property name="title">
      <string>Segmentation methods</string>
     </property>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>19</x>
@@ -917,11 +917,6 @@
       <bool>true</bool>
      </property>
     </widget>
-    <zorder>Local_Scharr_Histogram</zorder>
-    <zorder>groupBox_2</zorder>
-    <zorder>Local_Scharr_dy_checkBox</zorder>
-    <zorder>Local_Scharr_dx_checkBox</zorder>
-    <zorder>Thresholding_box</zorder>
    </widget>
    <widget class="QGroupBox" name="Modes_groupbox">
     <property name="geometry">
@@ -1309,8 +1304,6 @@
       </layout>
      </widget>
     </widget>
-    <zorder>Glocal_Scharr_Histogram_2</zorder>
-    <zorder>label</zorder>
    </widget>
    <widget class="QGroupBox" name="Adaptive_Thresholding_box">
     <property name="geometry">
@@ -1336,7 +1329,7 @@
      <property name="title">
       <string>Thresholding method</string>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>5</x>
@@ -1475,6 +1468,21 @@
      </widget>
     </widget>
    </widget>
+   <widget class="QCheckBox" name="Otsu_in_edge_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>148</x>
+      <y>588</y>
+      <width>121</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Use Otsu with
+Edge Segmentation
+</string>
+    </property>
+   </widget>
    <zorder>Local_Scharr_box</zorder>
    <zorder>Thresholding_box</zorder>
    <zorder>label</zorder>
@@ -1492,6 +1500,7 @@
    <zorder>Color_spaces_groupBox</zorder>
    <zorder>groupBox_4</zorder>
    <zorder>Adaptive_Thresholding_box</zorder>
+   <zorder>Otsu_in_edge_checkBox</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

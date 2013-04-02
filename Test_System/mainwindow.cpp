@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "segmentation_techniques.h"
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -8,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     //setup window
     ui->setupUi(this);
-    this->setWindowTitle(QString("System 1, v.0.3"));
+    this->setWindowTitle(QString("System 1, v.0.2.4"));
 
     //hide the Segmentation boxes
     ui->Global_Sobel_box->hide();
@@ -147,23 +148,30 @@ void MainWindow::processFrameAndUpdateGUI()
     case THRESH_NONE:
         break;
     case GLOBAL_SOBEL:
-        on_Global_Sobel_clicked();
+        //on_Global_Sobel_clicked();
+        Segmented_image = Global_Sobel(processed_image,Global_Sobel_kernel_size,Global_Sobel_hist_percentile,
+                                       Global_Sobel_dx,Global_Sobel_dy,ui->Otsu_in_edge_checkBox->isChecked());
         break;
     case LOCAL_SOBEL:
-        on_Local_Sobel_clicked();
+        //on_Local_Sobel_clicked();
+        Segmented_image = Local_Sobel(processed_image,Local_Sobel_numberofSubImages, Local_Sobel_kernel_size,
+                                      Local_Sobel_hist_percentile,Local_Sobel_dx,Local_Sobel_dy,ui->Otsu_in_edge_checkBox->isChecked());
         break;
     case GLOBAL_SCHARR:
-        on_Global_Scharr_clicked();
+        //on_Global_Scharr_clicked();
+        Segmented_image = Global_Scharr(processed_image,Global_Scharr_hist_percentile,ui->Global_Scharr_dx_checkBox->isChecked(),
+                                        ui->Global_Scharr_dy_checkBox->isChecked(),ui->Otsu_in_edge_checkBox->isChecked());
         break;
     case LOCAL_SCHARR:
-        on_Local_Scharr_clicked();
+        //on_Local_Scharr_clicked();
+        Segmented_image = Local_Scharr(processed_image,Local_Scharr_numberofSubImages,Local_Scharr_hist_percentile,
+                                       ui->Local_Scharr_dx_checkBox->isChecked(),ui->Local_Scharr_dy_checkBox->isChecked(),ui->Otsu_in_edge_checkBox->isChecked());
         break;
     case GLOBAL_OTSU:
         on_Global_Otsu_clicked();
         break;
     case LOCAL_OTSU:
         on_Local_Otsu_clicked();
-
         break;
     case THRESHOLDING:
         on_Thresholding_clicked();
@@ -173,10 +181,7 @@ void MainWindow::processFrameAndUpdateGUI()
         break;
     }
 
-    qDebug() << "dadadtdf"
 
-    int a = eight;
-    qDebug() << a << "dad";
     //operations to improve the segmentation result
     if(!Segmented_image.empty())
     {        
@@ -306,49 +311,15 @@ void MainWindow::on_Global_Sobel_clicked()
     ui->Adaptive_Thresholding_box->hide();
 
 
-    //Segment the image, finding edges with sobel filters
+    /*//Segment the image, finding edges with sobel filters
     if((processed_image.channels()==1) & (!processed_image.empty()) & (Global_Sobel_kernel_size > Global_Sobel_dx) & (Global_Sobel_kernel_size > Global_Sobel_dy) & (Global_Sobel_dx+Global_Sobel_dy>0))
     {
         cv::Sobel(processed_image,Segmented_image,CV_32F,Global_Sobel_dx,Global_Sobel_dy,Global_Sobel_kernel_size,1,0,cv::BORDER_REPLICATE);
         Segmented_image.convertTo(Segmented_image,CV_8U);
 
-       /* //another attempt, doesnt merge very nicely
-        if((Global_Sobel_kernel_size > Global_Sobel_dx) & (Global_Sobel_kernel_size > Global_Sobel_dy))
-        {
-            cv::Mat seg_dx,seg_dy;
-            cv::Mat abs_seg_x,abs_seg_y;
-
-            if(Global_Sobel_dx>0)
-            {
-                cv::Sobel(processed_image,seg_dx,CV_32F,Global_Sobel_dx,0,Global_Sobel_kernel_size,1,0,cv::BORDER_REPLICATE);
-                cv::convertScaleAbs(seg_dx,abs_seg_x);
-            }
-            else
-            {
-                abs_seg_x = cv::Mat::zeros(processed_image.size(), CV_8U);
-                //abs_seg_x.create(processed_image.size(),CV_8U);
-                //abs_seg_x.zeros(processed_image.size(),CV_8U);
-                //abs_seg_x += cv::Mat::zeros(processed_image.size(),CV_8U);
-            }
-
-            if(Global_Sobel_dy>0)
-            {
-              cv::Sobel(processed_image,seg_dy,CV_32F,0,Global_Sobel_dy,Global_Sobel_kernel_size,1,0,cv::BORDER_REPLICATE);
-              cv::convertScaleAbs(seg_dy,abs_seg_y);
-            }
-            else
-            {
-                abs_seg_y = cv::Mat::zeros(processed_image.size(), CV_8U);
-                //abs_seg_y.create(processed_image.size(),CV_8U);
-                //abs_seg_y.zeros(processed_image.size(),CV_8U);
-
-            }
-
-            cv::addWeighted(abs_seg_x,0.5,abs_seg_y,0.5,0,Segmented_image);
-        }*/
     }
 
-    Histogram_segmentation(Global_Sobel_hist_percentile);
+    Histogram_segmentation(Global_Sobel_hist_percentile);*/
 
 }
 void MainWindow::on_Local_Sobel_clicked()
@@ -365,7 +336,7 @@ void MainWindow::on_Local_Sobel_clicked()
     ui->Thresholding_box->hide();
     ui->Adaptive_Thresholding_box->hide();
 
-    if((processed_image.channels()==1) & (!processed_image.empty()) & (Local_Sobel_kernel_size > Local_Sobel_dx) & (Local_Sobel_kernel_size > Local_Sobel_dy) & (Local_Sobel_dx+Local_Sobel_dy>0))
+   /* if((processed_image.channels()==1) & (!processed_image.empty()) & (Local_Sobel_kernel_size > Local_Sobel_dx) & (Local_Sobel_kernel_size > Local_Sobel_dy) & (Local_Sobel_dx+Local_Sobel_dy>0))
     {
        // Segmented_image.create(processed_image.size(),CV_32F);
         Segmented_image = processed_image.clone();
@@ -416,7 +387,7 @@ void MainWindow::on_Local_Sobel_clicked()
 
                // cv::Sobel(sub_image2,sub_image,CV_32F,1,1,3,1,0,cv::BORDER_REPLICATE);//need float to do sobel??
                 //new attempt, seems better
-               /* if((Local_Sobel_kernel_size > Local_Sobel_dx) & (Local_Sobel_kernel_size > Local_Sobel_dy))
+                if((Local_Sobel_kernel_size > Local_Sobel_dx) & (Local_Sobel_kernel_size > Local_Sobel_dy))
                 {
                     cv::Mat seg_dx,seg_dy;
                     cv::Mat abs_seg_x,abs_seg_y;
@@ -443,12 +414,12 @@ void MainWindow::on_Local_Sobel_clicked()
 
                     cv::addWeighted(abs_seg_x,0.5,abs_seg_y,0.5,0,sub_image);
 
-                }*/
+                }
                 }
         }
     }
     Segmented_image.convertTo(Segmented_image,CV_8U);
-    Histogram_segmentation(Local_Sobel_hist_percentile);
+    Histogram_segmentation(Local_Sobel_hist_percentile);*/
 
 }
 
@@ -466,21 +437,9 @@ void MainWindow::on_Global_Scharr_clicked()
     ui->Thresholding_box->hide();
     ui->Adaptive_Thresholding_box->hide();
 
-    //Segmenting the image
+ /*   //Segmenting the image
     if((processed_image.channels()==1) & (!processed_image.empty()))
     {
-        //cv::Sobel(processed_image,Segmented_image,-1,1,1,3,1,0,0); //can work as uint8 instead of float also?
-        //cv::Scharr(processed_image,Segmented_image,CV_32F,1,1,1);//need float to do sobel??
-
-        //cv::Mat dy_segmented;
-        /*cv::Sobel(processed_image,Segmented_image,CV_32F,1,0,CV_SCHARR,1,0,cv::BORDER_REPLICATE);
-        //cv::Sobel(processed_image,dy_segmented,CV_32F,0,1,CV_SCHARR,1,0,cv::BORDER_REPLICATE); //not in use atm
-
-
-        Segmented_image.convertTo(Segmented_image,CV_8U);*/
-
-
-
         if(ui->Global_Scharr_dx_checkBox->isChecked() & ui->Global_Scharr_dy_checkBox->isChecked())
         {
             cv::Mat seg_dx,seg_dy;
@@ -506,8 +465,9 @@ void MainWindow::on_Global_Scharr_clicked()
 
     }
 
-    Histogram_segmentation(Global_Scharr_hist_percentile);
+    Histogram_segmentation(Global_Scharr_hist_percentile);*/
 }
+
 void MainWindow::on_Local_Scharr_clicked()
 {
     thresh_met = LOCAL_SCHARR;
@@ -522,7 +482,7 @@ void MainWindow::on_Local_Scharr_clicked()
     ui->Thresholding_box->hide();
     ui->Adaptive_Thresholding_box->hide();
 
-    if((processed_image.channels()==1) & (!processed_image.empty()))
+    /*if((processed_image.channels()==1) & (!processed_image.empty()))
     {
         int colsize = Segmented_image.cols;
         int rowsize = Segmented_image.rows;
@@ -588,7 +548,7 @@ void MainWindow::on_Local_Scharr_clicked()
                  {
                     cv::Sobel(sub_image2,sub_image,CV_32F,1,0,CV_SCHARR,1,0,cv::BORDER_REPLICATE);
                     //Segmented_image.convertTo(Segmented_image,CV_8U);
-                   // qDebug() << "dx";
+                    qDebug() << "dx";
                  }
                  else if(ui->Local_Scharr_dy_checkBox->isChecked())
                  {
@@ -608,7 +568,7 @@ void MainWindow::on_Local_Scharr_clicked()
         Segmented_image.convertTo(Segmented_image,CV_8U);
     }
 
-    Histogram_segmentation(Local_Scharr_hist_percentile);
+    Histogram_segmentation(Local_Scharr_hist_percentile);*/
 }
 
 void MainWindow::on_Global_Otsu_clicked()
@@ -635,7 +595,7 @@ void MainWindow::on_Global_Otsu_clicked()
 void MainWindow::on_Local_Otsu_clicked()
 {
     thresh_met = LOCAL_OTSU;
-    processed_image = Local_Otsu(processed_image);
+
     //hide the different group boxes and show the global sobel one.
     ui->Global_Sobel_box->hide();
     ui->Local_Sobel_box->hide();
