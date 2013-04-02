@@ -310,17 +310,6 @@ void MainWindow::on_Global_Sobel_clicked()
     ui->Thresholding_box->hide();
     ui->Adaptive_Thresholding_box->hide();
 
-
-    /*//Segment the image, finding edges with sobel filters
-    if((processed_image.channels()==1) & (!processed_image.empty()) & (Global_Sobel_kernel_size > Global_Sobel_dx) & (Global_Sobel_kernel_size > Global_Sobel_dy) & (Global_Sobel_dx+Global_Sobel_dy>0))
-    {
-        cv::Sobel(processed_image,Segmented_image,CV_32F,Global_Sobel_dx,Global_Sobel_dy,Global_Sobel_kernel_size,1,0,cv::BORDER_REPLICATE);
-        Segmented_image.convertTo(Segmented_image,CV_8U);
-
-    }
-
-    Histogram_segmentation(Global_Sobel_hist_percentile);*/
-
 }
 void MainWindow::on_Local_Sobel_clicked()
 {
@@ -335,91 +324,6 @@ void MainWindow::on_Local_Sobel_clicked()
     ui->Local_Otsu_box->hide();
     ui->Thresholding_box->hide();
     ui->Adaptive_Thresholding_box->hide();
-
-   /* if((processed_image.channels()==1) & (!processed_image.empty()) & (Local_Sobel_kernel_size > Local_Sobel_dx) & (Local_Sobel_kernel_size > Local_Sobel_dy) & (Local_Sobel_dx+Local_Sobel_dy>0))
-    {
-       // Segmented_image.create(processed_image.size(),CV_32F);
-        Segmented_image = processed_image.clone();
-        Segmented_image.convertTo(Segmented_image,CV_32F);
-        int colsize = Segmented_image.cols;
-        int rowsize = Segmented_image.rows;
-
-        cv::Mat sub_image,sub_image2;
-        sub_image.create(rowsize/Local_Sobel_numberofSubImages,colsize/Local_Sobel_numberofSubImages,CV_32F);
-        sub_image2.create(rowsize/Local_Sobel_numberofSubImages,colsize/Local_Sobel_numberofSubImages,CV_32F);
-
-        //qDebug() << "sub image er: " << sub_image.cols << sub_image.rows << "antall sub images: " << Local_Sobel_numberofSubImages;
-        int c,d,e,f;
-        for(int a = 0;a<Local_Sobel_numberofSubImages;a++)
-        {
-            if(a == 0)
-            {
-                c=0;
-                d = floor(1.0*rowsize/Local_Sobel_numberofSubImages)-1;
-            }else
-            {
-                c = d+1;
-                d = d+floor(1.0*rowsize/Local_Sobel_numberofSubImages);
-            }
-
-            for(int b = 0;b<Local_Sobel_numberofSubImages;b++)
-            {
-                if(b == 0)
-                {
-                    e=0;
-                    f = floor(1.0*colsize/Local_Sobel_numberofSubImages)-1;
-                }else
-                {
-                    e = f+1;
-                    f = f+floor(1.0*colsize/Local_Sobel_numberofSubImages);
-                }
-
-                sub_image = Segmented_image(cv::Rect(e,c,sub_image.cols,sub_image.rows));
-                sub_image.copyTo(sub_image2);
-
-                //converting to float and doing sobel operation
-               // if((Local_Sobel_kernel_size > Local_Sobel_dx) & (Local_Sobel_kernel_size > Local_Sobel_dy) & (Local_Sobel_dx+Local_Sobel_dy>0))
-               // {
-                    cv::Sobel(sub_image2,sub_image,CV_32F,Local_Sobel_dx,Local_Sobel_dy,Local_Sobel_kernel_size,1,0,cv::BORDER_REPLICATE);//need float to do sobel??
-               // }
-                //else
-                  //  break;
-
-               // cv::Sobel(sub_image2,sub_image,CV_32F,1,1,3,1,0,cv::BORDER_REPLICATE);//need float to do sobel??
-                //new attempt, seems better
-                if((Local_Sobel_kernel_size > Local_Sobel_dx) & (Local_Sobel_kernel_size > Local_Sobel_dy))
-                {
-                    cv::Mat seg_dx,seg_dy;
-                    cv::Mat abs_seg_x,abs_seg_y;
-
-                    if(Local_Sobel_dx>0)
-                    {
-                        cv::Sobel(sub_image2_x,seg_dx,CV_32F,Local_Sobel_dx,0,Local_Sobel_kernel_size,1,0,cv::BORDER_REPLICATE);
-                        cv::convertScaleAbs(seg_dx,abs_seg_x);
-                    }
-                    else
-                    {
-                        abs_seg_x = cv::Mat::zeros(sub_image.size(), CV_8U);
-                    }
-
-                    if(Local_Sobel_dy>0)
-                    {
-                      cv::Sobel(sub_image2_y,seg_dy,CV_32F,0,Local_Sobel_dy,Local_Sobel_kernel_size,1,0,cv::BORDER_REPLICATE);
-                      cv::convertScaleAbs(seg_dy,abs_seg_y);
-                    }
-                    else
-                    {
-                        abs_seg_y = cv::Mat::zeros(sub_image.size(), CV_8U);
-                    }
-
-                    cv::addWeighted(abs_seg_x,0.5,abs_seg_y,0.5,0,sub_image);
-
-                }
-                }
-        }
-    }
-    Segmented_image.convertTo(Segmented_image,CV_8U);
-    Histogram_segmentation(Local_Sobel_hist_percentile);*/
 
 }
 
@@ -437,35 +341,6 @@ void MainWindow::on_Global_Scharr_clicked()
     ui->Thresholding_box->hide();
     ui->Adaptive_Thresholding_box->hide();
 
- /*   //Segmenting the image
-    if((processed_image.channels()==1) & (!processed_image.empty()))
-    {
-        if(ui->Global_Scharr_dx_checkBox->isChecked() & ui->Global_Scharr_dy_checkBox->isChecked())
-        {
-            cv::Mat seg_dx,seg_dy;
-            cv::Mat abs_seg_x,abs_seg_y;
-            cv::Sobel(processed_image,seg_dx,CV_32F,1,0,CV_SCHARR,1,0,cv::BORDER_REPLICATE);
-            cv::Sobel(processed_image,seg_dy,CV_32F,0,1,CV_SCHARR,1,0,cv::BORDER_REPLICATE);
-            cv::convertScaleAbs(seg_dx,abs_seg_x);
-            cv::convertScaleAbs(seg_dy,abs_seg_y);
-            cv::addWeighted(abs_seg_x,0.5,abs_seg_y,0.5,0,Segmented_image);
-        }
-        else if(ui->Global_Scharr_dx_checkBox->isChecked())
-        {
-           cv::Sobel(processed_image,Segmented_image,CV_32F,1,0,CV_SCHARR,1,0,cv::BORDER_REPLICATE);
-           Segmented_image.convertTo(Segmented_image,CV_8U);
-        }
-        else if(ui->Global_Scharr_dy_checkBox->isChecked())
-        {
-            cv::Sobel(processed_image,Segmented_image,CV_32F,0,1,CV_SCHARR,1,0,cv::BORDER_REPLICATE);
-            Segmented_image.convertTo(Segmented_image,CV_8U);
-        }
-
-
-
-    }
-
-    Histogram_segmentation(Global_Scharr_hist_percentile);*/
 }
 
 void MainWindow::on_Local_Scharr_clicked()
@@ -481,94 +356,6 @@ void MainWindow::on_Local_Scharr_clicked()
     ui->Local_Otsu_box->hide();
     ui->Thresholding_box->hide();
     ui->Adaptive_Thresholding_box->hide();
-
-    /*if((processed_image.channels()==1) & (!processed_image.empty()))
-    {
-        int colsize = Segmented_image.cols;
-        int rowsize = Segmented_image.rows;
-
-        cv::Mat sub_image,sub_image2;
-
-         Segmented_image = processed_image.clone();
-         if(!(ui->Local_Scharr_dx_checkBox->isChecked() & ui->Local_Scharr_dy_checkBox->isChecked()))
-         {
-             Segmented_image.convertTo(Segmented_image,CV_32F);
-             sub_image.create(rowsize/Local_Scharr_numberofSubImages,colsize/Local_Scharr_numberofSubImages,CV_32F);
-             sub_image2.create(rowsize/Local_Scharr_numberofSubImages,colsize/Local_Scharr_numberofSubImages,CV_32F);
-         }
-         else
-         {
-             sub_image.create(rowsize/Local_Scharr_numberofSubImages,colsize/Local_Scharr_numberofSubImages,CV_8U);
-             sub_image2.create(rowsize/Local_Scharr_numberofSubImages,colsize/Local_Scharr_numberofSubImages,CV_8U);
-         }
-
-
-         int c,d,e,f;
-         for(int a = 0;a<Local_Scharr_numberofSubImages;a++)
-         {
-             if(a == 0)
-             {
-                 c=0;
-                 d = floor(1.0*rowsize/Local_Scharr_numberofSubImages)-1;
-             }else
-             {
-                 c = d+1;
-                 d = d+floor(1.0*rowsize/Local_Scharr_numberofSubImages);
-             }
-
-             for(int b = 0;b<Local_Scharr_numberofSubImages;b++)
-             {
-                 if(b == 0)
-                 {
-                     e=0;
-                     f = floor(1.0*colsize/Local_Scharr_numberofSubImages)-1;
-                 }else
-                 {
-                     e = f+1;
-                     f = f+floor(1.0*colsize/Local_Scharr_numberofSubImages);
-                 }
-                 sub_image = Segmented_image(cv::Rect(e,c,sub_image.cols,sub_image.rows));
-                 sub_image.copyTo(sub_image2);
-                 //converting to float and doing sobel operation with Scharr mask
-                // cv::Sobel(sub_image2,sub_image,CV_32F,1,0,CV_SCHARR,1,0,cv::BORDER_REPLICATE);//need float to do sobel??
-
-                 if(ui->Local_Scharr_dx_checkBox->isChecked() & ui->Local_Scharr_dy_checkBox->isChecked())
-                 {
-                     //klikker, må gjøre om koncerteringa av Segmenyted image til cv32F, kan ikke komme i linje 514 hvis dx og dy,
-                     cv::Mat seg_dx,seg_dy;
-                     cv::Mat abs_seg_x,abs_seg_y;
-                     cv::Sobel(sub_image2,seg_dx,CV_32F,1,0,CV_SCHARR,1,0,cv::BORDER_REPLICATE);
-                     cv::Sobel(sub_image2,seg_dy,CV_32F,0,1,CV_SCHARR,1,0,cv::BORDER_REPLICATE);
-                     cv::convertScaleAbs(seg_dx,abs_seg_x);
-                     cv::convertScaleAbs(seg_dy,abs_seg_y);
-                     cv::addWeighted(abs_seg_x,0.5,abs_seg_y,0.5,0,sub_image);//not perfect
-                     qDebug() << "bege";
-                 }
-                 else if(ui->Local_Scharr_dx_checkBox->isChecked())
-                 {
-                    cv::Sobel(sub_image2,sub_image,CV_32F,1,0,CV_SCHARR,1,0,cv::BORDER_REPLICATE);
-                    //Segmented_image.convertTo(Segmented_image,CV_8U);
-                    qDebug() << "dx";
-                 }
-                 else if(ui->Local_Scharr_dy_checkBox->isChecked())
-                 {
-                     cv::Sobel(sub_image2,sub_image,CV_32F,0,1,CV_SCHARR,1,0,cv::BORDER_REPLICATE);
-                     //Segmented_image.convertTo(Segmented_image,CV_8U);
-                     qDebug() << "dy";
-                 }
-
-
-
-                 }
-         }
-    }
-
-    if(!(ui->Local_Scharr_dx_checkBox->isChecked() & ui->Local_Scharr_dy_checkBox->isChecked()))
-    {
-        Segmented_image.convertTo(Segmented_image,CV_8U);
-    }
-
-    Histogram_segmentation(Local_Scharr_hist_percentile);*/
 }
 
 void MainWindow::on_Global_Otsu_clicked()
@@ -839,7 +626,7 @@ void MainWindow::custom_XYS_image()
     }
 }
 
-void MainWindow::Histogram_segmentation(int desired_percentage)
+/*void MainWindow::Histogram_segmentation(int desired_percentage)
 {
 
     cv::Mat hist;
@@ -940,7 +727,7 @@ void MainWindow::Histogram_segmentation(int desired_percentage)
 
         }
     }
-}
+}*/
 
 void MainWindow::Hole_Detection()
 {
@@ -953,6 +740,7 @@ void MainWindow::Hole_Detection()
     Segmented_image.copyTo(hole_detected_image);
     //qDebug() << "start of one image";
     int area;
+    int color = 50;
 
     for(int j = 1;j<hole_detected_image.rows-1;j++)
     {
@@ -961,9 +749,14 @@ void MainWindow::Hole_Detection()
         {
             if(data_row[i] == 0)
             {
-                region = Region_Growing(j,i);
+                region = Region_Growing(j,i,color);
+                color = color + 50;
+                if(color>250)
+                {
+                    color = 50;
+                }
                 area = region[4];
-                if(area>500)//to prevent small pixel areas to count towards the median area, make it a changeable variable?
+                if(area>500)//to prevent small pixel areas to count
                 {
                     region_size_list.append(area);
                     region_list.append(region);
@@ -972,31 +765,31 @@ void MainWindow::Hole_Detection()
         }
     }
 
-
+    //can instead make a sorting algorithm and not use an area list AND a coordinate list as now
     qSort(region_size_list.begin(),region_size_list.end());
+    int median_area = region_size_list[(int)region_size_list.size()/2];
 
     foreach(cv::Vec6i a ,region_list)
     {
         region_list.removeFirst();//removes the item being examined
         //if the area in question is over three times the median area of the region_size_list then draw a circle around it
-        if(a(4) >=  3*region_size_list[(int)region_size_list.size()/2])
+        if(a(4) >=  3*median_area)
         {
-            //qDebug() << "fant største region, den er: " << a(4) << "med x,x,y,y" <<a(0) <<a(1) <<a(2) <<a(3) << a(5) ;
+           //qDebug() << "fant for stor region, den er: " << a(4) << "med x,x,y,y" <<a(0) <<a(1) <<a(2) <<a(3) << a(5) ;
 
             //drawing on image
 
-           // qDebug() << "fant en region som er over tre ganger større enn medianen, den er: " << a(4) << "med x,x,y,y" <<a(0) <<a(1) <<a(2) <<a(3) << a(5) ;
-            cv::circle(hole_detected_image,cv::Point(a(2)+(a(3)-a(2))/2,a(0)+(a(1)-a(0))/2),(int)(a(1)-a(0))/2,0,4,8,0);
+           cv::circle(hole_detected_image,cv::Point(a(2)+(a(3)-a(2))/2,a(0)+(a(1)-a(0))/2),(int)(a(1)-a(0))/2,0,4,8,0);
 
         }
     }
 
-   // qDebug() << "lista:";
-   // qDebug() << region_size_list;
-
 }
 
-cv::Vec6i MainWindow::Region_Growing(int x, int y)
+//Grows region from a seed pixel, if the region contains pixels at the top AND bottom border
+//or left AND right border the area is set to 0 to exclude the region from further processing
+//This to eliminate false areas present during testing.
+cv::Vec6i MainWindow::Region_Growing(int x, int y, int color)
 {
     int area = 1;
     QList<cv::Vec2i> growing_list;
@@ -1010,7 +803,7 @@ cv::Vec6i MainWindow::Region_Growing(int x, int y)
     returned_param[4] = area;
     returned_param[5] = 0;
     //growing_list.append(cv::Vec2i(5,6));
-    hole_detected_image.at<uchar>(x,y) = 127;
+    hole_detected_image.at<uchar>(x,y) = color;
     bool change = true;
 
 
@@ -1022,23 +815,6 @@ cv::Vec6i MainWindow::Region_Growing(int x, int y)
         {
             growing_list.removeFirst();//removes the pixel being examined
 
-          /*  if((a(0)>0) & (a(1)>0) & (a(0)<(hole_detected_image.rows-1)) & (a(1)<(hole_detected_image.cols-1)) ) //dont use mask on border pixels.
-            {
-                for(int i=-1 ; i<=1 ; i++)
-                    for(int j=-1 ; j<=1 ; j++)
-                    {
-                        if((hole_detected_image.at<uchar>(a(0)+i,a(1)+j) == 0) & (abs(i)!=abs(j)))//4 connectivity
-                        {
-                            change = true;
-                            growing_list.append(cv::Vec2i(a(0)+i,a(1)+j));
-                            hole_detected_image.at<uchar>(a(0)+i,a(1)+j) = 127;//value between 0 and 255
-                            area = area+1;
-
-                        }
-                    }
-
-            }*/
-
             if((a(0)>0) & (a(1)>0) & (a(0)<(hole_detected_image.rows-1)) & (a(1)<(hole_detected_image.cols-1)) ) //dont use mask on border pixels.
             {
                 uchar* previous_row = hole_detected_image.ptr<uchar>(a(0)-1);
@@ -1049,11 +825,11 @@ cv::Vec6i MainWindow::Region_Growing(int x, int y)
                     change = true;
                     growing_list.append(cv::Vec2i(a(0)-1,a(1)));
                     area = area+1;
-                    previous_row[a(1)] = 127;
-                    if(a(0)-1> returned_param[1])//checking topmost, should never come into this one
+                    previous_row[a(1)] = color;
+                    if(a(0)-1< returned_param[0])//checking topmost, should never come into this one
                     {
-                        returned_param[1]=a(0)-1;
-                       //qDebug() << "kom inn i høyere rad enn vi begynnte med";
+                        returned_param[0]=a(0)-1;
+                      // qDebug() << "kom inn i høyere rad enn vi begynnte med";
                     }
                 }
                 if(current_row[a(1)-1]==0)
@@ -1061,7 +837,7 @@ cv::Vec6i MainWindow::Region_Growing(int x, int y)
                     change = true;
                     growing_list.append(cv::Vec2i(a(0),a(1)-1));
                     area = area+1;
-                    current_row[a(1)-1] = 127;
+                    current_row[a(1)-1] = color;
                     if( (a(1)-1)<returned_param[2])//checking leftmost
                     {
                         returned_param[2]= a(1)-1;
@@ -1072,7 +848,7 @@ cv::Vec6i MainWindow::Region_Growing(int x, int y)
                     change = true;
                     growing_list.append(cv::Vec2i(a(0),a(1)+1));
                     area = area+1;
-                    current_row[a(1)+1] = 127;
+                    current_row[a(1)+1] = color;
                     if( (a(1)+1)>returned_param[3])//checking rightmost
                     {
                         returned_param[3]= a(1)+1;
@@ -1083,7 +859,7 @@ cv::Vec6i MainWindow::Region_Growing(int x, int y)
                     change = true;
                     growing_list.append(cv::Vec2i(a(0)+1,a(1)));
                     area = area+1;
-                    next_row[a(1)] = 127;
+                    next_row[a(1)] = color;
                     if(a(0)+1> returned_param[1])//checking lowest
                     {
                         returned_param[1]=a(0)+1;
@@ -1096,7 +872,16 @@ cv::Vec6i MainWindow::Region_Growing(int x, int y)
 
     }
 
-    returned_param[4]=area;
+    if(((returned_param[0]==0)&(returned_param[1]==hole_detected_image.rows-1)) | ((returned_param[2]==0)&(returned_param[3]==hole_detected_image.cols-1)))
+    {
+        returned_param[4] = 0;
+       // qDebug() << "illegal area was: " << area << "coordinates " << returned_param[0] << returned_param[1] << returned_param[2] << returned_param[3];
+    }
+    else
+    {
+        returned_param[4]=area;
+    }
+
     return returned_param;
     //return growing_list;
 

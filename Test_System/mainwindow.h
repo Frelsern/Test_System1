@@ -75,11 +75,11 @@ private slots:
 
     void custom_XYS_image();
 
-    void Histogram_segmentation(int desired_percentage);
+   // void Histogram_segmentation(int desired_percentage);
 
     void Hole_Detection();
 
-    cv::Vec6i Region_Growing(int j, int i);
+    cv::Vec6i Region_Growing(int j, int i,int color);
 
     void on_y_clicked();
 
