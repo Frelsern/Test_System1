@@ -40,7 +40,6 @@ MainWindow::MainWindow(QWidget *parent) :
     Dilation_iterations = 1;
     Gaussian_kernel_size = 1;
 
-
     cspace = COLOR_NONE;
     thresh_met = THRESH_NONE;
     mode = NO_MODE;
@@ -236,7 +235,7 @@ void MainWindow::processFrameAndUpdateGUI()
         break;
     case HOLE_DETECTION:
         //knaksje ta å lage en ny label, hide processed og vise denne, kan bli fixa på knappetrykka
-        hole_detected_image = Hole_detection(Segmented_image);
+        hole_detected_image = Hole_detection_algo(Segmented_image);
         if(!hole_detected_image.empty())
         {
             QImage hole_detection_image = QImage((const unsigned char*)(hole_detected_image.data),
@@ -373,13 +372,6 @@ void MainWindow::on_Global_Otsu_clicked()
     ui->Thresholding_box->hide();
     ui->Adaptive_Thresholding_box->hide();
 
-    //Segment the image using Otsus method
-/*    if((processed_image.channels()==1) & (!processed_image.empty()))
-    {
-        Segmented_image = processed_image.clone();
-        cv::threshold(processed_image,Segmented_image,0,255,cv::THRESH_BINARY | cv::THRESH_OTSU);
-    }
-*/
 }
 void MainWindow::on_Local_Otsu_clicked()
 {
@@ -410,37 +402,6 @@ void MainWindow::on_Thresholding_clicked()
     ui->Local_Otsu_box->hide();
     ui->Thresholding_box->show();
     ui->Adaptive_Thresholding_box->hide();
-/*
-    if((processed_image.channels()==1) & (!processed_image.empty()))
-    {
-        processed_image.copyTo(Segmented_image);
-        int nl = Segmented_image.rows;
-        int nc = Segmented_image.cols;
-        if(Segmented_image.isContinuous())
-        {
-            nc = nc*nl;
-            nl = 1; //1D array;
-        }
-
-        //loop exectued only once if the image is continious
-        for(int j = 0; j<nl;j++)
-        {
-            uchar* data = Segmented_image.ptr<uchar>(j);
-            for(int i = 0; i<nc;i++)
-            {
-                if(data[i]>=Threshold)//bright pixels
-                {
-                    data[i]=255;
-                }
-                else
-                {
-                    data[i] = 0;
-                }
-            }
-        }
-
-    }
-*/
 }
 
 void MainWindow::on_Adaptive_Thresholding_clicked()

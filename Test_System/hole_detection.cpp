@@ -1,9 +1,10 @@
 #include "hole_detection.h"
+#include <QDebug>
 
-cv::Mat Hole_detection(cv::Mat input_img)
+cv::Mat Hole_detection_algo(cv::Mat input_img)
 {
     cv::Mat output_img; //image with detected holes
-    if(!input_img.empty())
+    if((!input_img.empty())&& (input_img.channels()==1))
     {
         //lager en QList hvor størrelsen på regionene blir lagt inn
         //der kan man senere finne avvik fra normal region størrelse for å bestemme hull
@@ -12,7 +13,6 @@ cv::Mat Hole_detection(cv::Mat input_img)
         QList<cv::Vec6i> region_list;//[uppermost,furthest down,leftmost,rightmost,area,0]
         cv::Vec6i region;//kan bygge om til 4i, hvis nødvendig fordi topmost er den vi sender inn
         input_img.copyTo(output_img);
-        //qDebug() << "start of one image";
         int area;
         int color = 50;
 
@@ -40,21 +40,24 @@ cv::Mat Hole_detection(cv::Mat input_img)
         }
 
         //can instead make a sorting algorithm and not use an area list AND a coordinate list as now
-        qSort(region_size_list.begin(),region_size_list.end());
-        int median_area = region_size_list[(int)region_size_list.size()/2];
-
-        foreach(cv::Vec6i a ,region_list)
+        if(region_size_list.size()>0)
         {
-            region_list.removeFirst();//removes the item being examined
-            //if the area in question is over three times the median area of the region_size_list then draw a circle around it
-            if(a(4) >=  3*median_area)
+            qSort(region_size_list.begin(),region_size_list.end());
+            int median_area = region_size_list[(int)region_size_list.size()/2];
+
+            //qDebug() << "lista har" << region_size_list.size()<<"elementer";
+            //int antall=1;
+            foreach(cv::Vec6i a ,region_list)
             {
-               //qDebug() << "fant for stor region, den er: " << a(4) << "med x,x,y,y" <<a(0) <<a(1) <<a(2) <<a(3) << a(5) ;
-
-                //drawing on image
-
-               cv::circle(output_img,cv::Point(a(2)+(a(3)-a(2))/2,a(0)+(a(1)-a(0))/2),(int)(a(1)-a(0))/2,0,4,8,0);
-
+                //region_list.removeFirst();//removes the item being examined
+                //qDebug() << "antall removed" << antall;
+                //antall+=1;
+                //if the area in question is over three times the median area of the region_size_list then draw a circle around it
+                if(a(4) >=  3*median_area)
+                {
+                   //drawing on image
+                   cv::circle(output_img,cv::Point(a(2)+(a(3)-a(2))/2,a(0)+(a(1)-a(0))/2),(int)(a(1)-a(0))/2,0,4,8,0);
+                }
             }
         }
     }
@@ -91,7 +94,7 @@ cv::Vec6i Region_Growing(cv::Mat input_img,int x, int y, int color)
         {
             growing_list.removeFirst();//removes the pixel being examined
 
-            if((a(0)>0) & (a(1)>0) & (a(0)<(input_img.rows-1)) & (a(1)<(input_img.cols-1)) ) //dont use mask on border pixels.
+            if((a(0)>0) && (a(1)>0) && (a(0)<(input_img.rows-1)) && (a(1)<(input_img.cols-1)) ) //dont use mask on border pixels.
             {
                 uchar* previous_row = input_img.ptr<uchar>(a(0)-1);
                 uchar* current_row = input_img.ptr<uchar>(a(0));
@@ -148,7 +151,7 @@ cv::Vec6i Region_Growing(cv::Mat input_img,int x, int y, int color)
 
     }
 
-    if(((returned_param[0]==0)&(returned_param[1]==input_img.rows-1)) | ((returned_param[2]==0)&(returned_param[3]==input_img.cols-1)))
+    if(((returned_param[0]==0)&&(returned_param[1]==input_img.rows-1)) || ((returned_param[2]==0)&&(returned_param[3]==input_img.cols-1)))
     {
         returned_param[4] = 0;
        // qDebug() << "illegal area was: " << area << "coordinates " << returned_param[0] << returned_param[1] << returned_param[2] << returned_param[3];
@@ -160,5 +163,4 @@ cv::Vec6i Region_Growing(cv::Mat input_img,int x, int y, int color)
 
     return returned_param;
     //return growing_list;
-
 }

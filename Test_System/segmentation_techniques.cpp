@@ -9,15 +9,15 @@ Segmentation_techniques::Segmentation_techniques()
 cv::Mat Global_Sobel(cv::Mat input_img,int kernel_size,int histogram_percentile, int dx,int dy,bool Otsu)
 {
     cv::Mat output_img;
-    if((input_img.channels()==1) & (!input_img.empty()) & (kernel_size > dx) & (kernel_size > dy) & (dx+dy>0))
+    if((input_img.channels()==1) && (!input_img.empty()) && (kernel_size > dx) && (kernel_size > dy) && (dx+dy>0))
     {
         cv::Mat edge_img;
-        if((input_img.channels()==1) & (!input_img.empty()) & (kernel_size > dx) & (kernel_size > dy) & (dx+dy>0))
-        {
+       //if((input_img.channels()==1) & (!input_img.empty()) & (kernel_size > dx) & (kernel_size > dy) & (dx+dy>0))
+       // {
             cv::Sobel(input_img,edge_img,CV_32F,dx,dy,kernel_size,1,0,cv::BORDER_REPLICATE);
             edge_img.convertTo(edge_img,CV_8U);
 
-        }
+       // }
         if(Otsu)
         {
             output_img = Histogram_seg(histogram_percentile,edge_img,input_img);
@@ -38,7 +38,7 @@ cv::Mat Global_Sobel(cv::Mat input_img,int kernel_size,int histogram_percentile,
 cv::Mat Local_Sobel(cv::Mat input_img,int sub_images,int kernel_size,int histogram_percentile, int dx, int dy,bool Otsu)
 {
     cv::Mat output_img;
-    if((input_img.channels()==1) & (!input_img.empty()) & (kernel_size > dx) & (kernel_size > dy) & (dx+dy>0))
+    if((input_img.channels()==1) && (!input_img.empty()) && (kernel_size > dx) && (kernel_size > dy) && (dx+dy>0))
     {
         //input_img.convertTo(input_img,CV_32F);
         int colsize = input_img.cols;
@@ -50,7 +50,6 @@ cv::Mat Local_Sobel(cv::Mat input_img,int sub_images,int kernel_size,int histogr
         edge_img = input_img.clone();
         edge_img.convertTo(edge_img,CV_32F);
 
-        //qDebug() << "sub image er: " << sub_image.cols << sub_image.rows << "antall sub images: " << Local_Sobel_numberofSubImages;
         int c,d,e,f;
         for(int a = 0;a<sub_images;a++)
         {
@@ -108,7 +107,7 @@ cv::Mat Global_Scharr(cv::Mat input_img,int histogram_percentile, bool dx_checke
     if((input_img.channels()==1) & (!input_img.empty()))
     {
         cv::Mat edge_img;
-        if(dx_checked & dy_checked)
+        if(dx_checked && dy_checked)
         {
             cv::Mat seg_dx,seg_dy;
             cv::Mat abs_seg_x,abs_seg_y;
@@ -146,7 +145,7 @@ cv::Mat Global_Scharr(cv::Mat input_img,int histogram_percentile, bool dx_checke
 cv::Mat Local_Scharr(cv::Mat input_img,int sub_images,int histogram_percentile, bool dx_checked,bool dy_checked,bool Otsu)
 {
     cv::Mat output_img;
-    if((input_img.channels()==1) & (!input_img.empty()))
+    if((input_img.channels()==1) && (!input_img.empty()))
     {
         int colsize = input_img.cols;
         int rowsize = input_img.rows;
@@ -195,7 +194,7 @@ cv::Mat Local_Scharr(cv::Mat input_img,int sub_images,int histogram_percentile, 
                  sub_image = edge_img(cv::Rect(e,c,sub_image.cols,sub_image.rows));
                  sub_image.copyTo(sub_image2);
 
-                 if(dx_checked & dy_checked)
+                 if(dx_checked && dy_checked)
                  {
                      cv::Mat seg_dx,seg_dy;
                      cv::Mat abs_seg_x,abs_seg_y;
@@ -239,7 +238,7 @@ cv::Mat Local_Scharr(cv::Mat input_img,int sub_images,int histogram_percentile, 
 cv::Mat Global_Otsu(cv::Mat input_img)
 {
     cv::Mat output_img;
-    if((input_img.channels()==1) & (!input_img.empty()))
+    if((input_img.channels()==1) && (!input_img.empty()))
     {
         output_img = input_img.clone();
         cv::threshold(input_img,output_img,0,255,cv::THRESH_BINARY | cv::THRESH_OTSU);
@@ -251,7 +250,7 @@ cv::Mat Global_Otsu(cv::Mat input_img)
 cv::Mat Local_Otsu(cv::Mat input_img, int sub_images)
 {
     cv::Mat output_img;
-    if((input_img.channels()==1) & (!input_img.empty()))
+    if((input_img.channels()==1) && (!input_img.empty()))
     {
         //Segmented_image.create(processed_image.size(),processed_image.type());
         output_img = input_img.clone();
@@ -300,7 +299,7 @@ cv::Mat Local_Otsu(cv::Mat input_img, int sub_images)
 cv::Mat Naive_Thresholding(cv::Mat input_img, int threshold)
 {
     cv::Mat output_img;
-    if((input_img.channels()==1) & (!input_img.empty()))
+    if((input_img.channels()==1) && (!input_img.empty()))
     {
         input_img.copyTo(output_img);
         int nl = output_img.rows;
@@ -336,7 +335,7 @@ cv::Mat Naive_Thresholding(cv::Mat input_img, int threshold)
 cv::Mat Adaptive_Thresholding(cv::Mat input_img,int kernel_size, int C,bool Gaussian)
 {
     cv::Mat output_img;
-    if((input_img.channels()==1) & (!input_img.empty()))
+    if((input_img.channels()==1) && (!input_img.empty()))
     {
         input_img.copyTo(output_img);
         if(Gaussian)
