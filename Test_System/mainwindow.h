@@ -4,7 +4,10 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QTimer>
-#include <QList>
+
+
+#include "segmentation_techniques.h"
+#include "hole_detection.h"
 
 #include<opencv2/core/core.hpp>
 #include<opencv2/highgui/highgui.hpp>
@@ -74,12 +77,6 @@ private slots:
     void on_Growth_detection_clicked();
 
     void custom_XYS_image();
-
-   // void Histogram_segmentation(int desired_percentage);
-
-    void Hole_Detection();
-
-    cv::Vec6i Region_Growing(int j, int i,int color);
 
     void on_y_clicked();
 

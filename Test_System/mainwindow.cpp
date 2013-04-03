@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "segmentation_techniques.h"
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -237,7 +236,7 @@ void MainWindow::processFrameAndUpdateGUI()
         break;
     case HOLE_DETECTION:
         //knaksje ta å lage en ny label, hide processed og vise denne, kan bli fixa på knappetrykka
-        Hole_Detection();
+        hole_detected_image = Hole_detection(Segmented_image);
         if(!hole_detected_image.empty())
         {
             QImage hole_detection_image = QImage((const unsigned char*)(hole_detected_image.data),
@@ -559,163 +558,7 @@ void MainWindow::custom_XYS_image()
     }
 }
 
-void MainWindow::Hole_Detection()
-{
-    //lager en QList hvor størrelsen på regionene blir lagt inn
-    //der kan man senere finne avvik fra normal region størrelse for å bestemme hull
-    //enten lage ny liste per bilde eller global som husker gamle verdier, hmmmm.....
-    QList<int> region_size_list;
-    QList<cv::Vec6i> region_list;//[uppermost,furthest down,leftmost,rightmost,area,0]
-    cv::Vec6i region;//kan bygge om til 4i, hvis nødvendig fordi topmost er den vi sender inn
-    Segmented_image.copyTo(hole_detected_image);
-    //qDebug() << "start of one image";
-    int area;
-    int color = 50;
 
-    for(int j = 1;j<hole_detected_image.rows-1;j++)
-    {
-        uchar* data_row = hole_detected_image.ptr<uchar>(j);
-        for(int i =1;i<hole_detected_image.cols-1;i++)
-        {
-            if(data_row[i] == 0)
-            {
-                region = Region_Growing(j,i,color);
-                color = color + 50;
-                if(color>250)
-                {
-                    color = 50;
-                }
-                area = region[4];
-                if(area>500)//to prevent small pixel areas to count
-                {
-                    region_size_list.append(area);
-                    region_list.append(region);
-                }
-            }
-        }
-    }
-
-    //can instead make a sorting algorithm and not use an area list AND a coordinate list as now
-    qSort(region_size_list.begin(),region_size_list.end());
-    int median_area = region_size_list[(int)region_size_list.size()/2];
-
-    foreach(cv::Vec6i a ,region_list)
-    {
-        region_list.removeFirst();//removes the item being examined
-        //if the area in question is over three times the median area of the region_size_list then draw a circle around it
-        if(a(4) >=  3*median_area)
-        {
-           //qDebug() << "fant for stor region, den er: " << a(4) << "med x,x,y,y" <<a(0) <<a(1) <<a(2) <<a(3) << a(5) ;
-
-            //drawing on image
-
-           cv::circle(hole_detected_image,cv::Point(a(2)+(a(3)-a(2))/2,a(0)+(a(1)-a(0))/2),(int)(a(1)-a(0))/2,0,4,8,0);
-
-        }
-    }
-
-}
-
-//Grows region from a seed pixel, if the region contains pixels at the top AND bottom border
-//or left AND right border the area is set to 0 to exclude the region from further processing
-//This to eliminate false areas present during testing.
-cv::Vec6i MainWindow::Region_Growing(int x, int y, int color)
-{
-    int area = 1;
-    QList<cv::Vec2i> growing_list;
-    growing_list.append(cv::Vec2i(x,y));
-    cv::Vec6i returned_param;//[uppermost,furthest down,leftmost,rightmost,area,0]
-    //returned_param = (x,x,y,y,area,0);
-    returned_param[0] = x;
-    returned_param[1] = x;
-    returned_param[2] = y;
-    returned_param[3] = y;
-    returned_param[4] = area;
-    returned_param[5] = 0;
-    //growing_list.append(cv::Vec2i(5,6));
-    hole_detected_image.at<uchar>(x,y) = color;
-    bool change = true;
-
-
-    //grow region and keep the pixels that are leftmost rightmost and furthest down, pixelnuber not coordinate
-    while(change)
-    {
-        change = false;
-        foreach(cv::Vec2i a ,growing_list)
-        {
-            growing_list.removeFirst();//removes the pixel being examined
-
-            if((a(0)>0) & (a(1)>0) & (a(0)<(hole_detected_image.rows-1)) & (a(1)<(hole_detected_image.cols-1)) ) //dont use mask on border pixels.
-            {
-                uchar* previous_row = hole_detected_image.ptr<uchar>(a(0)-1);
-                uchar* current_row = hole_detected_image.ptr<uchar>(a(0));
-                uchar* next_row = hole_detected_image.ptr<uchar>(a(0)+1);
-                if(previous_row[a(1)]==0)
-                {
-                    change = true;
-                    growing_list.append(cv::Vec2i(a(0)-1,a(1)));
-                    area = area+1;
-                    previous_row[a(1)] = color;
-                    if(a(0)-1< returned_param[0])//checking topmost, should never come into this one
-                    {
-                        returned_param[0]=a(0)-1;
-                      // qDebug() << "kom inn i høyere rad enn vi begynnte med";
-                    }
-                }
-                if(current_row[a(1)-1]==0)
-                {
-                    change = true;
-                    growing_list.append(cv::Vec2i(a(0),a(1)-1));
-                    area = area+1;
-                    current_row[a(1)-1] = color;
-                    if( (a(1)-1)<returned_param[2])//checking leftmost
-                    {
-                        returned_param[2]= a(1)-1;
-                    }
-                }
-                if(current_row[a(1)+1]==0)
-                {
-                    change = true;
-                    growing_list.append(cv::Vec2i(a(0),a(1)+1));
-                    area = area+1;
-                    current_row[a(1)+1] = color;
-                    if( (a(1)+1)>returned_param[3])//checking rightmost
-                    {
-                        returned_param[3]= a(1)+1;
-                    }
-                }
-                if(next_row[a(1)]==0)
-                {
-                    change = true;
-                    growing_list.append(cv::Vec2i(a(0)+1,a(1)));
-                    area = area+1;
-                    next_row[a(1)] = color;
-                    if(a(0)+1> returned_param[1])//checking lowest
-                    {
-                        returned_param[1]=a(0)+1;
-                    }
-                }
-
-            }
-
-        }
-
-    }
-
-    if(((returned_param[0]==0)&(returned_param[1]==hole_detected_image.rows-1)) | ((returned_param[2]==0)&(returned_param[3]==hole_detected_image.cols-1)))
-    {
-        returned_param[4] = 0;
-       // qDebug() << "illegal area was: " << area << "coordinates " << returned_param[0] << returned_param[1] << returned_param[2] << returned_param[3];
-    }
-    else
-    {
-        returned_param[4]=area;
-    }
-
-    return returned_param;
-    //return growing_list;
-
-}
 
 void MainWindow::on_y_clicked()
 {
