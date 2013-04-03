@@ -127,6 +127,8 @@ private slots:
 
     void on_Adaptive_Thresholding_kernel_slider_valueChanged(int value);
 
+    void on_Adaptive_Thresholding_C_slider_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
     QTimer* tmrTimer;
@@ -154,11 +156,12 @@ private:
     int Local_Scharr_numberofSubImages;
     int Local_Scharr_hist_percentile;
     int Local_Otsu_numberofSubImages;
-    int Threshold;
+    int Naive_threshold;
 
     int Dilation_iterations;
     int Gaussian_kernel_size;
     int Adaptive_Thresholding_kernel_size;
+    int Adaptive_thresholding_C;
 
     Color_Space cspace;
     Thresholding_Method thresh_met;

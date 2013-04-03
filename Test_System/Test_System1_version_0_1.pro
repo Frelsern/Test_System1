@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    segmentation_techniques.cpp
+    segmentation_techniques.cpp \
+    histogram_segmentation.cpp
 
 HEADERS  += mainwindow.h \
-    segmentation_techniques.h
+    segmentation_techniques.h \
+    histogram_segmentation.h
 
 FORMS    += mainwindow.ui
 

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[54];
-    char stringdata[1341];
+    QByteArrayData data[55];
+    char stringdata[1388];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -82,7 +82,8 @@ QT_MOC_LITERAL(49, 1127, 42),
 QT_MOC_LITERAL(50, 1170, 37),
 QT_MOC_LITERAL(51, 1208, 37),
 QT_MOC_LITERAL(52, 1246, 41),
-QT_MOC_LITERAL(53, 1288, 51)
+QT_MOC_LITERAL(53, 1288, 51),
+QT_MOC_LITERAL(54, 1340, 46)
     },
     "MainWindow\0processFrameAndUpdateGUI\0"
     "\0on_actionOpen_Image_triggered\0"
@@ -119,6 +120,7 @@ QT_MOC_LITERAL(53, 1288, 51)
     "on_Local_Sobel_dy_slider_valueChanged\0"
     "on_Local_Sobel_kernel_slider_valueChanged\0"
     "on_Adaptive_Thresholding_kernel_slider_valueChanged\0"
+    "on_Adaptive_Thresholding_C_slider_valueChanged\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -128,7 +130,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      47,   14, // methods
+      48,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -136,53 +138,54 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  249,    2, 0x0a,
-       3,    0,  250,    2, 0x08,
-       4,    0,  251,    2, 0x08,
-       5,    0,  252,    2, 0x08,
-       6,    1,  253,    2, 0x08,
-       8,    0,  256,    2, 0x08,
-       9,    0,  257,    2, 0x08,
-      10,    1,  258,    2, 0x08,
-      11,    0,  261,    2, 0x08,
-      12,    0,  262,    2, 0x08,
-      13,    1,  263,    2, 0x08,
-      14,    0,  266,    2, 0x08,
-      15,    1,  267,    2, 0x08,
-      16,    1,  270,    2, 0x08,
-      17,    1,  273,    2, 0x08,
-      18,    1,  276,    2, 0x08,
-      19,    0,  279,    2, 0x08,
-      20,    0,  280,    2, 0x08,
-      21,    0,  281,    2, 0x08,
-      22,    0,  282,    2, 0x08,
-      23,    0,  283,    2, 0x08,
-      24,    0,  284,    2, 0x08,
-      25,    0,  285,    2, 0x08,
-      26,    3,  286,    2, 0x08,
-      31,    0,  293,    2, 0x08,
-      32,    0,  294,    2, 0x08,
-      33,    0,  295,    2, 0x08,
-      34,    0,  296,    2, 0x08,
-      35,    0,  297,    2, 0x08,
-      36,    0,  298,    2, 0x08,
-      37,    0,  299,    2, 0x08,
-      38,    0,  300,    2, 0x08,
-      39,    0,  301,    2, 0x08,
-      40,    0,  302,    2, 0x08,
-      41,    0,  303,    2, 0x08,
-      42,    0,  304,    2, 0x08,
-      43,    0,  305,    2, 0x08,
-      44,    1,  306,    2, 0x08,
-      45,    1,  309,    2, 0x08,
-      46,    1,  312,    2, 0x08,
-      47,    1,  315,    2, 0x08,
-      48,    1,  318,    2, 0x08,
-      49,    1,  321,    2, 0x08,
-      50,    1,  324,    2, 0x08,
-      51,    1,  327,    2, 0x08,
-      52,    1,  330,    2, 0x08,
-      53,    1,  333,    2, 0x08,
+       1,    0,  254,    2, 0x0a,
+       3,    0,  255,    2, 0x08,
+       4,    0,  256,    2, 0x08,
+       5,    0,  257,    2, 0x08,
+       6,    1,  258,    2, 0x08,
+       8,    0,  261,    2, 0x08,
+       9,    0,  262,    2, 0x08,
+      10,    1,  263,    2, 0x08,
+      11,    0,  266,    2, 0x08,
+      12,    0,  267,    2, 0x08,
+      13,    1,  268,    2, 0x08,
+      14,    0,  271,    2, 0x08,
+      15,    1,  272,    2, 0x08,
+      16,    1,  275,    2, 0x08,
+      17,    1,  278,    2, 0x08,
+      18,    1,  281,    2, 0x08,
+      19,    0,  284,    2, 0x08,
+      20,    0,  285,    2, 0x08,
+      21,    0,  286,    2, 0x08,
+      22,    0,  287,    2, 0x08,
+      23,    0,  288,    2, 0x08,
+      24,    0,  289,    2, 0x08,
+      25,    0,  290,    2, 0x08,
+      26,    3,  291,    2, 0x08,
+      31,    0,  298,    2, 0x08,
+      32,    0,  299,    2, 0x08,
+      33,    0,  300,    2, 0x08,
+      34,    0,  301,    2, 0x08,
+      35,    0,  302,    2, 0x08,
+      36,    0,  303,    2, 0x08,
+      37,    0,  304,    2, 0x08,
+      38,    0,  305,    2, 0x08,
+      39,    0,  306,    2, 0x08,
+      40,    0,  307,    2, 0x08,
+      41,    0,  308,    2, 0x08,
+      42,    0,  309,    2, 0x08,
+      43,    0,  310,    2, 0x08,
+      44,    1,  311,    2, 0x08,
+      45,    1,  314,    2, 0x08,
+      46,    1,  317,    2, 0x08,
+      47,    1,  320,    2, 0x08,
+      48,    1,  323,    2, 0x08,
+      49,    1,  326,    2, 0x08,
+      50,    1,  329,    2, 0x08,
+      51,    1,  332,    2, 0x08,
+      52,    1,  335,    2, 0x08,
+      53,    1,  338,    2, 0x08,
+      54,    1,  341,    2, 0x08,
 
  // slots: parameters
     QMetaType::Void,
@@ -222,6 +225,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,    7,
     QMetaType::Void, QMetaType::Int,    7,
     QMetaType::Void, QMetaType::Int,    7,
     QMetaType::Void, QMetaType::Int,    7,
@@ -289,6 +293,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 44: _t->on_Local_Sobel_dy_slider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 45: _t->on_Local_Sobel_kernel_slider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 46: _t->on_Adaptive_Thresholding_kernel_slider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 47: _t->on_Adaptive_Thresholding_C_slider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -319,13 +324,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 47)
+        if (_id < 48)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 47;
+        _id -= 48;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 47)
+        if (_id < 48)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 47;
+        _id -= 48;
     }
     return _id;
 }

@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     //setup window
     ui->setupUi(this);
-    this->setWindowTitle(QString("System 1, v.0.2.5"));
+    this->setWindowTitle(QString("System 1, v.0.2.6"));
 
     //hide the Segmentation boxes
     ui->Global_Sobel_box->hide();
@@ -35,11 +35,12 @@ MainWindow::MainWindow(QWidget *parent) :
     Local_Scharr_numberofSubImages = 5;
     Local_Scharr_hist_percentile = 90;
     Local_Otsu_numberofSubImages = 5;
-    Threshold = 90;
-
+    Naive_threshold = 90;
+    Adaptive_Thresholding_kernel_size = 3;
+    Adaptive_thresholding_C = 0;
     Dilation_iterations = 1;
     Gaussian_kernel_size = 1;
-    Adaptive_Thresholding_kernel_size = 3;
+
 
     cspace = COLOR_NONE;
     thresh_met = THRESH_NONE;
@@ -137,7 +138,7 @@ void MainWindow::processFrameAndUpdateGUI()
     }
 
     //Smoothing image before thresholding
-    if(ui->Gaussian_checkBox->isChecked() & !processed_image.empty())
+    if(ui->Gaussian_checkBox->isChecked() && !processed_image.empty())
     {
         cv::GaussianBlur(processed_image,processed_image,cv::Size(Gaussian_kernel_size,Gaussian_kernel_size),0,0,cv::BORDER_DEFAULT);
     }
@@ -165,19 +166,21 @@ void MainWindow::processFrameAndUpdateGUI()
     case LOCAL_SCHARR:
         //on_Local_Scharr_clicked();
         Segmented_image = Local_Scharr(processed_image,Local_Scharr_numberofSubImages,Local_Scharr_hist_percentile,
-                                       ui->Local_Scharr_dx_checkBox->isChecked(),ui->Local_Scharr_dy_checkBox->isChecked(),ui->Otsu_in_edge_checkBox->isChecked());
+                                       ui->Local_Scharr_dx_checkBox->isChecked(),ui->Local_Scharr_dy_checkBox->isChecked(),
+                                       ui->Otsu_in_edge_checkBox->isChecked());
         break;
     case GLOBAL_OTSU:
-        on_Global_Otsu_clicked();
+        Segmented_image = Global_Otsu(processed_image);
         break;
     case LOCAL_OTSU:
-        on_Local_Otsu_clicked();
+        Segmented_image = Local_Otsu(processed_image,Local_Otsu_numberofSubImages);
         break;
     case THRESHOLDING:
-        on_Thresholding_clicked();
+        Segmented_image = Naive_Thresholding(processed_image,Naive_threshold);
         break;
     case ADAPTIVE_THRESHOLDING:
-        on_Adaptive_Thresholding_clicked();
+        Segmented_image = Adaptive_Thresholding(processed_image,Adaptive_Thresholding_kernel_size,Adaptive_thresholding_C,
+                                                ui->Adaptive_Thresholding_gaussian_radioButton->isChecked());
         break;
     }
 
@@ -372,12 +375,12 @@ void MainWindow::on_Global_Otsu_clicked()
     ui->Adaptive_Thresholding_box->hide();
 
     //Segment the image using Otsus method
-    if((processed_image.channels()==1) & (!processed_image.empty()))
+/*    if((processed_image.channels()==1) & (!processed_image.empty()))
     {
         Segmented_image = processed_image.clone();
         cv::threshold(processed_image,Segmented_image,0,255,cv::THRESH_BINARY | cv::THRESH_OTSU);
     }
-
+*/
 }
 void MainWindow::on_Local_Otsu_clicked()
 {
@@ -392,49 +395,6 @@ void MainWindow::on_Local_Otsu_clicked()
     ui->Local_Otsu_box->show();
     ui->Thresholding_box->hide();
     ui->Adaptive_Thresholding_box->hide();
-
-    if((processed_image.channels()==1) & (!processed_image.empty()))
-    {
-        //Segmented_image.create(processed_image.size(),processed_image.type());
-        Segmented_image = processed_image.clone();
-        int colsize = processed_image.cols;
-        int rowsize = processed_image.rows;
-
-        cv::Mat sub_image,sub_image2;
-        sub_image.create(rowsize/Local_Otsu_numberofSubImages,colsize/Local_Otsu_numberofSubImages,CV_8U);
-        sub_image2.create(rowsize/Local_Otsu_numberofSubImages,colsize/Local_Otsu_numberofSubImages,CV_8U);
-        int c,d,e,f;
-        for(int a = 0;a<Local_Otsu_numberofSubImages;a++)
-        {
-            if(a == 0)
-            {
-                c=0;
-                d = floor(1.0*rowsize/Local_Otsu_numberofSubImages)-1;
-            }else
-            {
-                c = d+1;
-                d = d+floor(1.0*rowsize/Local_Otsu_numberofSubImages);
-            }
-
-            for(int b = 0;b<Local_Otsu_numberofSubImages;b++)
-            {
-                if(b == 0)
-                {
-                    e=0;
-                    f = floor(1.0*colsize/Local_Otsu_numberofSubImages)-1;
-                }else
-                {
-                    e = f+1;
-                    f = f+floor(1.0*colsize/Local_Otsu_numberofSubImages);
-                }
-
-                sub_image = Segmented_image(cv::Rect(e,c,sub_image.cols,sub_image.rows));
-                sub_image.copyTo(sub_image2);
-                cv::threshold(sub_image2,sub_image,0,255,cv::THRESH_BINARY | cv::THRESH_OTSU);
-
-                }
-        }
-    }
 
 }
 
@@ -451,7 +411,7 @@ void MainWindow::on_Thresholding_clicked()
     ui->Local_Otsu_box->hide();
     ui->Thresholding_box->show();
     ui->Adaptive_Thresholding_box->hide();
-
+/*
     if((processed_image.channels()==1) & (!processed_image.empty()))
     {
         processed_image.copyTo(Segmented_image);
@@ -481,7 +441,7 @@ void MainWindow::on_Thresholding_clicked()
         }
 
     }
-
+*/
 }
 
 void MainWindow::on_Adaptive_Thresholding_clicked()
@@ -498,32 +458,7 @@ void MainWindow::on_Adaptive_Thresholding_clicked()
     ui->Thresholding_box->hide();
     ui->Adaptive_Thresholding_box->show();
 
-
-
-    if((processed_image.channels()==1) & (!processed_image.empty()))
-    {
-        processed_image.copyTo(Segmented_image);
-        int C = ui->Adaptive_Thresholding_C_slider->value();
-        if(ui->Adaptive_Thresholding_gaussian_radioButton->isChecked())
-        {
-            cv::adaptiveThreshold(Segmented_image,Segmented_image,255.0,cv::ADAPTIVE_THRESH_GAUSSIAN_C,
-                                  cv::THRESH_BINARY,Adaptive_Thresholding_kernel_size,C);
-        }
-        else if(ui->Adaptive_thresholding_mean_radioButton->isChecked())
-        {
-            cv::adaptiveThreshold(Segmented_image,Segmented_image,255.0,cv::ADAPTIVE_THRESH_MEAN_C,
-                                  cv::THRESH_BINARY,Adaptive_Thresholding_kernel_size,C);
-
-        }
-        //Adaptive_Thresholding_kernel_size
-
-    }
-
 }
-
-
-
-
 
 void MainWindow::on_Local_Sobel_horizontalSlider_valueChanged(int value)
 {
@@ -555,8 +490,6 @@ void MainWindow::on_Capture_clicked()
     {
         imwrite( "Hole_detected_Image.png", hole_detected_image );
     }
-
-
 }
 
 void MainWindow::on_Global_Sobel_histogram_slider_valueChanged(int value)
@@ -581,7 +514,7 @@ void MainWindow::on_Local_Scharr_histogram_slider_valueChanged(int value)
 
 void MainWindow::on_Threshold_slider_valueChanged(int value)
 {
-    Threshold = value;
+    Naive_threshold = value;
 }
 
 void MainWindow::on_No_Mode_clicked()
@@ -625,109 +558,6 @@ void MainWindow::custom_XYS_image()
         }
     }
 }
-
-/*void MainWindow::Histogram_segmentation(int desired_percentage)
-{
-
-    cv::Mat hist;
-    int histSize = 256;
-    float ranges[] = {0,256};
-    const float* histRange = {ranges};
-    bool uniform = true;
-    bool accumulate = false;
-
-    cv::calcHist(&Segmented_image,1,0,cv::Mat(),hist,1,&histSize,&histRange,uniform,accumulate);
-
-    int hist_w = 512; int hist_h = 400;
-    int bin_w = cvRound((double)hist_w/histSize);
-    cv::Mat histImage(hist_h,hist_w,CV_8U,cv::Scalar(0,0,0));
-
-    //Normalizing the result to [0, histImage.rows]
-    cv::normalize(hist,hist,0,histImage.rows,cv::NORM_MINMAX,-1,cv::Mat() );
-
-    //draw for each channel
-    for (int i = 1;i<histSize;i++)
-    {
-        cv::line(histImage,cv::Point(bin_w*(i-1), hist_h - cvRound(hist.at<float>(i-1)) ),
-                 cv::Point( bin_w*(i), hist_h-cvRound(hist.at<float>(i)) ),
-                 cv::Scalar(255,0,0),2,8,0 );
-
-
-    }
-
-    //QImage hist_img = QImage((const unsigned char*)(histImage.data),histImage.cols,histImage.rows,QImage::Format_Indexed8 );
-    //ui->histogram_label->setPixmap(QPixmap::fromImage(hist_img));
-
-
-    //percentile2i from Digital image processing using matlab
-
-    float sum = 0;
-    float* data = hist.ptr<float>(0);
-    for (int i = 0;i<256;i++)
-    {
-        sum = sum+data[i];
-        //sum = sum+hist.at<float>(i);
-    }
-
-   // float new_sum = 0;
-   // data = hist.ptr<float>(0);
-    for(int i = 0;i<256;i++)
-    {
-        data[i] = data[i]/sum;
-        //hist.at<float>(i) = hist.at<float>(i)/sum;
-      //  new_sum = new_sum+hist.at<float>(i);
-
-    }
-
-     //cumulative sum
-    for(int i = 1;i<256;i++ )
-    {
-        data[i] = data[i]+data[i-1];
-       // hist.at<float>(i) = hist.at<float>(i)+hist.at<float>(i-1);
-    }
-
-    //finding the index where the cummulative sum is equal to or greather than the changeable variabel
-    float changeable_variable = (float)desired_percentage/100;
-    float idx = 0;
-    for (int i = 0;i<256;i++)
-    {
-        //if(hist.at<float>(i) >= changeable_variable)
-        if(data[i] >= changeable_variable)
-        {
-           // qDebug() << "fant raden, raden er: " << i << "  verdien er: " << hist.at<float>(i) << "variablene er: " << changeable_variable;
-            idx = i;
-            break;
-        }
-    }
-
-    int nl = Segmented_image.rows;
-    int nc = Segmented_image.cols;
-    if(Segmented_image.isContinuous())
-    {
-        nc = nc*nl;
-        nl = 1; //1D array;
-    }
-
-    //loop exectued only once if the image is continious
-    for(int j = 0; j<nl;j++)
-    {
-        uchar* data = Segmented_image.ptr<uchar>(j);
-
-        for(int i = 0; i<nc;i++)
-        {
-            if(data[i] > idx)
-            {
-                data[i] = 255;
-            }
-            else
-            {
-                data[i] = 0;
-            }
-
-
-        }
-    }
-}*/
 
 void MainWindow::Hole_Detection()
 {
@@ -1241,8 +1071,6 @@ void MainWindow::on_Dilation_horizontalSlider_valueChanged(int value)
     Dilation_iterations = value;
 }
 
-
-
 void MainWindow::on_Gaussian_horizontalSlider_valueChanged(int value)
 {
     if(value % 2)
@@ -1250,7 +1078,6 @@ void MainWindow::on_Gaussian_horizontalSlider_valueChanged(int value)
         Gaussian_kernel_size = value;
         ui->Gaussian_lcdNumber->display(value);
     }
-
 }
 
 void MainWindow::on_Global_Sobel_dx_slider_valueChanged(int value)
@@ -1272,7 +1099,6 @@ void MainWindow::on_Global_Sobel_kernel_slider_valueChanged(int value)
        // qDebug() << value;
     }
 }
-
 
 void MainWindow::on_Local_Sobel_dx_slider_valueChanged(int value)
 {
@@ -1304,4 +1130,9 @@ void MainWindow::on_Adaptive_Thresholding_kernel_slider_valueChanged(int value)
         ui->Adaptive_Thresholding_kernel_lcdNumber->display(value);
     }
 
+}
+
+void MainWindow::on_Adaptive_Thresholding_C_slider_valueChanged(int value)
+{
+    Adaptive_thresholding_C = value;
 }
