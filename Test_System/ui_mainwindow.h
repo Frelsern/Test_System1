@@ -238,6 +238,7 @@ public:
         horizontalLayout_8->setContentsMargins(0, 0, 0, 0);
         Local_Sobel_histogram_slider = new QSlider(layoutWidget_4);
         Local_Sobel_histogram_slider->setObjectName(QStringLiteral("Local_Sobel_histogram_slider"));
+        Local_Sobel_histogram_slider->setMinimum(60);
         Local_Sobel_histogram_slider->setMaximum(99);
         Local_Sobel_histogram_slider->setSliderPosition(90);
         Local_Sobel_histogram_slider->setOrientation(Qt::Horizontal);
@@ -346,6 +347,7 @@ public:
         horizontalLayout_7->setContentsMargins(0, 0, 0, 0);
         Global_Sobel_histogram_slider = new QSlider(layoutWidget_3);
         Global_Sobel_histogram_slider->setObjectName(QStringLiteral("Global_Sobel_histogram_slider"));
+        Global_Sobel_histogram_slider->setMinimum(60);
         Global_Sobel_histogram_slider->setMaximum(99);
         Global_Sobel_histogram_slider->setSliderPosition(90);
         Global_Sobel_histogram_slider->setOrientation(Qt::Horizontal);
@@ -480,6 +482,7 @@ public:
         horizontalLayout_6->setContentsMargins(0, 0, 0, 0);
         Global_Scharr_histogram_slider = new QSlider(layoutWidget2);
         Global_Scharr_histogram_slider->setObjectName(QStringLiteral("Global_Scharr_histogram_slider"));
+        Global_Scharr_histogram_slider->setMinimum(60);
         Global_Scharr_histogram_slider->setMaximum(99);
         Global_Scharr_histogram_slider->setSliderPosition(90);
         Global_Scharr_histogram_slider->setOrientation(Qt::Horizontal);
@@ -589,6 +592,7 @@ public:
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
         Local_Scharr_histogram_slider = new QSlider(layoutWidget4);
         Local_Scharr_histogram_slider->setObjectName(QStringLiteral("Local_Scharr_histogram_slider"));
+        Local_Scharr_histogram_slider->setMinimum(60);
         Local_Scharr_histogram_slider->setMaximum(99);
         Local_Scharr_histogram_slider->setSliderPosition(90);
         Local_Scharr_histogram_slider->setOrientation(Qt::Horizontal);

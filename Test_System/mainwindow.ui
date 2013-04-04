@@ -110,6 +110,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout_8">
        <item>
         <widget class="QSlider" name="Local_Sobel_histogram_slider">
+         <property name="minimum">
+          <number>60</number>
+         </property>
          <property name="maximum">
           <number>99</number>
          </property>
@@ -318,6 +321,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
         <widget class="QSlider" name="Global_Sobel_histogram_slider">
+         <property name="minimum">
+          <number>60</number>
+         </property>
          <property name="maximum">
           <number>99</number>
          </property>
@@ -574,6 +580,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout_6">
        <item>
         <widget class="QSlider" name="Global_Scharr_histogram_slider">
+         <property name="minimum">
+          <number>60</number>
+         </property>
          <property name="maximum">
           <number>99</number>
          </property>
@@ -819,6 +828,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
         <widget class="QSlider" name="Local_Scharr_histogram_slider">
+         <property name="minimum">
+          <number>60</number>
+         </property>
          <property name="maximum">
           <number>99</number>
          </property>
