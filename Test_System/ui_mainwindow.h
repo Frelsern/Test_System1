@@ -36,9 +36,97 @@ class Ui_MainWindow
 public:
     QAction *actionOpen_Image;
     QWidget *centralWidget;
+    QLabel *label;
+    QLabel *processed_image_label;
+    QGroupBox *Segmentation_groupBox;
+    QWidget *layoutWidget;
+    QHBoxLayout *horizontalLayout;
+    QRadioButton *Global_Sobel;
+    QRadioButton *Local_Sobel;
+    QRadioButton *Global_Scharr;
+    QRadioButton *Local_Scharr;
+    QRadioButton *Global_Otsu;
+    QRadioButton *Local_Otsu;
+    QRadioButton *Thresholding;
+    QRadioButton *Adaptive_Thresholding;
+    QCheckBox *Inversion_checkbox;
+    QGroupBox *Modes_groupbox;
+    QWidget *layoutWidget1;
+    QHBoxLayout *horizontalLayout_9;
+    QRadioButton *No_Mode;
+    QRadioButton *Hole_Detection;
+    QRadioButton *Growth_detection;
+    QGroupBox *Color_spaces_groupBox;
+    QWidget *layoutWidget2;
+    QHBoxLayout *horizontalLayout_10;
+    QRadioButton *x;
+    QRadioButton *y;
+    QRadioButton *Y;
+    QRadioButton *Red;
+    QRadioButton *Green;
+    QRadioButton *Blue;
+    QRadioButton *x2;
+    QRadioButton *y2;
+    QRadioButton *Y2;
+    QRadioButton *Lab;
+    QRadioButton *L;
+    QRadioButton *a;
+    QRadioButton *b;
+    QGroupBox *Bottom_line_box;
+    QGroupBox *Global_Sobel_box;
+    QGroupBox *Glocal_Sobel_Histogram;
+    QWidget *layoutWidget_3;
+    QHBoxLayout *horizontalLayout_7;
+    QSlider *Global_Sobel_histogram_slider;
+    QLCDNumber *Global_Sobel_histogram_lcdNumber;
+    QGroupBox *Global_Sobel_dx_groupBox;
+    QWidget *layoutWidget_10;
+    QHBoxLayout *horizontalLayout_17;
+    QSlider *Global_Sobel_dx_slider;
+    QLCDNumber *Global_Sobel_dx_lcdNumber;
+    QGroupBox *Global_Sobel_dy_groupBox;
+    QWidget *layoutWidget_11;
+    QHBoxLayout *horizontalLayout_18;
+    QSlider *Global_Sobel_dy_slider;
+    QLCDNumber *Global_Sobel_dy_lcdNumber;
+    QGroupBox *Glocal_Sobel_Kernel_size_box;
+    QWidget *layoutWidget_9;
+    QHBoxLayout *horizontalLayout_16;
+    QSlider *Global_Sobel_kernel_slider;
+    QLCDNumber *Global_Sobel_kernel_lcdNumber;
+    QGroupBox *Local_Scharr_box;
+    QGroupBox *Local_Scharr_Histogram;
+    QWidget *layoutWidget3;
+    QHBoxLayout *horizontalLayout_5;
+    QSlider *Local_Scharr_histogram_slider;
+    QLCDNumber *Local_Scharr_histogram_lcdNumber;
+    QGroupBox *groupBox_2;
+    QWidget *layoutWidget_2;
+    QHBoxLayout *horizontalLayout_4;
+    QSlider *Local_Scharr_horizontalSlider;
+    QLCDNumber *Local_Scharr_lcdNumber;
+    QCheckBox *Local_Scharr_dy_checkBox;
+    QCheckBox *Local_Scharr_dx_checkBox;
+    QGroupBox *Global_Otsu_box;
+    QPushButton *Capture;
+    QGroupBox *time_spent_box;
+    QPlainTextEdit *Total_time_spent;
+    QGroupBox *Segmentation_enhancing_groupBox;
+    QCheckBox *Dilation_checkBox;
+    QCheckBox *Gaussian_checkBox;
+    QGroupBox *Dilation_groupBox;
+    QWidget *layoutWidget4;
+    QHBoxLayout *horizontalLayout_12;
+    QSlider *Dilation_horizontalSlider;
+    QLCDNumber *Dilation_lcdNumber;
+    QGroupBox *Gaussian_smoothing_groupBox;
+    QWidget *layoutWidget_8;
+    QHBoxLayout *horizontalLayout_15;
+    QSlider *Gaussian_horizontalSlider;
+    QLCDNumber *Gaussian_lcdNumber;
     QGroupBox *Local_Sobel_box;
     QGroupBox *groupBox_3;
-    QWidget *layoutWidget;
+    QWidget *layoutWidget5;
     QHBoxLayout *horizontalLayout_3;
     QSlider *Local_Sobel_horizontalSlider;
     QLCDNumber *Local_Sobel_lcdNumber;
@@ -62,116 +150,24 @@ public:
     QHBoxLayout *horizontalLayout_23;
     QSlider *Local_Sobel_kernel_slider;
     QLCDNumber *Local_Sobel_kernel_lcdNumber;
-    QGroupBox *Global_Sobel_box;
-    QGroupBox *Glocal_Sobel_Histogram;
-    QWidget *layoutWidget_3;
-    QHBoxLayout *horizontalLayout_7;
-    QSlider *Global_Sobel_histogram_slider;
-    QLCDNumber *Global_Sobel_histogram_lcdNumber;
-    QGroupBox *Global_Sobel_dx_groupBox;
-    QWidget *layoutWidget_10;
-    QHBoxLayout *horizontalLayout_17;
-    QSlider *Global_Sobel_dx_slider;
-    QLCDNumber *Global_Sobel_dx_lcdNumber;
-    QGroupBox *Global_Sobel_dy_groupBox;
-    QWidget *layoutWidget_11;
-    QHBoxLayout *horizontalLayout_18;
-    QSlider *Global_Sobel_dy_slider;
-    QLCDNumber *Global_Sobel_dy_lcdNumber;
-    QGroupBox *Glocal_Sobel_Kernel_size_box;
-    QWidget *layoutWidget_9;
-    QHBoxLayout *horizontalLayout_16;
-    QSlider *Global_Sobel_kernel_slider;
-    QLCDNumber *Global_Sobel_kernel_lcdNumber;
-    QGroupBox *Local_Otsu_box;
-    QWidget *layoutWidget1;
-    QHBoxLayout *horizontalLayout_2;
-    QSlider *Local_Otsu_horizontalSlider;
-    QLCDNumber *Local_Otsu_lcdNumber;
-    QGroupBox *Global_Scharr_box;
-    QGroupBox *Glocal_Scharr_Histogram;
-    QWidget *layoutWidget2;
-    QHBoxLayout *horizontalLayout_6;
-    QSlider *Global_Scharr_histogram_slider;
-    QLCDNumber *Global_Scharr_histogram_lcdNumber;
-    QCheckBox *Global_Scharr_dx_checkBox;
-    QCheckBox *Global_Scharr_dy_checkBox;
-    QLabel *label;
-    QLabel *processed_image_label;
-    QPushButton *Capture;
-    QLabel *histogram_fixed;
-    QGroupBox *Segmentation_groupBox;
-    QWidget *layoutWidget3;
-    QHBoxLayout *horizontalLayout;
-    QRadioButton *Global_Sobel;
-    QRadioButton *Local_Sobel;
-    QRadioButton *Global_Scharr;
-    QRadioButton *Local_Scharr;
-    QRadioButton *Global_Otsu;
-    QRadioButton *Local_Otsu;
-    QRadioButton *Thresholding;
-    QRadioButton *Adaptive_Thresholding;
-    QCheckBox *Inversion_checkbox;
-    QGroupBox *Global_Otsu_box;
-    QGroupBox *Local_Scharr_box;
-    QGroupBox *Local_Scharr_Histogram;
-    QWidget *layoutWidget4;
-    QHBoxLayout *horizontalLayout_5;
-    QSlider *Local_Scharr_histogram_slider;
-    QLCDNumber *Local_Scharr_histogram_lcdNumber;
-    QGroupBox *groupBox_2;
-    QWidget *layoutWidget_2;
-    QHBoxLayout *horizontalLayout_4;
-    QSlider *Local_Scharr_horizontalSlider;
-    QLCDNumber *Local_Scharr_lcdNumber;
-    QCheckBox *Local_Scharr_dy_checkBox;
-    QCheckBox *Local_Scharr_dx_checkBox;
-    QGroupBox *Modes_groupbox;
-    QWidget *layoutWidget5;
-    QHBoxLayout *horizontalLayout_9;
-    QRadioButton *No_Mode;
-    QRadioButton *Hole_Detection;
-    QRadioButton *Growth_detection;
-    QGroupBox *Color_spaces_groupBox;
-    QWidget *layoutWidget6;
-    QHBoxLayout *horizontalLayout_10;
-    QRadioButton *x;
-    QRadioButton *y;
-    QRadioButton *Y;
-    QRadioButton *Red;
-    QRadioButton *Green;
-    QRadioButton *Blue;
-    QRadioButton *x2;
-    QRadioButton *y2;
-    QRadioButton *Y2;
-    QRadioButton *Lab;
-    QRadioButton *L;
-    QRadioButton *a;
-    QRadioButton *b;
-    QGroupBox *groupBox_4;
-    QPlainTextEdit *Total_time_spent;
-    QGroupBox *Segmentation_enhancing_groupBox;
-    QCheckBox *Dilation_checkBox;
-    QCheckBox *Gaussian_checkBox;
-    QGroupBox *Dilation_groupBox;
-    QWidget *layoutWidget7;
-    QHBoxLayout *horizontalLayout_12;
-    QSlider *Dilation_horizontalSlider;
-    QLCDNumber *Dilation_lcdNumber;
-    QGroupBox *Gaussian_smoothing_groupBox;
-    QWidget *layoutWidget_8;
-    QHBoxLayout *horizontalLayout_15;
-    QSlider *Gaussian_horizontalSlider;
-    QLCDNumber *Gaussian_lcdNumber;
     QGroupBox *Thresholding_box;
     QGroupBox *Glocal_Scharr_Histogram_2;
     QWidget *layoutWidget_5;
     QHBoxLayout *horizontalLayout_11;
     QSlider *Threshold_slider;
     QLCDNumber *Threshold_lcdNumber_2;
+    QGroupBox *Global_Scharr_box;
+    QGroupBox *Glocal_Scharr_Histogram;
+    QWidget *layoutWidget6;
+    QHBoxLayout *horizontalLayout_6;
+    QSlider *Global_Scharr_histogram_slider;
+    QLCDNumber *Global_Scharr_histogram_lcdNumber;
+    QCheckBox *Global_Scharr_dx_checkBox;
+    QCheckBox *Global_Scharr_dy_checkBox;
+    QCheckBox *Otsu_in_edge_checkBox;
     QGroupBox *Adaptive_Thresholding_box;
     QGroupBox *groupBox;
-    QWidget *layoutWidget8;
+    QWidget *layoutWidget7;
     QVBoxLayout *verticalLayout;
     QRadioButton *Adaptive_Thresholding_gaussian_radioButton;
     QRadioButton *Adaptive_thresholding_mean_radioButton;
@@ -181,7 +177,11 @@ public:
     QGroupBox *Adaptive_Thresholding_C_box;
     QSlider *Adaptive_Thresholding_C_slider;
     QLCDNumber *Adaptive_Thresholding_C_lcdNumber;
-    QCheckBox *Otsu_in_edge_checkBox;
+    QGroupBox *Local_Otsu_box;
+    QWidget *layoutWidget8;
+    QHBoxLayout *horizontalLayout_2;
+    QSlider *Local_Otsu_horizontalSlider;
+    QLCDNumber *Local_Otsu_lcdNumber;
     QMenuBar *menuBar;
     QMenu *menuFile;
 
@@ -191,26 +191,441 @@ public:
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(1500, 700);
         MainWindow->setMinimumSize(QSize(1000, 700));
-        MainWindow->setMaximumSize(QSize(1500, 700));
         actionOpen_Image = new QAction(MainWindow);
         actionOpen_Image->setObjectName(QStringLiteral("actionOpen_Image"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        Local_Sobel_box = new QGroupBox(centralWidget);
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(4, 96, 413, 341));
+        processed_image_label = new QLabel(centralWidget);
+        processed_image_label->setObjectName(QStringLiteral("processed_image_label"));
+        processed_image_label->setGeometry(QRect(752, 96, 225, 293));
+        Segmentation_groupBox = new QGroupBox(centralWidget);
+        Segmentation_groupBox->setObjectName(QStringLiteral("Segmentation_groupBox"));
+        Segmentation_groupBox->setGeometry(QRect(0, 44, 1173, 50));
+        layoutWidget = new QWidget(Segmentation_groupBox);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(19, 20, 1147, 19));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        Global_Sobel = new QRadioButton(layoutWidget);
+        Global_Sobel->setObjectName(QStringLiteral("Global_Sobel"));
+
+        horizontalLayout->addWidget(Global_Sobel);
+
+        Local_Sobel = new QRadioButton(layoutWidget);
+        Local_Sobel->setObjectName(QStringLiteral("Local_Sobel"));
+
+        horizontalLayout->addWidget(Local_Sobel);
+
+        Global_Scharr = new QRadioButton(layoutWidget);
+        Global_Scharr->setObjectName(QStringLiteral("Global_Scharr"));
+
+        horizontalLayout->addWidget(Global_Scharr);
+
+        Local_Scharr = new QRadioButton(layoutWidget);
+        Local_Scharr->setObjectName(QStringLiteral("Local_Scharr"));
+
+        horizontalLayout->addWidget(Local_Scharr);
+
+        Global_Otsu = new QRadioButton(layoutWidget);
+        Global_Otsu->setObjectName(QStringLiteral("Global_Otsu"));
+
+        horizontalLayout->addWidget(Global_Otsu);
+
+        Local_Otsu = new QRadioButton(layoutWidget);
+        Local_Otsu->setObjectName(QStringLiteral("Local_Otsu"));
+
+        horizontalLayout->addWidget(Local_Otsu);
+
+        Thresholding = new QRadioButton(layoutWidget);
+        Thresholding->setObjectName(QStringLiteral("Thresholding"));
+
+        horizontalLayout->addWidget(Thresholding);
+
+        Adaptive_Thresholding = new QRadioButton(layoutWidget);
+        Adaptive_Thresholding->setObjectName(QStringLiteral("Adaptive_Thresholding"));
+
+        horizontalLayout->addWidget(Adaptive_Thresholding);
+
+        Inversion_checkbox = new QCheckBox(layoutWidget);
+        Inversion_checkbox->setObjectName(QStringLiteral("Inversion_checkbox"));
+
+        horizontalLayout->addWidget(Inversion_checkbox);
+
+        Modes_groupbox = new QGroupBox(centralWidget);
+        Modes_groupbox->setObjectName(QStringLiteral("Modes_groupbox"));
+        Modes_groupbox->setGeometry(QRect(564, 4, 285, 41));
+        layoutWidget1 = new QWidget(Modes_groupbox);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(4, 12, 279, 19));
+        horizontalLayout_9 = new QHBoxLayout(layoutWidget1);
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        horizontalLayout_9->setContentsMargins(0, 0, 0, 0);
+        No_Mode = new QRadioButton(layoutWidget1);
+        No_Mode->setObjectName(QStringLiteral("No_Mode"));
+        No_Mode->setChecked(true);
+
+        horizontalLayout_9->addWidget(No_Mode);
+
+        Hole_Detection = new QRadioButton(layoutWidget1);
+        Hole_Detection->setObjectName(QStringLiteral("Hole_Detection"));
+
+        horizontalLayout_9->addWidget(Hole_Detection);
+
+        Growth_detection = new QRadioButton(layoutWidget1);
+        Growth_detection->setObjectName(QStringLiteral("Growth_detection"));
+
+        horizontalLayout_9->addWidget(Growth_detection);
+
+        Color_spaces_groupBox = new QGroupBox(centralWidget);
+        Color_spaces_groupBox->setObjectName(QStringLiteral("Color_spaces_groupBox"));
+        Color_spaces_groupBox->setGeometry(QRect(0, 0, 561, 45));
+        layoutWidget2 = new QWidget(Color_spaces_groupBox);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(8, 16, 547, 19));
+        horizontalLayout_10 = new QHBoxLayout(layoutWidget2);
+        horizontalLayout_10->setSpacing(6);
+        horizontalLayout_10->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
+        horizontalLayout_10->setContentsMargins(0, 0, 0, 0);
+        x = new QRadioButton(layoutWidget2);
+        x->setObjectName(QStringLiteral("x"));
+
+        horizontalLayout_10->addWidget(x);
+
+        y = new QRadioButton(layoutWidget2);
+        y->setObjectName(QStringLiteral("y"));
+
+        horizontalLayout_10->addWidget(y);
+
+        Y = new QRadioButton(layoutWidget2);
+        Y->setObjectName(QStringLiteral("Y"));
+
+        horizontalLayout_10->addWidget(Y);
+
+        Red = new QRadioButton(layoutWidget2);
+        Red->setObjectName(QStringLiteral("Red"));
+
+        horizontalLayout_10->addWidget(Red);
+
+        Green = new QRadioButton(layoutWidget2);
+        Green->setObjectName(QStringLiteral("Green"));
+
+        horizontalLayout_10->addWidget(Green);
+
+        Blue = new QRadioButton(layoutWidget2);
+        Blue->setObjectName(QStringLiteral("Blue"));
+
+        horizontalLayout_10->addWidget(Blue);
+
+        x2 = new QRadioButton(layoutWidget2);
+        x2->setObjectName(QStringLiteral("x2"));
+
+        horizontalLayout_10->addWidget(x2);
+
+        y2 = new QRadioButton(layoutWidget2);
+        y2->setObjectName(QStringLiteral("y2"));
+
+        horizontalLayout_10->addWidget(y2);
+
+        Y2 = new QRadioButton(layoutWidget2);
+        Y2->setObjectName(QStringLiteral("Y2"));
+
+        horizontalLayout_10->addWidget(Y2);
+
+        Lab = new QRadioButton(layoutWidget2);
+        Lab->setObjectName(QStringLiteral("Lab"));
+
+        horizontalLayout_10->addWidget(Lab);
+
+        L = new QRadioButton(layoutWidget2);
+        L->setObjectName(QStringLiteral("L"));
+
+        horizontalLayout_10->addWidget(L);
+
+        a = new QRadioButton(layoutWidget2);
+        a->setObjectName(QStringLiteral("a"));
+
+        horizontalLayout_10->addWidget(a);
+
+        b = new QRadioButton(layoutWidget2);
+        b->setObjectName(QStringLiteral("b"));
+
+        horizontalLayout_10->addWidget(b);
+
+        Bottom_line_box = new QGroupBox(centralWidget);
+        Bottom_line_box->setObjectName(QStringLiteral("Bottom_line_box"));
+        Bottom_line_box->setGeometry(QRect(0, 552, 1357, 125));
+        Global_Sobel_box = new QGroupBox(Bottom_line_box);
+        Global_Sobel_box->setObjectName(QStringLiteral("Global_Sobel_box"));
+        Global_Sobel_box->setGeometry(QRect(300, 20, 380, 100));
+        Glocal_Sobel_Histogram = new QGroupBox(Global_Sobel_box);
+        Glocal_Sobel_Histogram->setObjectName(QStringLiteral("Glocal_Sobel_Histogram"));
+        Glocal_Sobel_Histogram->setGeometry(QRect(188, 16, 170, 41));
+        layoutWidget_3 = new QWidget(Glocal_Sobel_Histogram);
+        layoutWidget_3->setObjectName(QStringLiteral("layoutWidget_3"));
+        layoutWidget_3->setGeometry(QRect(4, 12, 156, 25));
+        horizontalLayout_7 = new QHBoxLayout(layoutWidget_3);
+        horizontalLayout_7->setSpacing(6);
+        horizontalLayout_7->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        horizontalLayout_7->setContentsMargins(0, 0, 0, 0);
+        Global_Sobel_histogram_slider = new QSlider(layoutWidget_3);
+        Global_Sobel_histogram_slider->setObjectName(QStringLiteral("Global_Sobel_histogram_slider"));
+        Global_Sobel_histogram_slider->setMinimum(60);
+        Global_Sobel_histogram_slider->setMaximum(99);
+        Global_Sobel_histogram_slider->setSliderPosition(90);
+        Global_Sobel_histogram_slider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_7->addWidget(Global_Sobel_histogram_slider);
+
+        Global_Sobel_histogram_lcdNumber = new QLCDNumber(layoutWidget_3);
+        Global_Sobel_histogram_lcdNumber->setObjectName(QStringLiteral("Global_Sobel_histogram_lcdNumber"));
+        Global_Sobel_histogram_lcdNumber->setProperty("intValue", QVariant(90));
+
+        horizontalLayout_7->addWidget(Global_Sobel_histogram_lcdNumber);
+
+        Global_Sobel_dx_groupBox = new QGroupBox(Global_Sobel_box);
+        Global_Sobel_dx_groupBox->setObjectName(QStringLiteral("Global_Sobel_dx_groupBox"));
+        Global_Sobel_dx_groupBox->setGeometry(QRect(0, 16, 169, 41));
+        layoutWidget_10 = new QWidget(Global_Sobel_dx_groupBox);
+        layoutWidget_10->setObjectName(QStringLiteral("layoutWidget_10"));
+        layoutWidget_10->setGeometry(QRect(4, 12, 156, 25));
+        horizontalLayout_17 = new QHBoxLayout(layoutWidget_10);
+        horizontalLayout_17->setSpacing(6);
+        horizontalLayout_17->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_17->setObjectName(QStringLiteral("horizontalLayout_17"));
+        horizontalLayout_17->setContentsMargins(0, 0, 0, 0);
+        Global_Sobel_dx_slider = new QSlider(layoutWidget_10);
+        Global_Sobel_dx_slider->setObjectName(QStringLiteral("Global_Sobel_dx_slider"));
+        Global_Sobel_dx_slider->setMinimum(0);
+        Global_Sobel_dx_slider->setMaximum(6);
+        Global_Sobel_dx_slider->setValue(1);
+        Global_Sobel_dx_slider->setSliderPosition(1);
+        Global_Sobel_dx_slider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_17->addWidget(Global_Sobel_dx_slider);
+
+        Global_Sobel_dx_lcdNumber = new QLCDNumber(layoutWidget_10);
+        Global_Sobel_dx_lcdNumber->setObjectName(QStringLiteral("Global_Sobel_dx_lcdNumber"));
+        Global_Sobel_dx_lcdNumber->setProperty("intValue", QVariant(1));
+
+        horizontalLayout_17->addWidget(Global_Sobel_dx_lcdNumber);
+
+        Global_Sobel_dy_groupBox = new QGroupBox(Global_Sobel_box);
+        Global_Sobel_dy_groupBox->setObjectName(QStringLiteral("Global_Sobel_dy_groupBox"));
+        Global_Sobel_dy_groupBox->setGeometry(QRect(0, 56, 169, 41));
+        layoutWidget_11 = new QWidget(Global_Sobel_dy_groupBox);
+        layoutWidget_11->setObjectName(QStringLiteral("layoutWidget_11"));
+        layoutWidget_11->setGeometry(QRect(4, 12, 156, 25));
+        horizontalLayout_18 = new QHBoxLayout(layoutWidget_11);
+        horizontalLayout_18->setSpacing(6);
+        horizontalLayout_18->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_18->setObjectName(QStringLiteral("horizontalLayout_18"));
+        horizontalLayout_18->setContentsMargins(0, 0, 0, 0);
+        Global_Sobel_dy_slider = new QSlider(layoutWidget_11);
+        Global_Sobel_dy_slider->setObjectName(QStringLiteral("Global_Sobel_dy_slider"));
+        Global_Sobel_dy_slider->setMinimum(0);
+        Global_Sobel_dy_slider->setMaximum(6);
+        Global_Sobel_dy_slider->setValue(1);
+        Global_Sobel_dy_slider->setSliderPosition(1);
+        Global_Sobel_dy_slider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_18->addWidget(Global_Sobel_dy_slider);
+
+        Global_Sobel_dy_lcdNumber = new QLCDNumber(layoutWidget_11);
+        Global_Sobel_dy_lcdNumber->setObjectName(QStringLiteral("Global_Sobel_dy_lcdNumber"));
+        Global_Sobel_dy_lcdNumber->setProperty("intValue", QVariant(1));
+
+        horizontalLayout_18->addWidget(Global_Sobel_dy_lcdNumber);
+
+        Glocal_Sobel_Kernel_size_box = new QGroupBox(Global_Sobel_box);
+        Glocal_Sobel_Kernel_size_box->setObjectName(QStringLiteral("Glocal_Sobel_Kernel_size_box"));
+        Glocal_Sobel_Kernel_size_box->setGeometry(QRect(188, 60, 170, 37));
+        layoutWidget_9 = new QWidget(Glocal_Sobel_Kernel_size_box);
+        layoutWidget_9->setObjectName(QStringLiteral("layoutWidget_9"));
+        layoutWidget_9->setGeometry(QRect(4, 12, 156, 25));
+        horizontalLayout_16 = new QHBoxLayout(layoutWidget_9);
+        horizontalLayout_16->setSpacing(6);
+        horizontalLayout_16->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_16->setObjectName(QStringLiteral("horizontalLayout_16"));
+        horizontalLayout_16->setContentsMargins(0, 0, 0, 0);
+        Global_Sobel_kernel_slider = new QSlider(layoutWidget_9);
+        Global_Sobel_kernel_slider->setObjectName(QStringLiteral("Global_Sobel_kernel_slider"));
+        Global_Sobel_kernel_slider->setMinimum(1);
+        Global_Sobel_kernel_slider->setMaximum(7);
+        Global_Sobel_kernel_slider->setSliderPosition(3);
+        Global_Sobel_kernel_slider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_16->addWidget(Global_Sobel_kernel_slider);
+
+        Global_Sobel_kernel_lcdNumber = new QLCDNumber(layoutWidget_9);
+        Global_Sobel_kernel_lcdNumber->setObjectName(QStringLiteral("Global_Sobel_kernel_lcdNumber"));
+        Global_Sobel_kernel_lcdNumber->setProperty("intValue", QVariant(3));
+
+        horizontalLayout_16->addWidget(Global_Sobel_kernel_lcdNumber);
+
+        Local_Scharr_box = new QGroupBox(Bottom_line_box);
+        Local_Scharr_box->setObjectName(QStringLiteral("Local_Scharr_box"));
+        Local_Scharr_box->setGeometry(QRect(300, 20, 550, 100));
+        Local_Scharr_Histogram = new QGroupBox(Local_Scharr_box);
+        Local_Scharr_Histogram->setObjectName(QStringLiteral("Local_Scharr_Histogram"));
+        Local_Scharr_Histogram->setGeometry(QRect(376, 30, 170, 45));
+        layoutWidget3 = new QWidget(Local_Scharr_Histogram);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(4, 12, 156, 25));
+        horizontalLayout_5 = new QHBoxLayout(layoutWidget3);
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
+        Local_Scharr_histogram_slider = new QSlider(layoutWidget3);
+        Local_Scharr_histogram_slider->setObjectName(QStringLiteral("Local_Scharr_histogram_slider"));
+        Local_Scharr_histogram_slider->setMinimum(60);
+        Local_Scharr_histogram_slider->setMaximum(99);
+        Local_Scharr_histogram_slider->setSliderPosition(90);
+        Local_Scharr_histogram_slider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_5->addWidget(Local_Scharr_histogram_slider);
+
+        Local_Scharr_histogram_lcdNumber = new QLCDNumber(layoutWidget3);
+        Local_Scharr_histogram_lcdNumber->setObjectName(QStringLiteral("Local_Scharr_histogram_lcdNumber"));
+        Local_Scharr_histogram_lcdNumber->setProperty("intValue", QVariant(90));
+
+        horizontalLayout_5->addWidget(Local_Scharr_histogram_lcdNumber);
+
+        groupBox_2 = new QGroupBox(Local_Scharr_box);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        groupBox_2->setGeometry(QRect(0, 30, 170, 45));
+        layoutWidget_2 = new QWidget(groupBox_2);
+        layoutWidget_2->setObjectName(QStringLiteral("layoutWidget_2"));
+        layoutWidget_2->setGeometry(QRect(8, 16, 156, 25));
+        horizontalLayout_4 = new QHBoxLayout(layoutWidget_2);
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
+        Local_Scharr_horizontalSlider = new QSlider(layoutWidget_2);
+        Local_Scharr_horizontalSlider->setObjectName(QStringLiteral("Local_Scharr_horizontalSlider"));
+        Local_Scharr_horizontalSlider->setMinimum(1);
+        Local_Scharr_horizontalSlider->setMaximum(40);
+        Local_Scharr_horizontalSlider->setValue(5);
+        Local_Scharr_horizontalSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_4->addWidget(Local_Scharr_horizontalSlider);
+
+        Local_Scharr_lcdNumber = new QLCDNumber(layoutWidget_2);
+        Local_Scharr_lcdNumber->setObjectName(QStringLiteral("Local_Scharr_lcdNumber"));
+        Local_Scharr_lcdNumber->setProperty("intValue", QVariant(25));
+
+        horizontalLayout_4->addWidget(Local_Scharr_lcdNumber);
+
+        Local_Scharr_dy_checkBox = new QCheckBox(Local_Scharr_box);
+        Local_Scharr_dy_checkBox->setObjectName(QStringLiteral("Local_Scharr_dy_checkBox"));
+        Local_Scharr_dy_checkBox->setGeometry(QRect(236, 64, 70, 17));
+        Local_Scharr_dx_checkBox = new QCheckBox(Local_Scharr_box);
+        Local_Scharr_dx_checkBox->setObjectName(QStringLiteral("Local_Scharr_dx_checkBox"));
+        Local_Scharr_dx_checkBox->setGeometry(QRect(236, 20, 70, 17));
+        Local_Scharr_dx_checkBox->setChecked(true);
+        Global_Otsu_box = new QGroupBox(Bottom_line_box);
+        Global_Otsu_box->setObjectName(QStringLiteral("Global_Otsu_box"));
+        Global_Otsu_box->setGeometry(QRect(300, 20, 380, 100));
+        Capture = new QPushButton(Bottom_line_box);
+        Capture->setObjectName(QStringLiteral("Capture"));
+        Capture->setGeometry(QRect(16, 20, 109, 25));
+        QFont font;
+        font.setPointSize(12);
+        Capture->setFont(font);
+        time_spent_box = new QGroupBox(Bottom_line_box);
+        time_spent_box->setObjectName(QStringLiteral("time_spent_box"));
+        time_spent_box->setGeometry(QRect(0, 50, 145, 69));
+        Total_time_spent = new QPlainTextEdit(time_spent_box);
+        Total_time_spent->setObjectName(QStringLiteral("Total_time_spent"));
+        Total_time_spent->setGeometry(QRect(4, 12, 137, 53));
+        Total_time_spent->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        Total_time_spent->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        Segmentation_enhancing_groupBox = new QGroupBox(Bottom_line_box);
+        Segmentation_enhancing_groupBox->setObjectName(QStringLiteral("Segmentation_enhancing_groupBox"));
+        Segmentation_enhancing_groupBox->setGeometry(QRect(860, 20, 465, 97));
+        Dilation_checkBox = new QCheckBox(Segmentation_enhancing_groupBox);
+        Dilation_checkBox->setObjectName(QStringLiteral("Dilation_checkBox"));
+        Dilation_checkBox->setGeometry(QRect(48, 20, 57, 17));
+        Gaussian_checkBox = new QCheckBox(Segmentation_enhancing_groupBox);
+        Gaussian_checkBox->setObjectName(QStringLiteral("Gaussian_checkBox"));
+        Gaussian_checkBox->setGeometry(QRect(192, 20, 117, 17));
+        Dilation_groupBox = new QGroupBox(Segmentation_enhancing_groupBox);
+        Dilation_groupBox->setObjectName(QStringLiteral("Dilation_groupBox"));
+        Dilation_groupBox->setGeometry(QRect(4, 40, 150, 40));
+        layoutWidget4 = new QWidget(Dilation_groupBox);
+        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
+        layoutWidget4->setGeometry(QRect(4, 12, 141, 25));
+        horizontalLayout_12 = new QHBoxLayout(layoutWidget4);
+        horizontalLayout_12->setSpacing(6);
+        horizontalLayout_12->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
+        horizontalLayout_12->setContentsMargins(0, 0, 0, 0);
+        Dilation_horizontalSlider = new QSlider(layoutWidget4);
+        Dilation_horizontalSlider->setObjectName(QStringLiteral("Dilation_horizontalSlider"));
+        Dilation_horizontalSlider->setMinimum(1);
+        Dilation_horizontalSlider->setMaximum(10);
+        Dilation_horizontalSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_12->addWidget(Dilation_horizontalSlider);
+
+        Dilation_lcdNumber = new QLCDNumber(layoutWidget4);
+        Dilation_lcdNumber->setObjectName(QStringLiteral("Dilation_lcdNumber"));
+        Dilation_lcdNumber->setProperty("intValue", QVariant(1));
+
+        horizontalLayout_12->addWidget(Dilation_lcdNumber);
+
+        Gaussian_smoothing_groupBox = new QGroupBox(Segmentation_enhancing_groupBox);
+        Gaussian_smoothing_groupBox->setObjectName(QStringLiteral("Gaussian_smoothing_groupBox"));
+        Gaussian_smoothing_groupBox->setGeometry(QRect(180, 40, 150, 40));
+        layoutWidget_8 = new QWidget(Gaussian_smoothing_groupBox);
+        layoutWidget_8->setObjectName(QStringLiteral("layoutWidget_8"));
+        layoutWidget_8->setGeometry(QRect(4, 12, 141, 25));
+        horizontalLayout_15 = new QHBoxLayout(layoutWidget_8);
+        horizontalLayout_15->setSpacing(6);
+        horizontalLayout_15->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_15->setObjectName(QStringLiteral("horizontalLayout_15"));
+        horizontalLayout_15->setContentsMargins(0, 0, 0, 0);
+        Gaussian_horizontalSlider = new QSlider(layoutWidget_8);
+        Gaussian_horizontalSlider->setObjectName(QStringLiteral("Gaussian_horizontalSlider"));
+        Gaussian_horizontalSlider->setMinimum(1);
+        Gaussian_horizontalSlider->setMaximum(25);
+        Gaussian_horizontalSlider->setSingleStep(2);
+        Gaussian_horizontalSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_15->addWidget(Gaussian_horizontalSlider);
+
+        Gaussian_lcdNumber = new QLCDNumber(layoutWidget_8);
+        Gaussian_lcdNumber->setObjectName(QStringLiteral("Gaussian_lcdNumber"));
+        Gaussian_lcdNumber->setProperty("intValue", QVariant(1));
+
+        horizontalLayout_15->addWidget(Gaussian_lcdNumber);
+
+        Local_Sobel_box = new QGroupBox(Bottom_line_box);
         Local_Sobel_box->setObjectName(QStringLiteral("Local_Sobel_box"));
-        Local_Sobel_box->setGeometry(QRect(300, 560, 550, 100));
+        Local_Sobel_box->setGeometry(QRect(300, 20, 550, 100));
         groupBox_3 = new QGroupBox(Local_Sobel_box);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
         groupBox_3->setGeometry(QRect(0, 30, 170, 45));
-        layoutWidget = new QWidget(groupBox_3);
-        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(4, 12, 156, 25));
-        horizontalLayout_3 = new QHBoxLayout(layoutWidget);
+        layoutWidget5 = new QWidget(groupBox_3);
+        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
+        layoutWidget5->setGeometry(QRect(4, 12, 156, 25));
+        horizontalLayout_3 = new QHBoxLayout(layoutWidget5);
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
-        Local_Sobel_horizontalSlider = new QSlider(layoutWidget);
+        Local_Sobel_horizontalSlider = new QSlider(layoutWidget5);
         Local_Sobel_horizontalSlider->setObjectName(QStringLiteral("Local_Sobel_horizontalSlider"));
         Local_Sobel_horizontalSlider->setMinimum(1);
         Local_Sobel_horizontalSlider->setMaximum(40);
@@ -219,7 +634,7 @@ public:
 
         horizontalLayout_3->addWidget(Local_Sobel_horizontalSlider);
 
-        Local_Sobel_lcdNumber = new QLCDNumber(layoutWidget);
+        Local_Sobel_lcdNumber = new QLCDNumber(layoutWidget5);
         Local_Sobel_lcdNumber->setObjectName(QStringLiteral("Local_Sobel_lcdNumber"));
         Local_Sobel_lcdNumber->setProperty("intValue", QVariant(25));
 
@@ -331,487 +746,9 @@ public:
 
         horizontalLayout_23->addWidget(Local_Sobel_kernel_lcdNumber);
 
-        Global_Sobel_box = new QGroupBox(centralWidget);
-        Global_Sobel_box->setObjectName(QStringLiteral("Global_Sobel_box"));
-        Global_Sobel_box->setGeometry(QRect(300, 560, 380, 100));
-        Glocal_Sobel_Histogram = new QGroupBox(Global_Sobel_box);
-        Glocal_Sobel_Histogram->setObjectName(QStringLiteral("Glocal_Sobel_Histogram"));
-        Glocal_Sobel_Histogram->setGeometry(QRect(188, 16, 170, 41));
-        layoutWidget_3 = new QWidget(Glocal_Sobel_Histogram);
-        layoutWidget_3->setObjectName(QStringLiteral("layoutWidget_3"));
-        layoutWidget_3->setGeometry(QRect(4, 12, 156, 25));
-        horizontalLayout_7 = new QHBoxLayout(layoutWidget_3);
-        horizontalLayout_7->setSpacing(6);
-        horizontalLayout_7->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        horizontalLayout_7->setContentsMargins(0, 0, 0, 0);
-        Global_Sobel_histogram_slider = new QSlider(layoutWidget_3);
-        Global_Sobel_histogram_slider->setObjectName(QStringLiteral("Global_Sobel_histogram_slider"));
-        Global_Sobel_histogram_slider->setMinimum(60);
-        Global_Sobel_histogram_slider->setMaximum(99);
-        Global_Sobel_histogram_slider->setSliderPosition(90);
-        Global_Sobel_histogram_slider->setOrientation(Qt::Horizontal);
-
-        horizontalLayout_7->addWidget(Global_Sobel_histogram_slider);
-
-        Global_Sobel_histogram_lcdNumber = new QLCDNumber(layoutWidget_3);
-        Global_Sobel_histogram_lcdNumber->setObjectName(QStringLiteral("Global_Sobel_histogram_lcdNumber"));
-        Global_Sobel_histogram_lcdNumber->setProperty("intValue", QVariant(90));
-
-        horizontalLayout_7->addWidget(Global_Sobel_histogram_lcdNumber);
-
-        Global_Sobel_dx_groupBox = new QGroupBox(Global_Sobel_box);
-        Global_Sobel_dx_groupBox->setObjectName(QStringLiteral("Global_Sobel_dx_groupBox"));
-        Global_Sobel_dx_groupBox->setGeometry(QRect(0, 16, 169, 41));
-        layoutWidget_10 = new QWidget(Global_Sobel_dx_groupBox);
-        layoutWidget_10->setObjectName(QStringLiteral("layoutWidget_10"));
-        layoutWidget_10->setGeometry(QRect(4, 12, 156, 25));
-        horizontalLayout_17 = new QHBoxLayout(layoutWidget_10);
-        horizontalLayout_17->setSpacing(6);
-        horizontalLayout_17->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_17->setObjectName(QStringLiteral("horizontalLayout_17"));
-        horizontalLayout_17->setContentsMargins(0, 0, 0, 0);
-        Global_Sobel_dx_slider = new QSlider(layoutWidget_10);
-        Global_Sobel_dx_slider->setObjectName(QStringLiteral("Global_Sobel_dx_slider"));
-        Global_Sobel_dx_slider->setMinimum(0);
-        Global_Sobel_dx_slider->setMaximum(6);
-        Global_Sobel_dx_slider->setValue(1);
-        Global_Sobel_dx_slider->setSliderPosition(1);
-        Global_Sobel_dx_slider->setOrientation(Qt::Horizontal);
-
-        horizontalLayout_17->addWidget(Global_Sobel_dx_slider);
-
-        Global_Sobel_dx_lcdNumber = new QLCDNumber(layoutWidget_10);
-        Global_Sobel_dx_lcdNumber->setObjectName(QStringLiteral("Global_Sobel_dx_lcdNumber"));
-        Global_Sobel_dx_lcdNumber->setProperty("intValue", QVariant(1));
-
-        horizontalLayout_17->addWidget(Global_Sobel_dx_lcdNumber);
-
-        Global_Sobel_dy_groupBox = new QGroupBox(Global_Sobel_box);
-        Global_Sobel_dy_groupBox->setObjectName(QStringLiteral("Global_Sobel_dy_groupBox"));
-        Global_Sobel_dy_groupBox->setGeometry(QRect(0, 56, 169, 41));
-        layoutWidget_11 = new QWidget(Global_Sobel_dy_groupBox);
-        layoutWidget_11->setObjectName(QStringLiteral("layoutWidget_11"));
-        layoutWidget_11->setGeometry(QRect(4, 12, 156, 25));
-        horizontalLayout_18 = new QHBoxLayout(layoutWidget_11);
-        horizontalLayout_18->setSpacing(6);
-        horizontalLayout_18->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_18->setObjectName(QStringLiteral("horizontalLayout_18"));
-        horizontalLayout_18->setContentsMargins(0, 0, 0, 0);
-        Global_Sobel_dy_slider = new QSlider(layoutWidget_11);
-        Global_Sobel_dy_slider->setObjectName(QStringLiteral("Global_Sobel_dy_slider"));
-        Global_Sobel_dy_slider->setMinimum(0);
-        Global_Sobel_dy_slider->setMaximum(6);
-        Global_Sobel_dy_slider->setValue(1);
-        Global_Sobel_dy_slider->setSliderPosition(1);
-        Global_Sobel_dy_slider->setOrientation(Qt::Horizontal);
-
-        horizontalLayout_18->addWidget(Global_Sobel_dy_slider);
-
-        Global_Sobel_dy_lcdNumber = new QLCDNumber(layoutWidget_11);
-        Global_Sobel_dy_lcdNumber->setObjectName(QStringLiteral("Global_Sobel_dy_lcdNumber"));
-        Global_Sobel_dy_lcdNumber->setProperty("intValue", QVariant(1));
-
-        horizontalLayout_18->addWidget(Global_Sobel_dy_lcdNumber);
-
-        Glocal_Sobel_Kernel_size_box = new QGroupBox(Global_Sobel_box);
-        Glocal_Sobel_Kernel_size_box->setObjectName(QStringLiteral("Glocal_Sobel_Kernel_size_box"));
-        Glocal_Sobel_Kernel_size_box->setGeometry(QRect(188, 60, 170, 37));
-        layoutWidget_9 = new QWidget(Glocal_Sobel_Kernel_size_box);
-        layoutWidget_9->setObjectName(QStringLiteral("layoutWidget_9"));
-        layoutWidget_9->setGeometry(QRect(4, 12, 156, 25));
-        horizontalLayout_16 = new QHBoxLayout(layoutWidget_9);
-        horizontalLayout_16->setSpacing(6);
-        horizontalLayout_16->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_16->setObjectName(QStringLiteral("horizontalLayout_16"));
-        horizontalLayout_16->setContentsMargins(0, 0, 0, 0);
-        Global_Sobel_kernel_slider = new QSlider(layoutWidget_9);
-        Global_Sobel_kernel_slider->setObjectName(QStringLiteral("Global_Sobel_kernel_slider"));
-        Global_Sobel_kernel_slider->setMinimum(1);
-        Global_Sobel_kernel_slider->setMaximum(7);
-        Global_Sobel_kernel_slider->setSliderPosition(3);
-        Global_Sobel_kernel_slider->setOrientation(Qt::Horizontal);
-
-        horizontalLayout_16->addWidget(Global_Sobel_kernel_slider);
-
-        Global_Sobel_kernel_lcdNumber = new QLCDNumber(layoutWidget_9);
-        Global_Sobel_kernel_lcdNumber->setObjectName(QStringLiteral("Global_Sobel_kernel_lcdNumber"));
-        Global_Sobel_kernel_lcdNumber->setProperty("intValue", QVariant(3));
-
-        horizontalLayout_16->addWidget(Global_Sobel_kernel_lcdNumber);
-
-        Local_Otsu_box = new QGroupBox(centralWidget);
-        Local_Otsu_box->setObjectName(QStringLiteral("Local_Otsu_box"));
-        Local_Otsu_box->setGeometry(QRect(300, 560, 380, 100));
-        layoutWidget1 = new QWidget(Local_Otsu_box);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(8, 48, 156, 25));
-        horizontalLayout_2 = new QHBoxLayout(layoutWidget1);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        Local_Otsu_horizontalSlider = new QSlider(layoutWidget1);
-        Local_Otsu_horizontalSlider->setObjectName(QStringLiteral("Local_Otsu_horizontalSlider"));
-        Local_Otsu_horizontalSlider->setMinimum(1);
-        Local_Otsu_horizontalSlider->setMaximum(40);
-        Local_Otsu_horizontalSlider->setValue(5);
-        Local_Otsu_horizontalSlider->setOrientation(Qt::Horizontal);
-
-        horizontalLayout_2->addWidget(Local_Otsu_horizontalSlider);
-
-        Local_Otsu_lcdNumber = new QLCDNumber(layoutWidget1);
-        Local_Otsu_lcdNumber->setObjectName(QStringLiteral("Local_Otsu_lcdNumber"));
-        Local_Otsu_lcdNumber->setProperty("intValue", QVariant(25));
-
-        horizontalLayout_2->addWidget(Local_Otsu_lcdNumber);
-
-        Global_Scharr_box = new QGroupBox(centralWidget);
-        Global_Scharr_box->setObjectName(QStringLiteral("Global_Scharr_box"));
-        Global_Scharr_box->setGeometry(QRect(300, 560, 380, 100));
-        Glocal_Scharr_Histogram = new QGroupBox(Global_Scharr_box);
-        Glocal_Scharr_Histogram->setObjectName(QStringLiteral("Glocal_Scharr_Histogram"));
-        Glocal_Scharr_Histogram->setGeometry(QRect(200, 30, 170, 45));
-        layoutWidget2 = new QWidget(Glocal_Scharr_Histogram);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(4, 12, 156, 25));
-        horizontalLayout_6 = new QHBoxLayout(layoutWidget2);
-        horizontalLayout_6->setSpacing(6);
-        horizontalLayout_6->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        horizontalLayout_6->setContentsMargins(0, 0, 0, 0);
-        Global_Scharr_histogram_slider = new QSlider(layoutWidget2);
-        Global_Scharr_histogram_slider->setObjectName(QStringLiteral("Global_Scharr_histogram_slider"));
-        Global_Scharr_histogram_slider->setMinimum(60);
-        Global_Scharr_histogram_slider->setMaximum(99);
-        Global_Scharr_histogram_slider->setSliderPosition(90);
-        Global_Scharr_histogram_slider->setOrientation(Qt::Horizontal);
-
-        horizontalLayout_6->addWidget(Global_Scharr_histogram_slider);
-
-        Global_Scharr_histogram_lcdNumber = new QLCDNumber(layoutWidget2);
-        Global_Scharr_histogram_lcdNumber->setObjectName(QStringLiteral("Global_Scharr_histogram_lcdNumber"));
-        Global_Scharr_histogram_lcdNumber->setProperty("intValue", QVariant(90));
-
-        horizontalLayout_6->addWidget(Global_Scharr_histogram_lcdNumber);
-
-        Global_Scharr_dx_checkBox = new QCheckBox(Global_Scharr_box);
-        Global_Scharr_dx_checkBox->setObjectName(QStringLiteral("Global_Scharr_dx_checkBox"));
-        Global_Scharr_dx_checkBox->setGeometry(QRect(12, 20, 37, 17));
-        Global_Scharr_dx_checkBox->setChecked(true);
-        Global_Scharr_dy_checkBox = new QCheckBox(Global_Scharr_box);
-        Global_Scharr_dy_checkBox->setObjectName(QStringLiteral("Global_Scharr_dy_checkBox"));
-        Global_Scharr_dy_checkBox->setGeometry(QRect(12, 64, 37, 17));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(4, 96, 693, 445));
-        processed_image_label = new QLabel(centralWidget);
-        processed_image_label->setObjectName(QStringLiteral("processed_image_label"));
-        processed_image_label->setGeometry(QRect(752, 96, 597, 457));
-        Capture = new QPushButton(centralWidget);
-        Capture->setObjectName(QStringLiteral("Capture"));
-        Capture->setGeometry(QRect(16, 588, 109, 25));
-        QFont font;
-        font.setPointSize(12);
-        Capture->setFont(font);
-        histogram_fixed = new QLabel(centralWidget);
-        histogram_fixed->setObjectName(QStringLiteral("histogram_fixed"));
-        histogram_fixed->setGeometry(QRect(888, 112, 541, 400));
-        Segmentation_groupBox = new QGroupBox(centralWidget);
-        Segmentation_groupBox->setObjectName(QStringLiteral("Segmentation_groupBox"));
-        Segmentation_groupBox->setGeometry(QRect(0, 44, 1173, 50));
-        layoutWidget3 = new QWidget(Segmentation_groupBox);
-        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(19, 20, 1147, 19));
-        horizontalLayout = new QHBoxLayout(layoutWidget3);
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        Global_Sobel = new QRadioButton(layoutWidget3);
-        Global_Sobel->setObjectName(QStringLiteral("Global_Sobel"));
-
-        horizontalLayout->addWidget(Global_Sobel);
-
-        Local_Sobel = new QRadioButton(layoutWidget3);
-        Local_Sobel->setObjectName(QStringLiteral("Local_Sobel"));
-
-        horizontalLayout->addWidget(Local_Sobel);
-
-        Global_Scharr = new QRadioButton(layoutWidget3);
-        Global_Scharr->setObjectName(QStringLiteral("Global_Scharr"));
-
-        horizontalLayout->addWidget(Global_Scharr);
-
-        Local_Scharr = new QRadioButton(layoutWidget3);
-        Local_Scharr->setObjectName(QStringLiteral("Local_Scharr"));
-
-        horizontalLayout->addWidget(Local_Scharr);
-
-        Global_Otsu = new QRadioButton(layoutWidget3);
-        Global_Otsu->setObjectName(QStringLiteral("Global_Otsu"));
-
-        horizontalLayout->addWidget(Global_Otsu);
-
-        Local_Otsu = new QRadioButton(layoutWidget3);
-        Local_Otsu->setObjectName(QStringLiteral("Local_Otsu"));
-
-        horizontalLayout->addWidget(Local_Otsu);
-
-        Thresholding = new QRadioButton(layoutWidget3);
-        Thresholding->setObjectName(QStringLiteral("Thresholding"));
-
-        horizontalLayout->addWidget(Thresholding);
-
-        Adaptive_Thresholding = new QRadioButton(layoutWidget3);
-        Adaptive_Thresholding->setObjectName(QStringLiteral("Adaptive_Thresholding"));
-
-        horizontalLayout->addWidget(Adaptive_Thresholding);
-
-        Inversion_checkbox = new QCheckBox(layoutWidget3);
-        Inversion_checkbox->setObjectName(QStringLiteral("Inversion_checkbox"));
-
-        horizontalLayout->addWidget(Inversion_checkbox);
-
-        Global_Otsu_box = new QGroupBox(centralWidget);
-        Global_Otsu_box->setObjectName(QStringLiteral("Global_Otsu_box"));
-        Global_Otsu_box->setGeometry(QRect(300, 560, 380, 100));
-        Local_Scharr_box = new QGroupBox(centralWidget);
-        Local_Scharr_box->setObjectName(QStringLiteral("Local_Scharr_box"));
-        Local_Scharr_box->setGeometry(QRect(300, 560, 550, 100));
-        Local_Scharr_Histogram = new QGroupBox(Local_Scharr_box);
-        Local_Scharr_Histogram->setObjectName(QStringLiteral("Local_Scharr_Histogram"));
-        Local_Scharr_Histogram->setGeometry(QRect(376, 30, 170, 45));
-        layoutWidget4 = new QWidget(Local_Scharr_Histogram);
-        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(4, 12, 156, 25));
-        horizontalLayout_5 = new QHBoxLayout(layoutWidget4);
-        horizontalLayout_5->setSpacing(6);
-        horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
-        Local_Scharr_histogram_slider = new QSlider(layoutWidget4);
-        Local_Scharr_histogram_slider->setObjectName(QStringLiteral("Local_Scharr_histogram_slider"));
-        Local_Scharr_histogram_slider->setMinimum(60);
-        Local_Scharr_histogram_slider->setMaximum(99);
-        Local_Scharr_histogram_slider->setSliderPosition(90);
-        Local_Scharr_histogram_slider->setOrientation(Qt::Horizontal);
-
-        horizontalLayout_5->addWidget(Local_Scharr_histogram_slider);
-
-        Local_Scharr_histogram_lcdNumber = new QLCDNumber(layoutWidget4);
-        Local_Scharr_histogram_lcdNumber->setObjectName(QStringLiteral("Local_Scharr_histogram_lcdNumber"));
-        Local_Scharr_histogram_lcdNumber->setProperty("intValue", QVariant(90));
-
-        horizontalLayout_5->addWidget(Local_Scharr_histogram_lcdNumber);
-
-        groupBox_2 = new QGroupBox(Local_Scharr_box);
-        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setGeometry(QRect(0, 30, 170, 45));
-        layoutWidget_2 = new QWidget(groupBox_2);
-        layoutWidget_2->setObjectName(QStringLiteral("layoutWidget_2"));
-        layoutWidget_2->setGeometry(QRect(8, 16, 156, 25));
-        horizontalLayout_4 = new QHBoxLayout(layoutWidget_2);
-        horizontalLayout_4->setSpacing(6);
-        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
-        Local_Scharr_horizontalSlider = new QSlider(layoutWidget_2);
-        Local_Scharr_horizontalSlider->setObjectName(QStringLiteral("Local_Scharr_horizontalSlider"));
-        Local_Scharr_horizontalSlider->setMinimum(1);
-        Local_Scharr_horizontalSlider->setMaximum(40);
-        Local_Scharr_horizontalSlider->setValue(5);
-        Local_Scharr_horizontalSlider->setOrientation(Qt::Horizontal);
-
-        horizontalLayout_4->addWidget(Local_Scharr_horizontalSlider);
-
-        Local_Scharr_lcdNumber = new QLCDNumber(layoutWidget_2);
-        Local_Scharr_lcdNumber->setObjectName(QStringLiteral("Local_Scharr_lcdNumber"));
-        Local_Scharr_lcdNumber->setProperty("intValue", QVariant(25));
-
-        horizontalLayout_4->addWidget(Local_Scharr_lcdNumber);
-
-        Local_Scharr_dy_checkBox = new QCheckBox(Local_Scharr_box);
-        Local_Scharr_dy_checkBox->setObjectName(QStringLiteral("Local_Scharr_dy_checkBox"));
-        Local_Scharr_dy_checkBox->setGeometry(QRect(236, 64, 70, 17));
-        Local_Scharr_dx_checkBox = new QCheckBox(Local_Scharr_box);
-        Local_Scharr_dx_checkBox->setObjectName(QStringLiteral("Local_Scharr_dx_checkBox"));
-        Local_Scharr_dx_checkBox->setGeometry(QRect(236, 20, 70, 17));
-        Local_Scharr_dx_checkBox->setChecked(true);
-        Modes_groupbox = new QGroupBox(centralWidget);
-        Modes_groupbox->setObjectName(QStringLiteral("Modes_groupbox"));
-        Modes_groupbox->setGeometry(QRect(564, 4, 285, 41));
-        layoutWidget5 = new QWidget(Modes_groupbox);
-        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
-        layoutWidget5->setGeometry(QRect(4, 12, 279, 19));
-        horizontalLayout_9 = new QHBoxLayout(layoutWidget5);
-        horizontalLayout_9->setSpacing(6);
-        horizontalLayout_9->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
-        horizontalLayout_9->setContentsMargins(0, 0, 0, 0);
-        No_Mode = new QRadioButton(layoutWidget5);
-        No_Mode->setObjectName(QStringLiteral("No_Mode"));
-        No_Mode->setChecked(true);
-
-        horizontalLayout_9->addWidget(No_Mode);
-
-        Hole_Detection = new QRadioButton(layoutWidget5);
-        Hole_Detection->setObjectName(QStringLiteral("Hole_Detection"));
-
-        horizontalLayout_9->addWidget(Hole_Detection);
-
-        Growth_detection = new QRadioButton(layoutWidget5);
-        Growth_detection->setObjectName(QStringLiteral("Growth_detection"));
-
-        horizontalLayout_9->addWidget(Growth_detection);
-
-        Color_spaces_groupBox = new QGroupBox(centralWidget);
-        Color_spaces_groupBox->setObjectName(QStringLiteral("Color_spaces_groupBox"));
-        Color_spaces_groupBox->setGeometry(QRect(0, 0, 561, 45));
-        layoutWidget6 = new QWidget(Color_spaces_groupBox);
-        layoutWidget6->setObjectName(QStringLiteral("layoutWidget6"));
-        layoutWidget6->setGeometry(QRect(8, 16, 547, 19));
-        horizontalLayout_10 = new QHBoxLayout(layoutWidget6);
-        horizontalLayout_10->setSpacing(6);
-        horizontalLayout_10->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
-        horizontalLayout_10->setContentsMargins(0, 0, 0, 0);
-        x = new QRadioButton(layoutWidget6);
-        x->setObjectName(QStringLiteral("x"));
-
-        horizontalLayout_10->addWidget(x);
-
-        y = new QRadioButton(layoutWidget6);
-        y->setObjectName(QStringLiteral("y"));
-
-        horizontalLayout_10->addWidget(y);
-
-        Y = new QRadioButton(layoutWidget6);
-        Y->setObjectName(QStringLiteral("Y"));
-
-        horizontalLayout_10->addWidget(Y);
-
-        Red = new QRadioButton(layoutWidget6);
-        Red->setObjectName(QStringLiteral("Red"));
-
-        horizontalLayout_10->addWidget(Red);
-
-        Green = new QRadioButton(layoutWidget6);
-        Green->setObjectName(QStringLiteral("Green"));
-
-        horizontalLayout_10->addWidget(Green);
-
-        Blue = new QRadioButton(layoutWidget6);
-        Blue->setObjectName(QStringLiteral("Blue"));
-
-        horizontalLayout_10->addWidget(Blue);
-
-        x2 = new QRadioButton(layoutWidget6);
-        x2->setObjectName(QStringLiteral("x2"));
-
-        horizontalLayout_10->addWidget(x2);
-
-        y2 = new QRadioButton(layoutWidget6);
-        y2->setObjectName(QStringLiteral("y2"));
-
-        horizontalLayout_10->addWidget(y2);
-
-        Y2 = new QRadioButton(layoutWidget6);
-        Y2->setObjectName(QStringLiteral("Y2"));
-
-        horizontalLayout_10->addWidget(Y2);
-
-        Lab = new QRadioButton(layoutWidget6);
-        Lab->setObjectName(QStringLiteral("Lab"));
-
-        horizontalLayout_10->addWidget(Lab);
-
-        L = new QRadioButton(layoutWidget6);
-        L->setObjectName(QStringLiteral("L"));
-
-        horizontalLayout_10->addWidget(L);
-
-        a = new QRadioButton(layoutWidget6);
-        a->setObjectName(QStringLiteral("a"));
-
-        horizontalLayout_10->addWidget(a);
-
-        b = new QRadioButton(layoutWidget6);
-        b->setObjectName(QStringLiteral("b"));
-
-        horizontalLayout_10->addWidget(b);
-
-        groupBox_4 = new QGroupBox(centralWidget);
-        groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
-        groupBox_4->setGeometry(QRect(0, 612, 145, 69));
-        Total_time_spent = new QPlainTextEdit(groupBox_4);
-        Total_time_spent->setObjectName(QStringLiteral("Total_time_spent"));
-        Total_time_spent->setGeometry(QRect(4, 12, 137, 53));
-        Total_time_spent->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        Total_time_spent->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        Segmentation_enhancing_groupBox = new QGroupBox(centralWidget);
-        Segmentation_enhancing_groupBox->setObjectName(QStringLiteral("Segmentation_enhancing_groupBox"));
-        Segmentation_enhancing_groupBox->setGeometry(QRect(860, 560, 465, 97));
-        Dilation_checkBox = new QCheckBox(Segmentation_enhancing_groupBox);
-        Dilation_checkBox->setObjectName(QStringLiteral("Dilation_checkBox"));
-        Dilation_checkBox->setGeometry(QRect(48, 20, 57, 17));
-        Gaussian_checkBox = new QCheckBox(Segmentation_enhancing_groupBox);
-        Gaussian_checkBox->setObjectName(QStringLiteral("Gaussian_checkBox"));
-        Gaussian_checkBox->setGeometry(QRect(192, 20, 117, 17));
-        Dilation_groupBox = new QGroupBox(Segmentation_enhancing_groupBox);
-        Dilation_groupBox->setObjectName(QStringLiteral("Dilation_groupBox"));
-        Dilation_groupBox->setGeometry(QRect(4, 40, 150, 40));
-        layoutWidget7 = new QWidget(Dilation_groupBox);
-        layoutWidget7->setObjectName(QStringLiteral("layoutWidget7"));
-        layoutWidget7->setGeometry(QRect(4, 12, 141, 25));
-        horizontalLayout_12 = new QHBoxLayout(layoutWidget7);
-        horizontalLayout_12->setSpacing(6);
-        horizontalLayout_12->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
-        horizontalLayout_12->setContentsMargins(0, 0, 0, 0);
-        Dilation_horizontalSlider = new QSlider(layoutWidget7);
-        Dilation_horizontalSlider->setObjectName(QStringLiteral("Dilation_horizontalSlider"));
-        Dilation_horizontalSlider->setMinimum(1);
-        Dilation_horizontalSlider->setMaximum(10);
-        Dilation_horizontalSlider->setOrientation(Qt::Horizontal);
-
-        horizontalLayout_12->addWidget(Dilation_horizontalSlider);
-
-        Dilation_lcdNumber = new QLCDNumber(layoutWidget7);
-        Dilation_lcdNumber->setObjectName(QStringLiteral("Dilation_lcdNumber"));
-        Dilation_lcdNumber->setProperty("intValue", QVariant(1));
-
-        horizontalLayout_12->addWidget(Dilation_lcdNumber);
-
-        Gaussian_smoothing_groupBox = new QGroupBox(Segmentation_enhancing_groupBox);
-        Gaussian_smoothing_groupBox->setObjectName(QStringLiteral("Gaussian_smoothing_groupBox"));
-        Gaussian_smoothing_groupBox->setGeometry(QRect(180, 40, 150, 40));
-        layoutWidget_8 = new QWidget(Gaussian_smoothing_groupBox);
-        layoutWidget_8->setObjectName(QStringLiteral("layoutWidget_8"));
-        layoutWidget_8->setGeometry(QRect(4, 12, 141, 25));
-        horizontalLayout_15 = new QHBoxLayout(layoutWidget_8);
-        horizontalLayout_15->setSpacing(6);
-        horizontalLayout_15->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_15->setObjectName(QStringLiteral("horizontalLayout_15"));
-        horizontalLayout_15->setContentsMargins(0, 0, 0, 0);
-        Gaussian_horizontalSlider = new QSlider(layoutWidget_8);
-        Gaussian_horizontalSlider->setObjectName(QStringLiteral("Gaussian_horizontalSlider"));
-        Gaussian_horizontalSlider->setMinimum(1);
-        Gaussian_horizontalSlider->setMaximum(25);
-        Gaussian_horizontalSlider->setSingleStep(2);
-        Gaussian_horizontalSlider->setOrientation(Qt::Horizontal);
-
-        horizontalLayout_15->addWidget(Gaussian_horizontalSlider);
-
-        Gaussian_lcdNumber = new QLCDNumber(layoutWidget_8);
-        Gaussian_lcdNumber->setObjectName(QStringLiteral("Gaussian_lcdNumber"));
-        Gaussian_lcdNumber->setProperty("intValue", QVariant(1));
-
-        horizontalLayout_15->addWidget(Gaussian_lcdNumber);
-
-        Thresholding_box = new QGroupBox(centralWidget);
+        Thresholding_box = new QGroupBox(Bottom_line_box);
         Thresholding_box->setObjectName(QStringLiteral("Thresholding_box"));
-        Thresholding_box->setGeometry(QRect(300, 560, 380, 100));
+        Thresholding_box->setGeometry(QRect(300, 20, 380, 100));
         Glocal_Scharr_Histogram_2 = new QGroupBox(Thresholding_box);
         Glocal_Scharr_Histogram_2->setObjectName(QStringLiteral("Glocal_Scharr_Histogram_2"));
         Glocal_Scharr_Histogram_2->setGeometry(QRect(200, 30, 170, 45));
@@ -838,27 +775,66 @@ public:
 
         horizontalLayout_11->addWidget(Threshold_lcdNumber_2);
 
-        Adaptive_Thresholding_box = new QGroupBox(centralWidget);
+        Global_Scharr_box = new QGroupBox(Bottom_line_box);
+        Global_Scharr_box->setObjectName(QStringLiteral("Global_Scharr_box"));
+        Global_Scharr_box->setGeometry(QRect(300, 20, 380, 100));
+        Glocal_Scharr_Histogram = new QGroupBox(Global_Scharr_box);
+        Glocal_Scharr_Histogram->setObjectName(QStringLiteral("Glocal_Scharr_Histogram"));
+        Glocal_Scharr_Histogram->setGeometry(QRect(200, 30, 170, 45));
+        layoutWidget6 = new QWidget(Glocal_Scharr_Histogram);
+        layoutWidget6->setObjectName(QStringLiteral("layoutWidget6"));
+        layoutWidget6->setGeometry(QRect(4, 12, 156, 25));
+        horizontalLayout_6 = new QHBoxLayout(layoutWidget6);
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        horizontalLayout_6->setContentsMargins(0, 0, 0, 0);
+        Global_Scharr_histogram_slider = new QSlider(layoutWidget6);
+        Global_Scharr_histogram_slider->setObjectName(QStringLiteral("Global_Scharr_histogram_slider"));
+        Global_Scharr_histogram_slider->setMinimum(60);
+        Global_Scharr_histogram_slider->setMaximum(99);
+        Global_Scharr_histogram_slider->setSliderPosition(90);
+        Global_Scharr_histogram_slider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_6->addWidget(Global_Scharr_histogram_slider);
+
+        Global_Scharr_histogram_lcdNumber = new QLCDNumber(layoutWidget6);
+        Global_Scharr_histogram_lcdNumber->setObjectName(QStringLiteral("Global_Scharr_histogram_lcdNumber"));
+        Global_Scharr_histogram_lcdNumber->setProperty("intValue", QVariant(90));
+
+        horizontalLayout_6->addWidget(Global_Scharr_histogram_lcdNumber);
+
+        Global_Scharr_dx_checkBox = new QCheckBox(Global_Scharr_box);
+        Global_Scharr_dx_checkBox->setObjectName(QStringLiteral("Global_Scharr_dx_checkBox"));
+        Global_Scharr_dx_checkBox->setGeometry(QRect(12, 20, 37, 17));
+        Global_Scharr_dx_checkBox->setChecked(true);
+        Global_Scharr_dy_checkBox = new QCheckBox(Global_Scharr_box);
+        Global_Scharr_dy_checkBox->setObjectName(QStringLiteral("Global_Scharr_dy_checkBox"));
+        Global_Scharr_dy_checkBox->setGeometry(QRect(12, 64, 37, 17));
+        Otsu_in_edge_checkBox = new QCheckBox(Bottom_line_box);
+        Otsu_in_edge_checkBox->setObjectName(QStringLiteral("Otsu_in_edge_checkBox"));
+        Otsu_in_edge_checkBox->setGeometry(QRect(148, 20, 121, 25));
+        Adaptive_Thresholding_box = new QGroupBox(Bottom_line_box);
         Adaptive_Thresholding_box->setObjectName(QStringLiteral("Adaptive_Thresholding_box"));
-        Adaptive_Thresholding_box->setGeometry(QRect(300, 560, 380, 100));
+        Adaptive_Thresholding_box->setGeometry(QRect(300, 20, 380, 100));
         groupBox = new QGroupBox(Adaptive_Thresholding_box);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setGeometry(QRect(0, 20, 113, 73));
-        layoutWidget8 = new QWidget(groupBox);
-        layoutWidget8->setObjectName(QStringLiteral("layoutWidget8"));
-        layoutWidget8->setGeometry(QRect(5, 13, 68, 42));
-        verticalLayout = new QVBoxLayout(layoutWidget8);
+        layoutWidget7 = new QWidget(groupBox);
+        layoutWidget7->setObjectName(QStringLiteral("layoutWidget7"));
+        layoutWidget7->setGeometry(QRect(5, 13, 68, 42));
+        verticalLayout = new QVBoxLayout(layoutWidget7);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        Adaptive_Thresholding_gaussian_radioButton = new QRadioButton(layoutWidget8);
+        Adaptive_Thresholding_gaussian_radioButton = new QRadioButton(layoutWidget7);
         Adaptive_Thresholding_gaussian_radioButton->setObjectName(QStringLiteral("Adaptive_Thresholding_gaussian_radioButton"));
         Adaptive_Thresholding_gaussian_radioButton->setChecked(true);
 
         verticalLayout->addWidget(Adaptive_Thresholding_gaussian_radioButton);
 
-        Adaptive_thresholding_mean_radioButton = new QRadioButton(layoutWidget8);
+        Adaptive_thresholding_mean_radioButton = new QRadioButton(layoutWidget7);
         Adaptive_thresholding_mean_radioButton->setObjectName(QStringLiteral("Adaptive_thresholding_mean_radioButton"));
 
         verticalLayout->addWidget(Adaptive_thresholding_mean_radioButton);
@@ -895,28 +871,33 @@ public:
         Adaptive_Thresholding_C_lcdNumber->setObjectName(QStringLiteral("Adaptive_Thresholding_C_lcdNumber"));
         Adaptive_Thresholding_C_lcdNumber->setGeometry(QRect(100, 16, 64, 23));
         Adaptive_Thresholding_C_lcdNumber->setProperty("intValue", QVariant(0));
-        Otsu_in_edge_checkBox = new QCheckBox(centralWidget);
-        Otsu_in_edge_checkBox->setObjectName(QStringLiteral("Otsu_in_edge_checkBox"));
-        Otsu_in_edge_checkBox->setGeometry(QRect(148, 588, 121, 25));
+        Local_Otsu_box = new QGroupBox(Bottom_line_box);
+        Local_Otsu_box->setObjectName(QStringLiteral("Local_Otsu_box"));
+        Local_Otsu_box->setGeometry(QRect(300, 20, 380, 100));
+        layoutWidget8 = new QWidget(Local_Otsu_box);
+        layoutWidget8->setObjectName(QStringLiteral("layoutWidget8"));
+        layoutWidget8->setGeometry(QRect(8, 48, 156, 25));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget8);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        Local_Otsu_horizontalSlider = new QSlider(layoutWidget8);
+        Local_Otsu_horizontalSlider->setObjectName(QStringLiteral("Local_Otsu_horizontalSlider"));
+        Local_Otsu_horizontalSlider->setMinimum(1);
+        Local_Otsu_horizontalSlider->setMaximum(40);
+        Local_Otsu_horizontalSlider->setValue(5);
+        Local_Otsu_horizontalSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_2->addWidget(Local_Otsu_horizontalSlider);
+
+        Local_Otsu_lcdNumber = new QLCDNumber(layoutWidget8);
+        Local_Otsu_lcdNumber->setObjectName(QStringLiteral("Local_Otsu_lcdNumber"));
+        Local_Otsu_lcdNumber->setProperty("intValue", QVariant(25));
+
+        horizontalLayout_2->addWidget(Local_Otsu_lcdNumber);
+
         MainWindow->setCentralWidget(centralWidget);
-        Local_Scharr_box->raise();
-        Thresholding_box->raise();
-        label->raise();
-        Global_Otsu_box->raise();
-        Local_Sobel_box->raise();
-        Global_Sobel_box->raise();
-        Local_Otsu_box->raise();
-        Global_Scharr_box->raise();
-        processed_image_label->raise();
-        Segmentation_enhancing_groupBox->raise();
-        histogram_fixed->raise();
-        Capture->raise();
-        Segmentation_groupBox->raise();
-        Modes_groupbox->raise();
-        Color_spaces_groupBox->raise();
-        groupBox_4->raise();
-        Adaptive_Thresholding_box->raise();
-        Otsu_in_edge_checkBox->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1500, 21));
@@ -947,26 +928,8 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         actionOpen_Image->setText(QApplication::translate("MainWindow", "Open Image", 0));
-        Local_Sobel_box->setTitle(QApplication::translate("MainWindow", "Local Sobel", 0));
-        groupBox_3->setTitle(QApplication::translate("MainWindow", "Number of sub-images", 0));
-        Local_Sobel_Histogram->setTitle(QApplication::translate("MainWindow", "Histogram percentile", 0));
-        Global_Sobel_dx_groupBox_3->setTitle(QApplication::translate("MainWindow", "dx", 0));
-        Global_Sobel_dy_groupBox_3->setTitle(QApplication::translate("MainWindow", "dy", 0));
-        Glocal_Sobel_Kernel_size_box_3->setTitle(QApplication::translate("MainWindow", "Kernel Size", 0));
-        Global_Sobel_box->setTitle(QApplication::translate("MainWindow", "Global Sobel", 0));
-        Glocal_Sobel_Histogram->setTitle(QApplication::translate("MainWindow", "Histogram percentile", 0));
-        Global_Sobel_dx_groupBox->setTitle(QApplication::translate("MainWindow", "dx", 0));
-        Global_Sobel_dy_groupBox->setTitle(QApplication::translate("MainWindow", "dy", 0));
-        Glocal_Sobel_Kernel_size_box->setTitle(QApplication::translate("MainWindow", "Kernel Size", 0));
-        Local_Otsu_box->setTitle(QApplication::translate("MainWindow", "Local Otsu", 0));
-        Global_Scharr_box->setTitle(QApplication::translate("MainWindow", "Global Scharr", 0));
-        Glocal_Scharr_Histogram->setTitle(QApplication::translate("MainWindow", "Histogram percentile", 0));
-        Global_Scharr_dx_checkBox->setText(QApplication::translate("MainWindow", "dx", 0));
-        Global_Scharr_dy_checkBox->setText(QApplication::translate("MainWindow", "dy", 0));
         label->setText(QString());
         processed_image_label->setText(QString());
-        Capture->setText(QApplication::translate("MainWindow", "Capture", 0));
-        histogram_fixed->setText(QString());
         Segmentation_groupBox->setTitle(QApplication::translate("MainWindow", "Segmentation methods", 0));
         Global_Sobel->setText(QApplication::translate("MainWindow", "Global Sobel", 0));
         Local_Sobel->setText(QApplication::translate("MainWindow", "Local Sobel using sub-images", 0));
@@ -977,12 +940,6 @@ public:
         Thresholding->setText(QApplication::translate("MainWindow", "Thresholding", 0));
         Adaptive_Thresholding->setText(QApplication::translate("MainWindow", "Adaptive thresholding", 0));
         Inversion_checkbox->setText(QApplication::translate("MainWindow", "Invert Segmented image", 0));
-        Global_Otsu_box->setTitle(QApplication::translate("MainWindow", "Global Otsu", 0));
-        Local_Scharr_box->setTitle(QApplication::translate("MainWindow", "Local Scharr", 0));
-        Local_Scharr_Histogram->setTitle(QApplication::translate("MainWindow", "Histogram percentile", 0));
-        groupBox_2->setTitle(QApplication::translate("MainWindow", "Number of sub-images", 0));
-        Local_Scharr_dy_checkBox->setText(QApplication::translate("MainWindow", "dy", 0));
-        Local_Scharr_dx_checkBox->setText(QApplication::translate("MainWindow", "dx", 0));
         Modes_groupbox->setTitle(QApplication::translate("MainWindow", "Mode", 0));
         No_Mode->setText(QApplication::translate("MainWindow", "No Mode", 0));
         Hole_Detection->setText(QApplication::translate("MainWindow", "Hole Detection", 0));
@@ -1001,23 +958,47 @@ public:
         L->setText(QApplication::translate("MainWindow", "L", 0));
         a->setText(QApplication::translate("MainWindow", "a", 0));
         b->setText(QApplication::translate("MainWindow", "b", 0));
-        groupBox_4->setTitle(QApplication::translate("MainWindow", "Total time spent per image", 0));
+        Bottom_line_box->setTitle(QString());
+        Global_Sobel_box->setTitle(QApplication::translate("MainWindow", "Global Sobel", 0));
+        Glocal_Sobel_Histogram->setTitle(QApplication::translate("MainWindow", "Histogram percentile", 0));
+        Global_Sobel_dx_groupBox->setTitle(QApplication::translate("MainWindow", "dx", 0));
+        Global_Sobel_dy_groupBox->setTitle(QApplication::translate("MainWindow", "dy", 0));
+        Glocal_Sobel_Kernel_size_box->setTitle(QApplication::translate("MainWindow", "Kernel Size", 0));
+        Local_Scharr_box->setTitle(QApplication::translate("MainWindow", "Local Scharr", 0));
+        Local_Scharr_Histogram->setTitle(QApplication::translate("MainWindow", "Histogram percentile", 0));
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "Number of sub-images", 0));
+        Local_Scharr_dy_checkBox->setText(QApplication::translate("MainWindow", "dy", 0));
+        Local_Scharr_dx_checkBox->setText(QApplication::translate("MainWindow", "dx", 0));
+        Global_Otsu_box->setTitle(QApplication::translate("MainWindow", "Global Otsu", 0));
+        Capture->setText(QApplication::translate("MainWindow", "Capture", 0));
+        time_spent_box->setTitle(QApplication::translate("MainWindow", "Total time spent per image", 0));
         Segmentation_enhancing_groupBox->setTitle(QApplication::translate("MainWindow", "Segmentation enhancing", 0));
         Dilation_checkBox->setText(QApplication::translate("MainWindow", "Dilation", 0));
         Gaussian_checkBox->setText(QApplication::translate("MainWindow", "Gaussian Smoothing", 0));
         Dilation_groupBox->setTitle(QApplication::translate("MainWindow", "Number of rounds", 0));
         Gaussian_smoothing_groupBox->setTitle(QApplication::translate("MainWindow", "Kernel size", 0));
+        Local_Sobel_box->setTitle(QApplication::translate("MainWindow", "Local Sobel", 0));
+        groupBox_3->setTitle(QApplication::translate("MainWindow", "Number of sub-images", 0));
+        Local_Sobel_Histogram->setTitle(QApplication::translate("MainWindow", "Histogram percentile", 0));
+        Global_Sobel_dx_groupBox_3->setTitle(QApplication::translate("MainWindow", "dx", 0));
+        Global_Sobel_dy_groupBox_3->setTitle(QApplication::translate("MainWindow", "dy", 0));
+        Glocal_Sobel_Kernel_size_box_3->setTitle(QApplication::translate("MainWindow", "Kernel Size", 0));
         Thresholding_box->setTitle(QApplication::translate("MainWindow", "Thresholding", 0));
         Glocal_Scharr_Histogram_2->setTitle(QApplication::translate("MainWindow", "Threshold", 0));
+        Global_Scharr_box->setTitle(QApplication::translate("MainWindow", "Global Scharr", 0));
+        Glocal_Scharr_Histogram->setTitle(QApplication::translate("MainWindow", "Histogram percentile", 0));
+        Global_Scharr_dx_checkBox->setText(QApplication::translate("MainWindow", "dx", 0));
+        Global_Scharr_dy_checkBox->setText(QApplication::translate("MainWindow", "dy", 0));
+        Otsu_in_edge_checkBox->setText(QApplication::translate("MainWindow", "Use Otsu with\n"
+"Edge Segmentation\n"
+"", 0));
         Adaptive_Thresholding_box->setTitle(QApplication::translate("MainWindow", "Adaptive Thresholding", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Thresholding method", 0));
         Adaptive_Thresholding_gaussian_radioButton->setText(QApplication::translate("MainWindow", "Gaussian", 0));
         Adaptive_thresholding_mean_radioButton->setText(QApplication::translate("MainWindow", "Mean", 0));
         Adaptive_Thresholding_Kernel_box->setTitle(QApplication::translate("MainWindow", "Kernel size", 0));
         Adaptive_Thresholding_C_box->setTitle(QApplication::translate("MainWindow", "C", 0));
-        Otsu_in_edge_checkBox->setText(QApplication::translate("MainWindow", "Use Otsu with\n"
-"Edge Segmentation\n"
-"", 0));
+        Local_Otsu_box->setTitle(QApplication::translate("MainWindow", "Local Otsu", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
     } // retranslateUi
 

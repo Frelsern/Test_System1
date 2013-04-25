@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     if(capWebcam.isOpened() == false)
     {
         //ui->plainTextEdit->appendPlainText("error: Webcam not accessed succesfully");
+        ui->Total_time_spent->appendPlainText("error: Webcam not accessed succesfully");
         return;
 
     }
@@ -72,11 +73,11 @@ void MainWindow::processFrameAndUpdateGUI()
     double duration;
     duration = static_cast<double>(cv::getTickCount());
 
-    capWebcam.read(image);//skru på når ferdig med bilder
+    capWebcam.read(image);
     if(image.empty()==true) return;
 
     //change color channel ordering
-    cv::cvtColor(image,image,CV_BGR2RGB);//skru på når ferdig med bilder
+    cv::cvtColor(image,image,CV_BGR2RGB);
 
 
     //Converting to the given color space
@@ -225,12 +226,14 @@ void MainWindow::processFrameAndUpdateGUI()
             QImage color_space_image = QImage((const unsigned char*)(Lab_image.data),
                                 Lab_image.cols,Lab_image.rows,QImage::Format_RGB888);
             ui->label->setPixmap(QPixmap::fromImage(color_space_image));
+            ui->label->resize(ui->label->pixmap()->size());
         }
         else if(processed_image.channels()==1)
         {
             QImage color_space_image = QImage((const unsigned char*)(processed_image.data),
                                  processed_image.cols,processed_image.rows,QImage::Format_Indexed8);
             ui->label->setPixmap(QPixmap::fromImage(color_space_image));
+            ui->label->resize(ui->label->pixmap()->size());
         }
         break;
     case HOLE_DETECTION:
@@ -241,6 +244,7 @@ void MainWindow::processFrameAndUpdateGUI()
             QImage hole_detection_image = QImage((const unsigned char*)(hole_detected_image.data),
                                  hole_detected_image.cols,hole_detected_image.rows,QImage::Format_Indexed8);
             ui->label->setPixmap(QPixmap::fromImage(hole_detection_image));
+            ui->label->resize(ui->label->pixmap()->size());
         }
         break;
     case GROWTH_DETECTION:
@@ -254,6 +258,7 @@ void MainWindow::processFrameAndUpdateGUI()
         QImage segmented_image = QImage((const unsigned char*)(Segmented_image.data),
                                         Segmented_image.cols,Segmented_image.rows,QImage::Format_Indexed8 );
         ui->processed_image_label->setPixmap(QPixmap::fromImage(segmented_image));
+        ui->processed_image_label->resize(ui->label->pixmap()->size());
     }
 
     //time measurment part
@@ -276,6 +281,7 @@ void MainWindow::on_actionOpen_Image_triggered()
    QImage img = QImage((const unsigned char*)(image.data),
                         image.cols,image.rows,QImage::Format_RGB888);
     ui->label->setPixmap(QPixmap::fromImage(img));
+    ui->label->resize(ui->label->pixmap()->size());
     //resize the label
     //ui->label->resize(ui->label->pixmap()->size());*/
 
