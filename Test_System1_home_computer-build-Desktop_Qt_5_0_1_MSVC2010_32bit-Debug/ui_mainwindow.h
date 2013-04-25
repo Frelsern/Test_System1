@@ -36,8 +36,6 @@ class Ui_MainWindow
 public:
     QAction *actionOpen_Image;
     QWidget *centralWidget;
-    QLabel *label;
-    QLabel *processed_image_label;
     QGroupBox *Segmentation_groupBox;
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
@@ -72,6 +70,11 @@ public:
     QRadioButton *L;
     QRadioButton *a;
     QRadioButton *b;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_13;
+    QLabel *label;
+    QLabel *processed_image_label;
     QGroupBox *Bottom_line_box;
     QGroupBox *Global_Sobel_box;
     QGroupBox *Glocal_Sobel_Histogram;
@@ -189,23 +192,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1400, 400);
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
-        MainWindow->setSizePolicy(sizePolicy);
-        MainWindow->setMinimumSize(QSize(1400, 400));
+        MainWindow->resize(1500, 700);
+        MainWindow->setMinimumSize(QSize(1000, 700));
         actionOpen_Image = new QAction(MainWindow);
         actionOpen_Image->setObjectName(QStringLiteral("actionOpen_Image"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(5, 100, 111, 61));
-        processed_image_label = new QLabel(centralWidget);
-        processed_image_label->setObjectName(QStringLiteral("processed_image_label"));
-        processed_image_label->setGeometry(QRect(100, 100, 211, 71));
         Segmentation_groupBox = new QGroupBox(centralWidget);
         Segmentation_groupBox->setObjectName(QStringLiteral("Segmentation_groupBox"));
         Segmentation_groupBox->setGeometry(QRect(0, 44, 1173, 50));
@@ -365,16 +357,32 @@ public:
 
         horizontalLayout_10->addWidget(b);
 
-        Bottom_line_box = new QGroupBox(centralWidget);
+        widget = new QWidget(centralWidget);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(0, 96, 1331, 351));
+        verticalLayout_2 = new QVBoxLayout(widget);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_13 = new QHBoxLayout();
+        horizontalLayout_13->setSpacing(6);
+        horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
+        label = new QLabel(widget);
+        label->setObjectName(QStringLiteral("label"));
+
+        horizontalLayout_13->addWidget(label);
+
+        processed_image_label = new QLabel(widget);
+        processed_image_label->setObjectName(QStringLiteral("processed_image_label"));
+
+        horizontalLayout_13->addWidget(processed_image_label);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_13);
+
+        Bottom_line_box = new QGroupBox(widget);
         Bottom_line_box->setObjectName(QStringLiteral("Bottom_line_box"));
-        Bottom_line_box->setGeometry(QRect(5, 200, 1330, 121));
-        QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Maximum);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(Bottom_line_box->sizePolicy().hasHeightForWidth());
-        Bottom_line_box->setSizePolicy(sizePolicy1);
-        Bottom_line_box->setMinimumSize(QSize(1330, 121));
-        Bottom_line_box->setMaximumSize(QSize(1330, 121));
         Global_Sobel_box = new QGroupBox(Bottom_line_box);
         Global_Sobel_box->setObjectName(QStringLiteral("Global_Sobel_box"));
         Global_Sobel_box->setGeometry(QRect(300, 20, 380, 100));
@@ -551,14 +559,13 @@ public:
         Global_Otsu_box->setGeometry(QRect(300, 20, 380, 100));
         Capture = new QPushButton(Bottom_line_box);
         Capture->setObjectName(QStringLiteral("Capture"));
-        Capture->setGeometry(QRect(10, 20, 109, 25));
+        Capture->setGeometry(QRect(170, 70, 109, 25));
         QFont font;
         font.setPointSize(12);
         Capture->setFont(font);
         time_spent_box = new QGroupBox(Bottom_line_box);
         time_spent_box->setObjectName(QStringLiteral("time_spent_box"));
         time_spent_box->setGeometry(QRect(0, 50, 145, 69));
-        time_spent_box->setAlignment(Qt::AlignCenter);
         Total_time_spent = new QPlainTextEdit(time_spent_box);
         Total_time_spent->setObjectName(QStringLiteral("Total_time_spent"));
         Total_time_spent->setGeometry(QRect(4, 12, 137, 53));
@@ -910,10 +917,13 @@ public:
 
         horizontalLayout_2->addWidget(Local_Otsu_lcdNumber);
 
+
+        verticalLayout_2->addWidget(Bottom_line_box);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1400, 21));
+        menuBar->setGeometry(QRect(0, 0, 1500, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
@@ -941,8 +951,6 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         actionOpen_Image->setText(QApplication::translate("MainWindow", "Open Image", 0));
-        label->setText(QString());
-        processed_image_label->setText(QString());
         Segmentation_groupBox->setTitle(QApplication::translate("MainWindow", "Segmentation methods", 0));
         Global_Sobel->setText(QApplication::translate("MainWindow", "Global Sobel", 0));
         Local_Sobel->setText(QApplication::translate("MainWindow", "Local Sobel using sub-images", 0));
@@ -971,6 +979,8 @@ public:
         L->setText(QApplication::translate("MainWindow", "L", 0));
         a->setText(QApplication::translate("MainWindow", "a", 0));
         b->setText(QApplication::translate("MainWindow", "b", 0));
+        label->setText(QString());
+        processed_image_label->setText(QString());
         Bottom_line_box->setTitle(QString());
         Global_Sobel_box->setTitle(QApplication::translate("MainWindow", "Global Sobel", 0));
         Glocal_Sobel_Histogram->setTitle(QApplication::translate("MainWindow", "Histogram percentile", 0));

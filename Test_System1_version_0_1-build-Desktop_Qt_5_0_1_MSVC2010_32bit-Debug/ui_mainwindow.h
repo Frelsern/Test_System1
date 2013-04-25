@@ -189,23 +189,18 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1400, 400);
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
-        MainWindow->setSizePolicy(sizePolicy);
-        MainWindow->setMinimumSize(QSize(1400, 400));
+        MainWindow->resize(1500, 700);
+        MainWindow->setMinimumSize(QSize(1000, 700));
         actionOpen_Image = new QAction(MainWindow);
         actionOpen_Image->setObjectName(QStringLiteral("actionOpen_Image"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(5, 100, 111, 61));
+        label->setGeometry(QRect(4, 96, 413, 341));
         processed_image_label = new QLabel(centralWidget);
         processed_image_label->setObjectName(QStringLiteral("processed_image_label"));
-        processed_image_label->setGeometry(QRect(100, 100, 211, 71));
+        processed_image_label->setGeometry(QRect(752, 96, 225, 293));
         Segmentation_groupBox = new QGroupBox(centralWidget);
         Segmentation_groupBox->setObjectName(QStringLiteral("Segmentation_groupBox"));
         Segmentation_groupBox->setGeometry(QRect(0, 44, 1173, 50));
@@ -367,14 +362,7 @@ public:
 
         Bottom_line_box = new QGroupBox(centralWidget);
         Bottom_line_box->setObjectName(QStringLiteral("Bottom_line_box"));
-        Bottom_line_box->setGeometry(QRect(5, 200, 1330, 121));
-        QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Maximum);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(Bottom_line_box->sizePolicy().hasHeightForWidth());
-        Bottom_line_box->setSizePolicy(sizePolicy1);
-        Bottom_line_box->setMinimumSize(QSize(1330, 121));
-        Bottom_line_box->setMaximumSize(QSize(1330, 121));
+        Bottom_line_box->setGeometry(QRect(0, 552, 1357, 125));
         Global_Sobel_box = new QGroupBox(Bottom_line_box);
         Global_Sobel_box->setObjectName(QStringLiteral("Global_Sobel_box"));
         Global_Sobel_box->setGeometry(QRect(300, 20, 380, 100));
@@ -551,14 +539,13 @@ public:
         Global_Otsu_box->setGeometry(QRect(300, 20, 380, 100));
         Capture = new QPushButton(Bottom_line_box);
         Capture->setObjectName(QStringLiteral("Capture"));
-        Capture->setGeometry(QRect(10, 20, 109, 25));
+        Capture->setGeometry(QRect(16, 20, 109, 25));
         QFont font;
         font.setPointSize(12);
         Capture->setFont(font);
         time_spent_box = new QGroupBox(Bottom_line_box);
         time_spent_box->setObjectName(QStringLiteral("time_spent_box"));
         time_spent_box->setGeometry(QRect(0, 50, 145, 69));
-        time_spent_box->setAlignment(Qt::AlignCenter);
         Total_time_spent = new QPlainTextEdit(time_spent_box);
         Total_time_spent->setObjectName(QStringLiteral("Total_time_spent"));
         Total_time_spent->setGeometry(QRect(4, 12, 137, 53));
@@ -913,7 +900,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1400, 21));
+        menuBar->setGeometry(QRect(0, 0, 1500, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);

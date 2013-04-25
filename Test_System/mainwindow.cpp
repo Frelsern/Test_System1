@@ -234,6 +234,7 @@ void MainWindow::processFrameAndUpdateGUI()
                                  processed_image.cols,processed_image.rows,QImage::Format_Indexed8);
             ui->label->setPixmap(QPixmap::fromImage(color_space_image));
             ui->label->resize(ui->label->pixmap()->size());
+            ui->Bottom_line_box->setGeometry(5,100+ui->label->pixmap()->height(),1330,120);//moving boxes in accordance to size of image
         }
         break;
     case HOLE_DETECTION:
@@ -245,6 +246,7 @@ void MainWindow::processFrameAndUpdateGUI()
                                  hole_detected_image.cols,hole_detected_image.rows,QImage::Format_Indexed8);
             ui->label->setPixmap(QPixmap::fromImage(hole_detection_image));
             ui->label->resize(ui->label->pixmap()->size());
+             ui->Bottom_line_box->setGeometry(5,100+ui->label->pixmap()->height(),1330,120);//moving boxes in accordance to size of image
         }
         break;
     case GROWTH_DETECTION:
@@ -257,8 +259,10 @@ void MainWindow::processFrameAndUpdateGUI()
     {
         QImage segmented_image = QImage((const unsigned char*)(Segmented_image.data),
                                         Segmented_image.cols,Segmented_image.rows,QImage::Format_Indexed8 );
+        ui->processed_image_label->setGeometry(100+ui->label->width(),100,0,0);
         ui->processed_image_label->setPixmap(QPixmap::fromImage(segmented_image));
         ui->processed_image_label->resize(ui->label->pixmap()->size());
+
     }
 
     //time measurment part
