@@ -8,6 +8,7 @@
 
 #include "segmentation_techniques.h"
 #include "hole_detection.h"
+#include "growth_detection.h"
 
 #include<opencv2/core/core.hpp>
 #include<opencv2/highgui/highgui.hpp>
@@ -126,6 +127,7 @@ private slots:
 
     void on_Adaptive_Thresholding_C_slider_valueChanged(int value);
 
+
 private:
     Ui::MainWindow *ui;
     QTimer* tmrTimer;
@@ -159,6 +161,8 @@ private:
     int Gaussian_kernel_size;
     int Adaptive_Thresholding_kernel_size;
     int Adaptive_thresholding_C;
+
+    int Percentage_foreground_clean_net;
 
     Color_Space cspace;
     Thresholding_Method thresh_met;

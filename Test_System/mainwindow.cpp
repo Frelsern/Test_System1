@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     //setup window
     ui->setupUi(this);
-    this->setWindowTitle(QString("System 1, v.0.2.6"));
+    this->setWindowTitle(QString("System 1, v.0.2.7"));
 
     //hide the Segmentation boxes
     ui->Global_Sobel_box->hide();
@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
     Adaptive_thresholding_C = 0;
     Dilation_iterations = 1;
     Gaussian_kernel_size = 1;
+
+    Percentage_foreground_clean_net = -1;
 
     cspace = COLOR_NONE;
     thresh_met = THRESH_NONE;
@@ -246,10 +248,19 @@ void MainWindow::processFrameAndUpdateGUI()
                                  hole_detected_image.cols,hole_detected_image.rows,QImage::Format_Indexed8);
             ui->label->setPixmap(QPixmap::fromImage(hole_detection_image));
             ui->label->resize(ui->label->pixmap()->size());
-             ui->Bottom_line_box->setGeometry(5,100+ui->label->pixmap()->height(),1330,120);//moving boxes in accordance to size of image
+            ui->Bottom_line_box->setGeometry(5,100+ui->label->pixmap()->height(),1330,120);//moving boxes in accordance to size of image
         }
         break;
     case GROWTH_DETECTION:
+        if((Percentage_foreground_clean_net > -1) & !Segmented_image.empty())
+        {
+            //gjør noe
+            qDebug() << "percentage foreground pixels on clean net: " << Percentage_foreground_clean_net;
+
+            int percentage_growth = Growth_detection_algo(Percentage_foreground_clean_net,Segmented_image)
+                    qDebug()
+
+        }
         break;
 
     }
@@ -282,10 +293,11 @@ void MainWindow::on_actionOpen_Image_triggered()
     //change color channel ordering
     cv::cvtColor(image,image,CV_BGR2RGB);
     //  Qt image
-   QImage img = QImage((const unsigned char*)(image.data),
+    QImage img = QImage((const unsigned char*)(image.data),
                         image.cols,image.rows,QImage::Format_RGB888);
     ui->label->setPixmap(QPixmap::fromImage(img));
     ui->label->resize(ui->label->pixmap()->size());
+    ui->Bottom_line_box->setGeometry(5,100+ui->label->pixmap()->height(),1330,120);//moving boxes in accordance to size of image
     //resize the label
     //ui->label->resize(ui->label->pixmap()->size());*/
 
@@ -434,7 +446,6 @@ void MainWindow::on_Local_Sobel_horizontalSlider_valueChanged(int value)
 {
     Local_Sobel_numberofSubImages = value;
     ui->Local_Sobel_lcdNumber->display(value*value);
-    //qDebug() << "verdien er: " << Local_Sobel_numberofSubImages;
 }
 
 void MainWindow::on_Local_Scharr_horizontalSlider_valueChanged(int value)
@@ -454,12 +465,17 @@ void MainWindow::on_Capture_clicked()
     if(!Segmented_image.empty())
     {
         imwrite( "Segmented_Image.png", Segmented_image );
+        //new - use captured segmented image to find % of foreground
+        Percentage_foreground_clean_net = percentage_foreground(Segmented_image);
     }
 
     if(!hole_detected_image.empty())
     {
         imwrite( "Hole_detected_Image.png", hole_detected_image );
     }
+
+
+
 }
 
 void MainWindow::on_Global_Sobel_histogram_slider_valueChanged(int value)
@@ -528,8 +544,6 @@ void MainWindow::custom_XYS_image()
         }
     }
 }
-
-
 
 void MainWindow::on_y_clicked()
 {
@@ -950,3 +964,6 @@ void MainWindow::on_Adaptive_Thresholding_C_slider_valueChanged(int value)
 {
     Adaptive_thresholding_C = value;
 }
+
+
+
