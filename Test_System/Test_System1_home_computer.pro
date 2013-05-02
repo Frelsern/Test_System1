@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     segmentation_techniques.cpp \
     histogram_segmentation.cpp \
-    hole_detection.cpp
+    hole_detection.cpp \
+    growth_detection.cpp
 
 HEADERS  += mainwindow.h \
     segmentation_techniques.h \
     histogram_segmentation.h \
-    hole_detection.h
+    hole_detection.h \
+    growth_detection.h
 
 FORMS    += mainwindow.ui
 
