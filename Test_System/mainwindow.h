@@ -35,6 +35,7 @@ public:
 
 public slots:
     void processFrameAndUpdateGUI();
+    void processImageAndUpdateGUI();
 
 private slots:
     void on_actionOpen_Image_triggered();
@@ -127,6 +128,9 @@ private slots:
 
     void on_Adaptive_Thresholding_C_slider_valueChanged(int value);
 
+    void on_actionProcess_IMage_triggered(); //can be removed
+
+    void on_Capture_clean_net_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -134,6 +138,7 @@ private:
     cv::VideoCapture capWebcam;
 
     cv::Mat image;
+    cv::Mat image_from_file;
     cv::Mat processed_image;
     cv::Mat XYZ_image;
     cv::Mat XYZ2;
@@ -162,7 +167,7 @@ private:
     int Adaptive_Thresholding_kernel_size;
     int Adaptive_thresholding_C;
 
-    int Percentage_foreground_clean_net;
+    double Percentage_foreground_clean_net;
 
     Color_Space cspace;
     Thresholding_Method thresh_met;

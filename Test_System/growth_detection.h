@@ -11,9 +11,9 @@ public:
     Growth_Detection();
 };
 
-int percentage_foreground(cv::Mat input_image);
+double percentage_foreground(cv::Mat input_image);
 
-int Growth_Detection_algo(int standard_percentage, cv::Mat input_image);
+double Growth_Detection_algo(double standard_percentage, cv::Mat input_image);
 
 
 

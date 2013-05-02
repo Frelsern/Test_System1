@@ -1,33 +1,35 @@
 #include "growth_detection.h"
+#include <QDebug>
 
 Growth_Detection::Growth_Detection()
 {
 }
 
 //Finds percentage of foreground pixels
-int percentage_foreground(cv::Mat input_image)
+double percentage_foreground(cv::Mat input_image)
 {
     int nc = input_image.cols*input_image.rows;
     int foreground = 0;
 
-    uchar* data = input_image.ptr<uchar>(j);
+    uchar* data = input_image.ptr<uchar>(0);
     for(int i = 0; i<nc;i++)
     {
-        if(data[i] == 1)
+        if(data[i] == 255)
         {
+            //qDebug() << "passed if";
            foreground = foreground+1;
         }
     }
-
-    int percentage = foreground/nc;
+    qDebug() << "antall pixler" << foreground;
+    double percentage = 100.0*foreground/nc;
     return percentage;
 }
 
 //for now it finds the percentage of growth on a scale from standard growth to 100% growth
-int Growth_Detection_algo(int standard_percentage, cv::Mat input_image)
+double Growth_Detection_algo(double standard_percentage, cv::Mat input_image)
 {
-    int input_image_percentage = percentage_foreground(input_image);
-    int diff = 0;
+    double input_image_percentage = percentage_foreground(input_image);
+    double diff = 0;
 
     if(input_image_percentage>standard_percentage)//dont accept negative growth
     {

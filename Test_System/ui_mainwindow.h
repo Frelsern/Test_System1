@@ -35,6 +35,7 @@ class Ui_MainWindow
 {
 public:
     QAction *actionOpen_Image;
+    QAction *actionProcess_IMage;
     QWidget *centralWidget;
     QLabel *label;
     QLabel *processed_image_label;
@@ -182,6 +183,7 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QSlider *Local_Otsu_horizontalSlider;
     QLCDNumber *Local_Otsu_lcdNumber;
+    QPushButton *Capture_clean_net_pushButton;
     QMenuBar *menuBar;
     QMenu *menuFile;
 
@@ -198,6 +200,8 @@ public:
         MainWindow->setMinimumSize(QSize(1400, 400));
         actionOpen_Image = new QAction(MainWindow);
         actionOpen_Image->setObjectName(QStringLiteral("actionOpen_Image"));
+        actionProcess_IMage = new QAction(MainWindow);
+        actionProcess_IMage->setObjectName(QStringLiteral("actionProcess_IMage"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         label = new QLabel(centralWidget);
@@ -910,6 +914,9 @@ public:
 
         horizontalLayout_2->addWidget(Local_Otsu_lcdNumber);
 
+        Capture_clean_net_pushButton = new QPushButton(centralWidget);
+        Capture_clean_net_pushButton->setObjectName(QStringLiteral("Capture_clean_net_pushButton"));
+        Capture_clean_net_pushButton->setGeometry(QRect(860, 12, 97, 23));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -920,6 +927,7 @@ public:
 
         menuBar->addAction(menuFile->menuAction());
         menuFile->addAction(actionOpen_Image);
+        menuFile->addAction(actionProcess_IMage);
 
         retranslateUi(MainWindow);
         QObject::connect(Local_Scharr_histogram_slider, SIGNAL(valueChanged(int)), Local_Scharr_histogram_lcdNumber, SLOT(display(int)));
@@ -941,6 +949,7 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         actionOpen_Image->setText(QApplication::translate("MainWindow", "Open Image", 0));
+        actionProcess_IMage->setText(QApplication::translate("MainWindow", "Show Process", 0));
         label->setText(QString());
         processed_image_label->setText(QString());
         Segmentation_groupBox->setTitle(QApplication::translate("MainWindow", "Segmentation methods", 0));
@@ -1012,6 +1021,7 @@ public:
         Adaptive_Thresholding_Kernel_box->setTitle(QApplication::translate("MainWindow", "Kernel size", 0));
         Adaptive_Thresholding_C_box->setTitle(QApplication::translate("MainWindow", "C", 0));
         Local_Otsu_box->setTitle(QApplication::translate("MainWindow", "Local Otsu", 0));
+        Capture_clean_net_pushButton->setText(QApplication::translate("MainWindow", "Capture clean net", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
     } // retranslateUi
 

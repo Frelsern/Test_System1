@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     //setup window
     ui->setupUi(this);
-    this->setWindowTitle(QString("System 1, v.0.2.7"));
+    this->setWindowTitle(QString("System 1, v.0.2.9"));
 
     //hide the Segmentation boxes
     ui->Global_Sobel_box->hide();
@@ -53,7 +53,14 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         //ui->plainTextEdit->appendPlainText("error: Webcam not accessed succesfully");
         ui->Total_time_spent->appendPlainText("error: Webcam not accessed succesfully");
-        return;
+
+            tmrTimer = new QTimer(this);
+            connect(tmrTimer, SIGNAL(timeout()),this,SLOT(processImageAndUpdateGUI()));
+            //tmrTimer->start(1.0/60); //lavprioritet funksjon, hvis systemet bruker lenger tid får det lov til å btuke lenger tid
+            tmrTimer->start(100);
+
+
+      //  return;//removed to take in images from file
 
     }
 
@@ -80,7 +87,6 @@ void MainWindow::processFrameAndUpdateGUI()
 
     //change color channel ordering
     cv::cvtColor(image,image,CV_BGR2RGB);
-
 
     //Converting to the given color space
     switch(cspace)
@@ -252,13 +258,14 @@ void MainWindow::processFrameAndUpdateGUI()
         }
         break;
     case GROWTH_DETECTION:
-        if((Percentage_foreground_clean_net > -1) & !Segmented_image.empty())
+        if((Percentage_foreground_clean_net > -1) && (!Segmented_image.empty()))
         {
             //gjør noe
             qDebug() << "percentage foreground pixels on clean net: " << Percentage_foreground_clean_net;
 
-            int percentage_growth = Growth_detection_algo(Percentage_foreground_clean_net,Segmented_image)
-                    qDebug()
+            int percentage_growth = Growth_Detection_algo(Percentage_foreground_clean_net,Segmented_image);
+            qDebug() << "percentage growth: " << percentage_growth;
+
 
         }
         break;
@@ -283,41 +290,244 @@ void MainWindow::processFrameAndUpdateGUI()
 
 
 }
+
+void MainWindow::processImageAndUpdateGUI()
+{
+    //Executed time measurment
+    double duration;
+    duration = static_cast<double>(cv::getTickCount());
+
+    if(image_from_file.empty()==true)
+    {
+        //qDebug() << "image fra fil er tom";
+        return;
+    }
+
+    //change color channel ordering
+    cv::cvtColor(image_from_file,image_from_file,CV_BGR2RGB);
+
+    //Converting to the given color space
+    switch(cspace)
+    {
+    case COLOR_NONE:
+       break;
+    case LUMINANCE:
+        //kan være kjappere å bare skaffe Y komponenten, i forhold til ferdiglagd og custom XYZ
+        custom_XYS_image();
+        on_Y_clicked();
+        break;
+    case X:
+        custom_XYS_image();
+        on_x_clicked();
+        break;
+    case Y:
+        custom_XYS_image();
+        on_y_clicked();
+        break;
+    case RED:
+        on_Red_clicked();
+        break;
+    case GREEN:
+        on_Green_clicked();
+        break;
+    case BLUE:
+        on_Blue_clicked();
+        break;
+    case X2:
+        cv::cvtColor(image_from_file,XYZ2,CV_RGB2XYZ);
+        on_x2_clicked();
+        break;
+    case Y2:
+        cv::cvtColor(image_from_file,XYZ2,CV_RGB2XYZ);
+        on_y2_clicked();
+        break;
+    case LUMINANCE2:
+        cv::cvtColor(image_from_file,XYZ2,CV_RGB2XYZ);
+        on_Y2_clicked();
+        break;
+    case LAB:
+        cv::cvtColor(image_from_file,Lab_image,CV_RGB2Lab);
+        break;
+    case L:
+        cv::cvtColor(image_from_file,Lab_image,CV_RGB2Lab);
+        on_L_clicked();
+        break;
+    case A:
+        cv::cvtColor(image_from_file,Lab_image,CV_RGB2Lab);
+        on_a_clicked();
+        break;
+    case B:
+        cv::cvtColor(image_from_file,Lab_image,CV_RGB2Lab);
+        on_b_clicked();
+        break;
+    }
+
+    //Smoothing image before thresholding
+    if(ui->Gaussian_checkBox->isChecked() && !processed_image.empty())
+    {
+        cv::GaussianBlur(processed_image,processed_image,cv::Size(Gaussian_kernel_size,Gaussian_kernel_size),0,0,cv::BORDER_DEFAULT);
+    }
+
+    //thresholding
+    switch(thresh_met)
+    {
+    case THRESH_NONE:
+        break;
+    case GLOBAL_SOBEL:
+        //on_Global_Sobel_clicked();
+        Segmented_image = Global_Sobel(processed_image,Global_Sobel_kernel_size,Global_Sobel_hist_percentile,
+                                       Global_Sobel_dx,Global_Sobel_dy,ui->Otsu_in_edge_checkBox->isChecked());
+        break;
+    case LOCAL_SOBEL:
+        //on_Local_Sobel_clicked();
+        Segmented_image = Local_Sobel(processed_image,Local_Sobel_numberofSubImages, Local_Sobel_kernel_size,
+                                      Local_Sobel_hist_percentile,Local_Sobel_dx,Local_Sobel_dy,ui->Otsu_in_edge_checkBox->isChecked());
+        break;
+    case GLOBAL_SCHARR:
+        //on_Global_Scharr_clicked();
+        Segmented_image = Global_Scharr(processed_image,Global_Scharr_hist_percentile,ui->Global_Scharr_dx_checkBox->isChecked(),
+                                        ui->Global_Scharr_dy_checkBox->isChecked(),ui->Otsu_in_edge_checkBox->isChecked());
+        break;
+    case LOCAL_SCHARR:
+        //on_Local_Scharr_clicked();
+        Segmented_image = Local_Scharr(processed_image,Local_Scharr_numberofSubImages,Local_Scharr_hist_percentile,
+                                       ui->Local_Scharr_dx_checkBox->isChecked(),ui->Local_Scharr_dy_checkBox->isChecked(),
+                                       ui->Otsu_in_edge_checkBox->isChecked());
+        break;
+    case GLOBAL_OTSU:
+        Segmented_image = Global_Otsu(processed_image);
+        break;
+    case LOCAL_OTSU:
+        Segmented_image = Local_Otsu(processed_image,Local_Otsu_numberofSubImages);
+        break;
+    case THRESHOLDING:
+        Segmented_image = Naive_Thresholding(processed_image,Naive_threshold);
+        break;
+    case ADAPTIVE_THRESHOLDING:
+        Segmented_image = Adaptive_Thresholding(processed_image,Adaptive_Thresholding_kernel_size,Adaptive_thresholding_C,
+                                                ui->Adaptive_Thresholding_gaussian_radioButton->isChecked());
+        break;
+    }
+
+
+    //operations to improve the segmentation result
+    if(!Segmented_image.empty())
+    {
+        if(ui->Inversion_checkbox->isChecked())
+        {
+            int nl = Segmented_image.rows;
+            int nc = Segmented_image.cols;
+            if(Segmented_image.isContinuous())
+            {
+                nc = nc*nl;
+                nl = 1; //1D array;
+            }
+
+            //loop exectued only once if the image is continious
+            for(int j = 0; j<nl;j++)
+            {
+                uchar* data = Segmented_image.ptr<uchar>(j);
+                for(int i = 0; i<nc;i++)
+                {
+                    data[i] = 255-data[i];
+                }
+            }
+        }
+        if(ui->Dilation_checkBox->isChecked())
+        {
+            cv::Mat Seg_copy;
+            Segmented_image.copyTo(Seg_copy);
+            cv::dilate(Seg_copy,Segmented_image,cv::Mat(),cv::Point(-1,-1),Dilation_iterations,cv::BORDER_CONSTANT,cv::morphologyDefaultBorderValue());
+
+        }
+    }
+
+    //if a mode is chosen display the modes image instead of the color space image
+    switch(mode)
+    {
+    case NO_MODE:
+        //putting the correct color space image and segmented image on display.
+        if(ui->Lab->isChecked())
+        {
+            QImage color_space_image = QImage((const unsigned char*)(Lab_image.data),
+                                Lab_image.cols,Lab_image.rows,QImage::Format_RGB888);
+            ui->label->setPixmap(QPixmap::fromImage(color_space_image));
+            ui->label->resize(ui->label->pixmap()->size());
+        }
+        else if(processed_image.channels()==1)
+        {
+            QImage color_space_image = QImage((const unsigned char*)(processed_image.data),
+                                 processed_image.cols,processed_image.rows,QImage::Format_Indexed8);
+            ui->label->setPixmap(QPixmap::fromImage(color_space_image));
+            ui->label->resize(ui->label->pixmap()->size());
+            ui->Bottom_line_box->setGeometry(5,100+ui->label->pixmap()->height(),1330,120);//moving boxes in accordance to size of image
+        }
+        break;
+    case HOLE_DETECTION:
+        //knaksje ta å lage en ny label, hide processed og vise denne, kan bli fixa på knappetrykka
+        hole_detected_image = Hole_detection_algo(Segmented_image);
+        if(!hole_detected_image.empty())
+        {
+            QImage hole_detection_image = QImage((const unsigned char*)(hole_detected_image.data),
+                                 hole_detected_image.cols,hole_detected_image.rows,QImage::Format_Indexed8);
+            ui->label->setPixmap(QPixmap::fromImage(hole_detection_image));
+            ui->label->resize(ui->label->pixmap()->size());
+            ui->Bottom_line_box->setGeometry(5,100+ui->label->pixmap()->height(),1330,120);//moving boxes in accordance to size of image
+        }
+        break;
+    case GROWTH_DETECTION:
+        if((Percentage_foreground_clean_net > -1) & !Segmented_image.empty())
+        {
+            //oppfører seg rart, se på det
+          // qDebug() << "percentage foreground pixels on clean net: " << Percentage_foreground_clean_net;
+
+            double percentage_growth = Growth_Detection_algo(Percentage_foreground_clean_net,Segmented_image);
+            qDebug() << "percentage growth: " << percentage_growth;
+
+        }
+        break;
+
+    }
+
+    //Show the segmented image in the right label
+    if(!Segmented_image.empty())
+    {
+        QImage segmented_image = QImage((const unsigned char*)(Segmented_image.data),
+                                        Segmented_image.cols,Segmented_image.rows,QImage::Format_Indexed8 );
+        ui->processed_image_label->setGeometry(100+ui->label->width(),100,0,0);
+        ui->processed_image_label->setPixmap(QPixmap::fromImage(segmented_image));
+        ui->processed_image_label->resize(ui->label->pixmap()->size());
+
+    }
+
+    //time measurment part
+    duration = static_cast<double>(cv::getTickCount())-duration;
+    duration /=cv::getTickFrequency();//elapsed time in ms
+    ui->Total_time_spent->appendPlainText(QString::number(duration) + QString("s"));
+}
+
 void MainWindow::on_actionOpen_Image_triggered()
 {
 
     QString fileName = QFileDialog::getOpenFileName(this,tr("Open Image"),".",tr("Image Files (*.png *.jpg *.jpeg *.bmp)"));
-    image = cv::imread(fileName.toLatin1().data()) ;//.toAscii().data()
+    image_from_file = cv::imread(fileName.toLatin1().data()) ;//.toAscii().data()
 
 
     //change color channel ordering
-    cv::cvtColor(image,image,CV_BGR2RGB);
+    cv::cvtColor(image_from_file,image_from_file,CV_BGR2RGB);
     //  Qt image
-    QImage img = QImage((const unsigned char*)(image.data),
-                        image.cols,image.rows,QImage::Format_RGB888);
+    QImage img = QImage((const unsigned char*)(image_from_file.data),
+                        image_from_file.cols,image_from_file.rows,QImage::Format_RGB888);
     ui->label->setPixmap(QPixmap::fromImage(img));
     ui->label->resize(ui->label->pixmap()->size());
     ui->Bottom_line_box->setGeometry(5,100+ui->label->pixmap()->height(),1330,120);//moving boxes in accordance to size of image
-    //resize the label
-    //ui->label->resize(ui->label->pixmap()->size());*/
-
-  /*  XYZ_image.create(image.size(), image.type());
-
-    for(int i = 0;i< image.cols;i++)
-        for(int j = 0; j<image.rows;j++)
-        {
-            XYZ_image.at<cv::Vec3b>(j,i)[0] =  0.607*image.at<cv::Vec3b>(j,i)[0]+0.174*image.at<cv::Vec3b>(j,i)[1]+0.200*image.at<cv::Vec3b>(j,i)[2];
-            XYZ_image.at<cv::Vec3b>(j,i)[1] =  0.299*image.at<cv::Vec3b>(j,i)[0]+0.587*image.at<cv::Vec3b>(j,i)[1]+0.114*image.at<cv::Vec3b>(j,i)[2];
-            XYZ_image.at<cv::Vec3b>(j,i)[2] =  0.066*image.at<cv::Vec3b>(j,i)[1]+1.111*image.at<cv::Vec3b>(j,i)[2];
-        }
-
-    cv::cvtColor(image,XYZ2,CV_RGB2XYZ);
-    cv::cvtColor(image,Lab_image,CV_RGB2Lab);
-
-    */
 
 }
 
+void MainWindow::on_actionProcess_IMage_triggered()
+{
+
+}
 
 void MainWindow::on_Global_Sobel_clicked()
 {
@@ -466,7 +676,7 @@ void MainWindow::on_Capture_clicked()
     {
         imwrite( "Segmented_Image.png", Segmented_image );
         //new - use captured segmented image to find % of foreground
-        Percentage_foreground_clean_net = percentage_foreground(Segmented_image);
+        //Percentage_foreground_clean_net = percentage_foreground(Segmented_image);
     }
 
     if(!hole_detected_image.empty())
@@ -966,4 +1176,11 @@ void MainWindow::on_Adaptive_Thresholding_C_slider_valueChanged(int value)
 }
 
 
+void MainWindow::on_Capture_clean_net_pushButton_clicked()
+{
+    if(!Segmented_image.empty())
+    {
+        Percentage_foreground_clean_net = percentage_foreground(Segmented_image);
+    }
 
+}

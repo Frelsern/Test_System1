@@ -1516,6 +1516,19 @@ Edge Segmentation
      </widget>
     </widget>
    </widget>
+   <widget class="QPushButton" name="Capture_clean_net_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>12</y>
+      <width>97</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Capture clean net</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -1531,12 +1544,18 @@ Edge Segmentation
      <string>File</string>
     </property>
     <addaction name="actionOpen_Image"/>
+    <addaction name="actionProcess_IMage"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
   <action name="actionOpen_Image">
    <property name="text">
     <string>Open Image</string>
+   </property>
+  </action>
+  <action name="actionProcess_IMage">
+   <property name="text">
+    <string>Show Process</string>
    </property>
   </action>
  </widget>
