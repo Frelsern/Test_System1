@@ -482,7 +482,7 @@ void MainWindow::processImageAndUpdateGUI()
           // qDebug() << "percentage foreground pixels on clean net: " << Percentage_foreground_clean_net;
 
             double percentage_growth = Growth_Detection_algo(Percentage_foreground_clean_net,Segmented_image);
-            qDebug() << "percentage growth: " << percentage_growth;
+            //qDebug() << "percentage growth: " << percentage_growth;
 
         }
         break;
