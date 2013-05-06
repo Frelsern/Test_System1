@@ -35,7 +35,7 @@ class Ui_MainWindow
 {
 public:
     QAction *actionOpen_Image;
-    QAction *actionProcess_IMage;
+    QAction *actionOpen_Video;
     QWidget *centralWidget;
     QLabel *label;
     QLabel *processed_image_label;
@@ -184,6 +184,12 @@ public:
     QSlider *Local_Otsu_horizontalSlider;
     QLCDNumber *Local_Otsu_lcdNumber;
     QPushButton *Capture_clean_net_pushButton;
+    QGroupBox *Input_Source_groupBox;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_13;
+    QRadioButton *Webcam_source_radioButton;
+    QRadioButton *Image_source_radioButton;
+    QRadioButton *Video_source_radioButton;
     QMenuBar *menuBar;
     QMenu *menuFile;
 
@@ -200,8 +206,8 @@ public:
         MainWindow->setMinimumSize(QSize(1400, 400));
         actionOpen_Image = new QAction(MainWindow);
         actionOpen_Image->setObjectName(QStringLiteral("actionOpen_Image"));
-        actionProcess_IMage = new QAction(MainWindow);
-        actionProcess_IMage->setObjectName(QStringLiteral("actionProcess_IMage"));
+        actionOpen_Video = new QAction(MainWindow);
+        actionOpen_Video->setObjectName(QStringLiteral("actionOpen_Video"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         label = new QLabel(centralWidget);
@@ -212,7 +218,7 @@ public:
         processed_image_label->setGeometry(QRect(100, 100, 211, 71));
         Segmentation_groupBox = new QGroupBox(centralWidget);
         Segmentation_groupBox->setObjectName(QStringLiteral("Segmentation_groupBox"));
-        Segmentation_groupBox->setGeometry(QRect(0, 44, 1173, 50));
+        Segmentation_groupBox->setGeometry(QRect(0, 44, 1173, 45));
         layoutWidget = new QWidget(Segmentation_groupBox);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(19, 20, 1147, 19));
@@ -268,10 +274,10 @@ public:
 
         Modes_groupbox = new QGroupBox(centralWidget);
         Modes_groupbox->setObjectName(QStringLiteral("Modes_groupbox"));
-        Modes_groupbox->setGeometry(QRect(564, 4, 285, 41));
+        Modes_groupbox->setGeometry(QRect(780, 0, 285, 45));
         layoutWidget1 = new QWidget(Modes_groupbox);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(4, 12, 279, 19));
+        layoutWidget1->setGeometry(QRect(0, 20, 279, 19));
         horizontalLayout_9 = new QHBoxLayout(layoutWidget1);
         horizontalLayout_9->setSpacing(6);
         horizontalLayout_9->setContentsMargins(11, 11, 11, 11);
@@ -295,10 +301,10 @@ public:
 
         Color_spaces_groupBox = new QGroupBox(centralWidget);
         Color_spaces_groupBox->setObjectName(QStringLiteral("Color_spaces_groupBox"));
-        Color_spaces_groupBox->setGeometry(QRect(0, 0, 561, 45));
+        Color_spaces_groupBox->setGeometry(QRect(210, 0, 561, 45));
         layoutWidget2 = new QWidget(Color_spaces_groupBox);
         layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(8, 16, 547, 19));
+        layoutWidget2->setGeometry(QRect(0, 20, 547, 19));
         horizontalLayout_10 = new QHBoxLayout(layoutWidget2);
         horizontalLayout_10->setSpacing(6);
         horizontalLayout_10->setContentsMargins(11, 11, 11, 11);
@@ -916,7 +922,34 @@ public:
 
         Capture_clean_net_pushButton = new QPushButton(centralWidget);
         Capture_clean_net_pushButton->setObjectName(QStringLiteral("Capture_clean_net_pushButton"));
-        Capture_clean_net_pushButton->setGeometry(QRect(860, 12, 97, 23));
+        Capture_clean_net_pushButton->setGeometry(QRect(1070, 20, 97, 23));
+        Input_Source_groupBox = new QGroupBox(centralWidget);
+        Input_Source_groupBox->setObjectName(QStringLiteral("Input_Source_groupBox"));
+        Input_Source_groupBox->setGeometry(QRect(0, 0, 201, 45));
+        widget = new QWidget(Input_Source_groupBox);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(10, 20, 182, 19));
+        horizontalLayout_13 = new QHBoxLayout(widget);
+        horizontalLayout_13->setSpacing(6);
+        horizontalLayout_13->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
+        horizontalLayout_13->setContentsMargins(0, 0, 0, 0);
+        Webcam_source_radioButton = new QRadioButton(widget);
+        Webcam_source_radioButton->setObjectName(QStringLiteral("Webcam_source_radioButton"));
+        Webcam_source_radioButton->setChecked(true);
+
+        horizontalLayout_13->addWidget(Webcam_source_radioButton);
+
+        Image_source_radioButton = new QRadioButton(widget);
+        Image_source_radioButton->setObjectName(QStringLiteral("Image_source_radioButton"));
+
+        horizontalLayout_13->addWidget(Image_source_radioButton);
+
+        Video_source_radioButton = new QRadioButton(widget);
+        Video_source_radioButton->setObjectName(QStringLiteral("Video_source_radioButton"));
+
+        horizontalLayout_13->addWidget(Video_source_radioButton);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -927,7 +960,7 @@ public:
 
         menuBar->addAction(menuFile->menuAction());
         menuFile->addAction(actionOpen_Image);
-        menuFile->addAction(actionProcess_IMage);
+        menuFile->addAction(actionOpen_Video);
 
         retranslateUi(MainWindow);
         QObject::connect(Local_Scharr_histogram_slider, SIGNAL(valueChanged(int)), Local_Scharr_histogram_lcdNumber, SLOT(display(int)));
@@ -949,7 +982,7 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         actionOpen_Image->setText(QApplication::translate("MainWindow", "Open Image", 0));
-        actionProcess_IMage->setText(QApplication::translate("MainWindow", "Show Process", 0));
+        actionOpen_Video->setText(QApplication::translate("MainWindow", "Open Video", 0));
         label->setText(QString());
         processed_image_label->setText(QString());
         Segmentation_groupBox->setTitle(QApplication::translate("MainWindow", "Segmentation methods", 0));
@@ -1022,6 +1055,10 @@ public:
         Adaptive_Thresholding_C_box->setTitle(QApplication::translate("MainWindow", "C", 0));
         Local_Otsu_box->setTitle(QApplication::translate("MainWindow", "Local Otsu", 0));
         Capture_clean_net_pushButton->setText(QApplication::translate("MainWindow", "Capture clean net", 0));
+        Input_Source_groupBox->setTitle(QApplication::translate("MainWindow", "Input Source", 0));
+        Webcam_source_radioButton->setText(QApplication::translate("MainWindow", "WebCam", 0));
+        Image_source_radioButton->setText(QApplication::translate("MainWindow", "Image", 0));
+        Video_source_radioButton->setText(QApplication::translate("MainWindow", "Video", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
     } // retranslateUi
 
