@@ -309,12 +309,11 @@ void MainWindow::processImageAndUpdateGUI()
 
     if(image_from_file.empty()==true)
     {
-        //qDebug() << "image fra fil er tom";
         return;
     }
 
     //change color channel ordering
-    cv::cvtColor(image_from_file,image_from_file,CV_BGR2RGB);
+    //cv::cvtColor(image_from_file,image_from_file,CV_BGR2RGB);//done at the start for image
 
     //Converting to the given color space
     switch(cspace)
@@ -1223,7 +1222,7 @@ void MainWindow::on_Image_source_radioButton_clicked()
     ui->label->resize(ui->label->pixmap()->size());
     ui->Bottom_line_box->setGeometry(5,100+ui->label->pixmap()->height(),1330,120);//moving boxes in accordance to size of image
 
-    //rolling it like a video to get operations to work
+    //rolling it like a video to get operations to work, first change color space to a valid one
     tmrTimer = new QTimer(this);
     connect(tmrTimer, SIGNAL(timeout()),this,SLOT(processImageAndUpdateGUI()));
     //tmrTimer->start(1.0/60); //lavprioritet funksjon, hvis systemet bruker lenger tid får det lov til å btuke lenger tid
