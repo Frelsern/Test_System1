@@ -128,9 +128,13 @@ private slots:
 
     void on_Adaptive_Thresholding_C_slider_valueChanged(int value);
 
-    void on_actionProcess_IMage_triggered(); //can be removed
-
     void on_Capture_clean_net_pushButton_clicked();
+
+    void on_Webcam_source_radioButton_clicked();
+
+    void on_Image_source_radioButton_clicked();
+
+    void on_Video_source_radioButton_clicked();
 
 private:
     Ui::MainWindow *ui;

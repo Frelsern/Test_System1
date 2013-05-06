@@ -58,7 +58,7 @@
       <x>0</x>
       <y>44</y>
       <width>1173</width>
-      <height>50</height>
+      <height>45</height>
      </rect>
     </property>
     <property name="title">
@@ -143,10 +143,10 @@
    <widget class="QGroupBox" name="Modes_groupbox">
     <property name="geometry">
      <rect>
-      <x>564</x>
-      <y>4</y>
+      <x>780</x>
+      <y>0</y>
       <width>285</width>
-      <height>41</height>
+      <height>45</height>
      </rect>
     </property>
     <property name="title">
@@ -155,8 +155,8 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>4</x>
-       <y>12</y>
+       <x>0</x>
+       <y>20</y>
        <width>279</width>
        <height>19</height>
       </rect>
@@ -192,7 +192,7 @@
    <widget class="QGroupBox" name="Color_spaces_groupBox">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>210</x>
       <y>0</y>
       <width>561</width>
       <height>45</height>
@@ -204,8 +204,8 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>8</x>
-       <y>16</y>
+       <x>0</x>
+       <y>20</y>
        <width>547</width>
        <height>19</height>
       </rect>
@@ -1519,8 +1519,8 @@ Edge Segmentation
    <widget class="QPushButton" name="Capture_clean_net_pushButton">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>12</y>
+      <x>1070</x>
+      <y>20</y>
       <width>97</width>
       <height>23</height>
      </rect>
@@ -1528,6 +1528,55 @@ Edge Segmentation
     <property name="text">
      <string>Capture clean net</string>
     </property>
+   </widget>
+   <widget class="QGroupBox" name="Input_Source_groupBox">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>201</width>
+      <height>45</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Input Source</string>
+    </property>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>182</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_13">
+      <item>
+       <widget class="QRadioButton" name="Webcam_source_radioButton">
+        <property name="text">
+         <string>WebCam</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="Image_source_radioButton">
+        <property name="text">
+         <string>Image</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="Video_source_radioButton">
+        <property name="text">
+         <string>Video</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -1544,7 +1593,7 @@ Edge Segmentation
      <string>File</string>
     </property>
     <addaction name="actionOpen_Image"/>
-    <addaction name="actionProcess_IMage"/>
+    <addaction name="actionOpen_Video"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -1553,9 +1602,9 @@ Edge Segmentation
     <string>Open Image</string>
    </property>
   </action>
-  <action name="actionProcess_IMage">
+  <action name="actionOpen_Video">
    <property name="text">
-    <string>Show Process</string>
+    <string>Open Video</string>
    </property>
   </action>
  </widget>

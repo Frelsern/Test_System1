@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     //setup window
     ui->setupUi(this);
-    this->setWindowTitle(QString("System 1, v.0.2.9"));
+    this->setWindowTitle(QString("System 1, v.0.2.10"));
 
     //hide the Segmentation boxes
     ui->Global_Sobel_box->hide();
@@ -46,28 +46,38 @@ MainWindow::MainWindow(QWidget *parent) :
     thresh_met = THRESH_NONE;
     mode = NO_MODE;
 
-    //Opening webcam and call the other processes.
-    capWebcam.open(0);
-
-    if(capWebcam.isOpened() == false)
+    //Opening input source and call the other processes.
+/*
+    if(ui->Webcam_source_radioButton->isChecked())
     {
-        //ui->plainTextEdit->appendPlainText("error: Webcam not accessed succesfully");
-        ui->Total_time_spent->appendPlainText("error: Webcam not accessed succesfully");
-
-            tmrTimer = new QTimer(this);
-            connect(tmrTimer, SIGNAL(timeout()),this,SLOT(processImageAndUpdateGUI()));
-            //tmrTimer->start(1.0/60); //lavprioritet funksjon, hvis systemet bruker lenger tid får det lov til å btuke lenger tid
-            tmrTimer->start(100);
-
-
-      //  return;//removed to take in images from file
+        capWebcam.open(0);
+        if(capWebcam.isOpened() == false)
+        {
+            return;
+        }
+        tmrTimer = new QTimer(this);
+        connect(tmrTimer, SIGNAL(timeout()),this,SLOT(processFrameAndUpdateGUI()));
+        //tmrTimer->start(1.0/60); //lavprioritet funksjon, hvis systemet bruker lenger tid får det lov til å btuke lenger tid
+        tmrTimer->start(100);
+        qDebug() << "kom hit";
 
     }
+    if(ui->Image_source_radioButton->isChecked())
+    {
+        ui->Total_time_spent->appendPlainText("error: Webcam not accessed succesfully");
+        tmrTimer = new QTimer(this);
+        connect(tmrTimer, SIGNAL(timeout()),this,SLOT(processImageAndUpdateGUI()));
+        //tmrTimer->start(1.0/60); //lavprioritet funksjon, hvis systemet bruker lenger tid får det lov til å btuke lenger tid
+        tmrTimer->start(100);
+    }
+    else if (ui->Video_source_radioButton->isChecked())
+    {
+        qDebug() << "kom hit3";
+        capWebcam.open("C:\\Users\\Frelsern\\Desktop\\test1.avi");
+    }
 
-    tmrTimer = new QTimer(this);
-    connect(tmrTimer, SIGNAL(timeout()),this,SLOT(processFrameAndUpdateGUI()));
-    //tmrTimer->start(1.0/60); //lavprioritet funksjon, hvis systemet bruker lenger tid får det lov til å btuke lenger tid
-    tmrTimer->start(100);
+    qDebug() << "kom hit 2";
+*/
 
 }
 
@@ -524,10 +534,6 @@ void MainWindow::on_actionOpen_Image_triggered()
 
 }
 
-void MainWindow::on_actionProcess_IMage_triggered()
-{
-
-}
 
 void MainWindow::on_Global_Sobel_clicked()
 {
@@ -1184,3 +1190,50 @@ void MainWindow::on_Capture_clean_net_pushButton_clicked()
     }
 
 }
+
+
+void MainWindow::on_Webcam_source_radioButton_clicked()
+{
+    capWebcam.release();
+    capWebcam.open(0);
+    if(capWebcam.isOpened() == false)
+    {
+        ui->Total_time_spent->appendPlainText("error: Webcam not accessed succesfully");
+        return;
+    }
+    tmrTimer = new QTimer(this);
+    connect(tmrTimer, SIGNAL(timeout()),this,SLOT(processFrameAndUpdateGUI()));
+    tmrTimer->start(100);
+    qDebug() << "opened webcam source";
+}
+
+void MainWindow::on_Image_source_radioButton_clicked()
+{
+    capWebcam.release();
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Open Image"),".",tr("Image Files (*.png *.jpg *.jpeg *.bmp)"));
+    image_from_file = cv::imread(fileName.toLatin1().data()) ;//.toAscii().data()
+
+
+    //change color channel ordering
+    cv::cvtColor(image_from_file,image_from_file,CV_BGR2RGB);
+    //  Qt image
+    QImage img = QImage((const unsigned char*)(image_from_file.data),
+                        image_from_file.cols,image_from_file.rows,QImage::Format_RGB888);
+    ui->label->setPixmap(QPixmap::fromImage(img));
+    ui->label->resize(ui->label->pixmap()->size());
+    ui->Bottom_line_box->setGeometry(5,100+ui->label->pixmap()->height(),1330,120);//moving boxes in accordance to size of image
+
+    //rolling it like a video to get operations to work
+    tmrTimer = new QTimer(this);
+    connect(tmrTimer, SIGNAL(timeout()),this,SLOT(processImageAndUpdateGUI()));
+    //tmrTimer->start(1.0/60); //lavprioritet funksjon, hvis systemet bruker lenger tid får det lov til å btuke lenger tid
+    tmrTimer->start(100);
+}
+
+void MainWindow::on_Video_source_radioButton_clicked()
+{
+    capWebcam.release();
+    qDebug() << "opened video source";
+}
+
+
