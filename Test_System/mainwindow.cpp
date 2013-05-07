@@ -1232,7 +1232,15 @@ void MainWindow::on_Image_source_radioButton_clicked()
 void MainWindow::on_Video_source_radioButton_clicked()
 {
     capWebcam.release();
-    qDebug() << "opened video source";
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Open Video"),".",tr("Image Files (*.png *.jpg *.jpeg *.bmp)"));
+    image_from_file = cv::imread(fileName.toLatin1().data()) ;//.toAscii().data()
+
+
+
+
+
+
+
 }
 
 
