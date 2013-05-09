@@ -9,6 +9,7 @@
 #include "segmentation_techniques.h"
 #include "hole_detection.h"
 #include "growth_detection.h"
+#include "colorspaces.h"
 
 #include<opencv2/core/core.hpp>
 #include<opencv2/highgui/highgui.hpp>
@@ -77,8 +78,6 @@ private slots:
     void on_Hole_Detection_clicked();
 
     void on_Growth_detection_clicked();
-
-    void custom_XYS_image();
 
     void on_y_clicked();
 

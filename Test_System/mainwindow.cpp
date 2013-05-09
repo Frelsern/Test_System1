@@ -107,25 +107,28 @@ void MainWindow::processFrameAndUpdateGUI()
        break;
     case LUMINANCE:
         //kan være kjappere å bare skaffe Y komponenten, i forhold til ferdiglagd og custom XYZ
-        custom_XYS_image();
-        on_Y_clicked();
+        /*custom_XYS_image();
+        on_Y_clicked();*/
+        processed_image = custom_Y(image);
         break;
     case X:
-        custom_XYS_image();
-        on_x_clicked();
+        /*custom_XYS_image();
+        on_x_clicked();*/
+        processed_image = custom_x(image);
         break;
     case Y:
-        custom_XYS_image();
-        on_y_clicked();
+        /*custom_XYS_image();
+        on_y_clicked();*/
+        processed_image = custom_y(image);
         break;
     case RED:
-        on_Red_clicked();
+        processed_image = red_space(image);
         break;
     case GREEN:
-        on_Green_clicked();
+        processed_image = green_space(image);
         break;
     case BLUE:
-        on_Blue_clicked();
+        processed_image = blue_space(image);
         break;
     case X2:
         cv::cvtColor(image,XYZ2,CV_RGB2XYZ);
@@ -324,25 +327,28 @@ void MainWindow::processImageAndUpdateGUI()
        break;
     case LUMINANCE:
         //kan være kjappere å bare skaffe Y komponenten, i forhold til ferdiglagd og custom XYZ
-        custom_XYS_image();
-        on_Y_clicked();
+        /*custom_XYS_image();
+        on_Y_clicked();*/
+        processed_image = custom_Y(image_from_file);
         break;
     case X:
-        custom_XYS_image();
-        on_x_clicked();
+        /*custom_XYS_image();
+        on_x_clicked();*/
+        processed_image = custom_x(image_from_file);
         break;
     case Y:
-        custom_XYS_image();
-        on_y_clicked();
+        /*custom_XYS_image();
+        on_y_clicked();*/
+        processed_image = custom_y(image_from_file);
         break;
     case RED:
-        on_Red_clicked();
+        processed_image = red_space(image_from_file);
         break;
     case GREEN:
-        on_Green_clicked();
+        processed_image = green_space(image_from_file);
         break;
     case BLUE:
-        on_Blue_clicked();
+        processed_image = blue_space(image_from_file);
         break;
     case X2:
         cv::cvtColor(image_from_file,XYZ2,CV_RGB2XYZ);
@@ -735,125 +741,25 @@ void MainWindow::on_Growth_detection_clicked()
     mode = GROWTH_DETECTION;
 }
 
-void MainWindow::custom_XYS_image()
-{
-    XYZ_image.create(image.size(), image.type());
-    int nl = image.rows;
-    int nc = image.cols;
-    if(XYZ_image.isContinuous())
-    {
-        nc = nc*nl;
-        nl = 1; //1D array;
-    }
-
-    //loop exectued only once if the image is continious
-    for(int j = 0; j<nl;j++)
-    {
-        uchar* data = XYZ_image.ptr<uchar>(j);
-        uchar* old_data = image.ptr<uchar>(j);
-        for(int i = 0; i<nc;i++)
-        {
-
-            data[3*i] = 0.607*old_data[3*i] + 0.174*old_data[3*i+1]+0.200*old_data[3*i+2];//X channel
-            data[3*i+1] = 0.299*old_data[3*i] + 0.587*old_data[3*i+1]+0.114*old_data[3*i+2];//Y channel
-            data[3*i+2] = 0.066*old_data[3*i+1]+1.111*old_data[3*i+2];//Z channel
-
-        }
-    }
-}
 
 void MainWindow::on_y_clicked()
 {
-    if(!XYZ_image.empty())
-    {
-        processed_image.create(XYZ_image.size(), CV_8U);
-        int nl = XYZ_image.rows;
-        int nc = XYZ_image.cols;
-        if(processed_image.isContinuous())//unneccessary
-        {
-            nc = nc*nl;
-            nl = 1; //1D array;
-        }
-
-        //loop exectued only once if the image is continious
-        for(int j = 0; j<nl;j++)
-        {
-            uchar* data = processed_image.ptr<uchar>(j);
-            uchar* old_data = XYZ_image.ptr<uchar>(j);
-            for(int i = 0; i<nc;i++)
-            {
-                data[i] = 255*((double)old_data[3*i+1])/(double)(old_data[3*i]+old_data[3*i+1]+old_data[3*i+2]) ;
-
-            }
-        }
-    }
     cspace = Y;
-
-
-
 }
 
 void MainWindow::on_x_clicked()
 {
-    if(!XYZ_image.empty())
-    {
-        processed_image.create(XYZ_image.size(), CV_8U);
-        int nl = XYZ_image.rows;
-        int nc = XYZ_image.cols;
-        if(processed_image.isContinuous())//unneccessary
-        {
-            nc = nc*nl;
-            nl = 1; //1D array;
-        }
-
-        //loop exectued only once if the image is continious
-        for(int j = 0; j<nl;j++)
-        {
-            uchar* data = processed_image.ptr<uchar>(j);
-            uchar* old_data = XYZ_image.ptr<uchar>(j);
-            for(int i = 0; i<nc;i++)
-            {
-                data[i] = 255*((double)old_data[3*i])/(double)(old_data[3*i]+old_data[3*i+1]+old_data[3*i+2]) ;
-
-            }
-        }
-
-    }
-    cspace = X;
-
+   cspace = X;
 }
 
 void MainWindow::on_Y_clicked()
 {
-    if(!XYZ_image.empty())
-    {
-        processed_image.create(XYZ_image.size(), CV_8U);
-        int nl = XYZ_image.rows;
-        int nc = XYZ_image.cols;
-        if(processed_image.isContinuous())//unneccessary
-        {
-            nc = nc*nl;
-            nl = 1; //1D array;
-        }
-
-        //loop exectued only once if the image is continious
-        for(int j = 0; j<nl;j++)
-        {
-            uchar* data = processed_image.ptr<uchar>(j);
-            uchar* old_data = XYZ_image.ptr<uchar>(j);
-            for(int i = 0; i<nc;i++)
-            {
-                data[i] = old_data[3*i+1];
-            }
-        }
-    }
-    cspace = LUMINANCE;
-
+   cspace = LUMINANCE;
 }
 
 void MainWindow::on_Red_clicked()
 {
-    if(!image.empty())
+    /*if(!image.empty())
     {
         processed_image.create(image.size(), CV_8U);
         int nl = image.rows;
@@ -876,14 +782,14 @@ void MainWindow::on_Red_clicked()
             }
         }
 
-    }
+    }*/
 
      cspace = RED;
 
 }
 void MainWindow::on_Green_clicked()
 {
-    if(!image.empty())
+   /* if(!image.empty())
     {
         processed_image.create(image.size(), CV_8U);
         int nl = image.rows;
@@ -905,14 +811,14 @@ void MainWindow::on_Green_clicked()
 
             }
         }
-    }
+    }*/
      cspace = GREEN;
 
 }
 
 void MainWindow::on_Blue_clicked()
 {
-    if(!image.empty())
+   /* if(!image.empty())
     {
         processed_image.create(image.size(), CV_8U);
         int nl = image.rows;
@@ -934,7 +840,7 @@ void MainWindow::on_Blue_clicked()
 
             }
         }
-    }
+    }*/
      cspace = BLUE;
 
 }

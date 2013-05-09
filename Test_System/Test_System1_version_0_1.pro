@@ -20,14 +20,16 @@ SOURCES += main.cpp\
     histogram_segmentation.cpp \
     hole_detection.cpp \
     shapetester.cpp \
-    growth_detection.cpp
+    growth_detection.cpp \
+    colorspaces.cpp
 
 HEADERS  += mainwindow.h \
     segmentation_techniques.h \
     histogram_segmentation.h \
     hole_detection.h \
     shapetester.h \
-    growth_detection.h
+    growth_detection.h \
+    colorspaces.h
 
 FORMS    += mainwindow.ui
 
