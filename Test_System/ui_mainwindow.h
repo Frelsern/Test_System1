@@ -185,7 +185,7 @@ public:
     QLCDNumber *Local_Otsu_lcdNumber;
     QPushButton *Capture_clean_net_pushButton;
     QGroupBox *Input_Source_groupBox;
-    QWidget *widget;
+    QWidget *layoutWidget9;
     QHBoxLayout *horizontalLayout_13;
     QRadioButton *Webcam_source_radioButton;
     QRadioButton *Image_source_radioButton;
@@ -926,26 +926,26 @@ public:
         Input_Source_groupBox = new QGroupBox(centralWidget);
         Input_Source_groupBox->setObjectName(QStringLiteral("Input_Source_groupBox"));
         Input_Source_groupBox->setGeometry(QRect(0, 0, 201, 45));
-        widget = new QWidget(Input_Source_groupBox);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 20, 182, 19));
-        horizontalLayout_13 = new QHBoxLayout(widget);
+        layoutWidget9 = new QWidget(Input_Source_groupBox);
+        layoutWidget9->setObjectName(QStringLiteral("layoutWidget9"));
+        layoutWidget9->setGeometry(QRect(10, 20, 182, 19));
+        horizontalLayout_13 = new QHBoxLayout(layoutWidget9);
         horizontalLayout_13->setSpacing(6);
         horizontalLayout_13->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
         horizontalLayout_13->setContentsMargins(0, 0, 0, 0);
-        Webcam_source_radioButton = new QRadioButton(widget);
+        Webcam_source_radioButton = new QRadioButton(layoutWidget9);
         Webcam_source_radioButton->setObjectName(QStringLiteral("Webcam_source_radioButton"));
         Webcam_source_radioButton->setChecked(true);
 
         horizontalLayout_13->addWidget(Webcam_source_radioButton);
 
-        Image_source_radioButton = new QRadioButton(widget);
+        Image_source_radioButton = new QRadioButton(layoutWidget9);
         Image_source_radioButton->setObjectName(QStringLiteral("Image_source_radioButton"));
 
         horizontalLayout_13->addWidget(Image_source_radioButton);
 
-        Video_source_radioButton = new QRadioButton(widget);
+        Video_source_radioButton = new QRadioButton(layoutWidget9);
         Video_source_radioButton->setObjectName(QStringLiteral("Video_source_radioButton"));
 
         horizontalLayout_13->addWidget(Video_source_radioButton);

@@ -71,8 +71,8 @@ cv::Mat red_space(cv::Mat input_image)
     int num_pix = input_image.rows*input_image.cols;
     //loop exectued only once if the image is continious
 
-    uchar* data = output_image.ptr<uchar>(j);
-    uchar* old_data = input_image.ptr<uchar>(j);
+    uchar* data = output_image.ptr<uchar>(0);
+    uchar* old_data = input_image.ptr<uchar>(0);
     for(int i = 0; i<num_pix;i++)
     {
         data[i] = old_data[3*i];
@@ -86,8 +86,8 @@ cv::Mat green_space(cv::Mat input_image)
     int num_pix = input_image.rows*input_image.cols;
     //loop exectued only once if the image is continious
 
-    uchar* data = output_image.ptr<uchar>(j);
-    uchar* old_data = input_image.ptr<uchar>(j);
+    uchar* data = output_image.ptr<uchar>(0);
+    uchar* old_data = input_image.ptr<uchar>(0);
     for(int i = 0; i<num_pix;i++)
     {
         data[i] = old_data[3*i+1];
@@ -102,8 +102,8 @@ cv::Mat blue_space(cv::Mat input_image)
     int num_pix = input_image.rows*input_image.cols;
     //loop exectued only once if the image is continious
 
-    uchar* data = output_image.ptr<uchar>(j);
-    uchar* old_data = input_image.ptr<uchar>(j);
+    uchar* data = output_image.ptr<uchar>(0);
+    uchar* old_data = input_image.ptr<uchar>(0);
     for(int i = 0; i<num_pix;i++)
     {
         data[i] = old_data[3*i+2];

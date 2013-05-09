@@ -35,8 +35,14 @@ public:
     ~MainWindow();
 
 public slots:
-    void processFrameAndUpdateGUI();
-    void processImageAndUpdateGUI();
+    void processFrameAndUpdateGUI(cv::Mat input_image);
+
+    void runCamera();
+
+    void runImage();
+
+    void runVideo();
+    //void processImageAndUpdateGUI();
 
 private slots:
     void on_actionOpen_Image_triggered();
