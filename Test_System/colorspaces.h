@@ -11,7 +11,9 @@ public:
     colorspaces();
 };
 
-
+cv::Mat standard_x(cv::Mat input_image);
+cv::Mat standard_y(cv::Mat input_image);
+cv::Mat standard_Y(cv::Mat input_image);
 cv::Mat custom_x(cv::Mat input_image);
 cv::Mat custom_y(cv::Mat input_image);
 cv::Mat custom_Y(cv::Mat input_image);

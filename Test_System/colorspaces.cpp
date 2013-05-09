@@ -5,6 +5,58 @@ colorspaces::colorspaces()
 }
 
 
+cv::Mat standard_x(cv::Mat input_image)
+{
+    cv::Mat XYZ,output_image;
+    cv::cvtColor(input_image,XYZ,CV_RGB2XYZ);
+    output_image.create(XYZ.size(), CV_8U);
+    int num_pix = XYZ.rows*XYZ.cols;
+
+    uchar* data = output_image.ptr<uchar>(0);
+    uchar* old_data = XYZ.ptr<uchar>(0);
+    for(int i = 0; i<num_pix;i++)
+    {
+        data[i] = 255*((double)old_data[3*i])/(old_data[3*i]+old_data[3*i+1]+old_data[3*i+2]) ;
+    }
+
+    return output_image;
+
+}
+
+cv::Mat standard_y(cv::Mat input_image)
+{
+    cv::Mat XYZ,output_image;
+    cv::cvtColor(input_image,XYZ,CV_RGB2XYZ);
+    output_image.create(XYZ.size(), CV_8U);
+    int num_pix = XYZ.rows*XYZ.cols;
+
+    uchar* data = output_image.ptr<uchar>(0);
+    uchar* old_data = XYZ.ptr<uchar>(0);
+    for(int i = 0; i<num_pix;i++)
+    {
+        data[i] = 255*((double)old_data[3*i+1])/(old_data[3*i]+old_data[3*i+1]+old_data[3*i+2]);
+    }
+
+    return output_image;
+}
+
+cv::Mat standard_Y(cv::Mat input_image)
+{
+    cv::Mat XYZ,output_image;
+    cv::cvtColor(input_image,XYZ,CV_RGB2XYZ);
+    output_image.create(XYZ.size(), CV_8U);
+    int num_pix = XYZ.rows*XYZ.cols;
+
+    uchar* data = output_image.ptr<uchar>(0);
+    uchar* old_data = XYZ.ptr<uchar>(0);
+    for(int i = 0; i<num_pix;i++)
+    {
+        data[i] = old_data[3*i+1];
+    }
+
+    return output_image;
+}
+
 cv::Mat custom_x(cv::Mat input_image)
 {
     cv::Mat output_image,XYZ_image;

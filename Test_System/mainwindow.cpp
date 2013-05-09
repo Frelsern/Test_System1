@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     //setup window
     ui->setupUi(this);
-    this->setWindowTitle(QString("System 1, v.0.2.10"));
+    this->setWindowTitle(QString("System 1, v.0.2.11"));
 
     //hide the Segmentation boxes
     ui->Global_Sobel_box->hide();
@@ -46,40 +46,6 @@ MainWindow::MainWindow(QWidget *parent) :
     cspace = COLOR_NONE;
     thresh_met = THRESH_NONE;
     mode = NO_MODE;
-
-    //Opening input source and call the other processes.
-/*
-    if(ui->Webcam_source_radioButton->isChecked())
-    {
-        capWebcam.open(0);
-        if(capWebcam.isOpened() == false)
-        {
-            return;
-        }
-        tmrTimer = new QTimer(this);
-        connect(tmrTimer, SIGNAL(timeout()),this,SLOT(processFrameAndUpdateGUI()));
-        //tmrTimer->start(1.0/60); //lavprioritet funksjon, hvis systemet bruker lenger tid får det lov til å btuke lenger tid
-        tmrTimer->start(100);
-        qDebug() << "kom hit";
-
-    }
-    if(ui->Image_source_radioButton->isChecked())
-    {
-        ui->Total_time_spent->appendPlainText("error: Webcam not accessed succesfully");
-        tmrTimer = new QTimer(this);
-        connect(tmrTimer, SIGNAL(timeout()),this,SLOT(processImageAndUpdateGUI()));
-        //tmrTimer->start(1.0/60); //lavprioritet funksjon, hvis systemet bruker lenger tid får det lov til å btuke lenger tid
-        tmrTimer->start(100);
-    }
-    else if (ui->Video_source_radioButton->isChecked())
-    {
-        qDebug() << "kom hit3";
-        capWebcam.open("C:\\Users\\Frelsern\\Desktop\\test1.avi");
-    }
-
-    qDebug() << "kom hit 2";
-*/
-
 }
 
 MainWindow::~MainWindow()
@@ -114,16 +80,13 @@ void MainWindow::processFrameAndUpdateGUI(cv::Mat input_image)
         processed_image = blue_space(input_image);
         break;
     case X2:
-        cv::cvtColor(input_image,XYZ2,CV_RGB2XYZ);
-        on_x2_clicked();
+        processed_image = standard_x(input_image);
         break;
     case Y2:
-        cv::cvtColor(input_image,XYZ2,CV_RGB2XYZ);
-        on_y2_clicked();
+        processed_image = standard_y(input_image);
         break;
     case LUMINANCE2:
-        cv::cvtColor(input_image,XYZ2,CV_RGB2XYZ);
-        on_Y2_clicked();
+        processed_image = standard_Y(input_image);
         break;
     case LAB:
         cv::cvtColor(input_image,Lab_image,CV_RGB2Lab);
@@ -280,13 +243,6 @@ void MainWindow::processFrameAndUpdateGUI(cv::Mat input_image)
         ui->processed_image_label->resize(ui->label->pixmap()->size());
 
     }
-
-   /* //time measurment part
-    duration = static_cast<double>(cv::getTickCount())-duration;
-    duration /=cv::getTickFrequency();//elapsed time in ms
-    ui->Total_time_spent->appendPlainText(QString::number(duration) + QString("s"));*/
-
-
 }
 
 
@@ -527,173 +483,30 @@ void MainWindow::on_Y_clicked()
 
 void MainWindow::on_Red_clicked()
 {
-    /*if(!image.empty())
-    {
-        processed_image.create(image.size(), CV_8U);
-        int nl = image.rows;
-        int nc = image.cols;
-        if(processed_image.isContinuous())//unneccessary
-        {
-            nc = nc*nl;
-            nl = 1; //1D array;
-        }
-
-        //loop exectued only once if the image is continious
-        for(int j = 0; j<nl;j++)
-        {
-            uchar* data = processed_image.ptr<uchar>(j);
-            uchar* old_data = image.ptr<uchar>(j);
-            for(int i = 0; i<nc;i++)
-            {
-                data[i] = old_data[3*i];
-
-            }
-        }
-
-    }*/
-
      cspace = RED;
-
 }
 void MainWindow::on_Green_clicked()
 {
-   /* if(!image.empty())
-    {
-        processed_image.create(image.size(), CV_8U);
-        int nl = image.rows;
-        int nc = image.cols;
-        if(processed_image.isContinuous())//unneccessary
-        {
-            nc = nc*nl;
-            nl = 1; //1D array;
-        }
-
-        //loop exectued only once if the image is continious
-        for(int j = 0; j<nl;j++)
-        {
-            uchar* data = processed_image.ptr<uchar>(j);
-            uchar* old_data = image.ptr<uchar>(j);
-            for(int i = 0; i<nc;i++)
-            {
-                data[i] = old_data[3*i+1];
-
-            }
-        }
-    }*/
      cspace = GREEN;
-
 }
 
 void MainWindow::on_Blue_clicked()
 {
-   /* if(!image.empty())
-    {
-        processed_image.create(image.size(), CV_8U);
-        int nl = image.rows;
-        int nc = image.cols;
-        if(processed_image.isContinuous())//unneccessary
-        {
-            nc = nc*nl;
-            nl = 1; //1D array;
-        }
-
-        //loop exectued only once if the image is continious
-        for(int j = 0; j<nl;j++)
-        {
-            uchar* data = processed_image.ptr<uchar>(j);
-            uchar* old_data = image.ptr<uchar>(j);
-            for(int i = 0; i<nc;i++)
-            {
-                data[i] = old_data[3*i+2];
-
-            }
-        }
-    }*/
      cspace = BLUE;
-
 }
 
 void MainWindow::on_x2_clicked()
 {
-    if(!XYZ2.empty())
-    {
-        processed_image.create(XYZ2.size(), CV_8U);
-        int nl = XYZ2.rows;
-        int nc = XYZ2.cols;
-        if(processed_image.isContinuous())//unneccessary
-        {
-            nc = nc*nl;
-            nl = 1; //1D array;
-        }
-
-        //loop exectued only once if the image is continious
-        for(int j = 0; j<nl;j++)
-        {
-            uchar* data = processed_image.ptr<uchar>(j);
-            uchar* old_data = XYZ2.ptr<uchar>(j);
-            for(int i = 0; i<nc;i++)
-            {
-                data[i] = 255*((double)old_data[3*i])/(double)(old_data[3*i]+old_data[3*i+1]+old_data[3*i+2]) ;
-            }
-        }
-    }
     cspace = X2;
-
 }
 
 void MainWindow::on_y2_clicked()
 {
-    if(!XYZ2.empty())
-    {
-        processed_image.create(XYZ2.size(), CV_8U);
-        int nl = XYZ2.rows;
-        int nc = XYZ2.cols;
-        if(processed_image.isContinuous())//unneccessary
-        {
-            nc = nc*nl;
-            nl = 1; //1D array;
-        }
-
-        //loop exectued only once if the image is continious
-        for(int j = 0; j<nl;j++)
-        {
-            uchar* data = processed_image.ptr<uchar>(j);
-            uchar* old_data = XYZ2.ptr<uchar>(j);
-            for(int i = 0; i<nc;i++)
-            {
-                data[i] = 255*((double)old_data[3*i+1])/(double)(old_data[3*i]+old_data[3*i+1]+old_data[3*i+2]) ;
-            }
-        }
-    }
     cspace = Y2;
-
 }
 void MainWindow::on_Y2_clicked()
 {
-    if(!XYZ2.empty())
-    {
-        processed_image.create(XYZ2.size(), CV_8U);
-        int nl = XYZ2.rows;
-        int nc = XYZ2.cols;
-        if(processed_image.isContinuous())//unneccessary
-        {
-            nc = nc*nl;
-            nl = 1; //1D array;
-        }
-
-        //loop exectued only once if the image is continious
-        for(int j = 0; j<nl;j++)
-        {
-            uchar* data = processed_image.ptr<uchar>(j);
-            uchar* old_data = XYZ2.ptr<uchar>(j);
-            for(int i = 0; i<nc;i++)
-            {
-                data[i] = old_data[i*3+1];
-            }
-        }
-    }
     cspace = LUMINANCE2;
-
 }
 
 void MainWindow::on_Lab_clicked()
