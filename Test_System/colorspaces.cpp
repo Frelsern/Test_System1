@@ -121,7 +121,6 @@ cv::Mat red_space(cv::Mat input_image)
     cv::Mat output_image;
     output_image.create(input_image.size(), CV_8U);
     int num_pix = input_image.rows*input_image.cols;
-    //loop exectued only once if the image is continious
 
     uchar* data = output_image.ptr<uchar>(0);
     uchar* old_data = input_image.ptr<uchar>(0);
@@ -136,7 +135,6 @@ cv::Mat green_space(cv::Mat input_image)
     cv::Mat output_image;
     output_image.create(input_image.size(), CV_8U);
     int num_pix = input_image.rows*input_image.cols;
-    //loop exectued only once if the image is continious
 
     uchar* data = output_image.ptr<uchar>(0);
     uchar* old_data = input_image.ptr<uchar>(0);
@@ -162,3 +160,55 @@ cv::Mat blue_space(cv::Mat input_image)
     }
     return output_image;
 }
+
+cv::Mat L_space(cv::Mat input_image)
+{
+    cv::Mat output_image,lab_image;
+    cv::cvtColor(input_image,lab_image,CV_RGB2Lab);
+    output_image.create(input_image.size(), CV_8U);
+    int num_pix = input_image.rows*input_image.cols;
+
+    uchar* data = output_image.ptr<uchar>(0);
+    uchar* old_data = lab_image.ptr<uchar>(0);
+    for(int i = 0; i<num_pix;i++)
+    {
+        data[i] = 2.55*old_data[3*i];//conversion to 0-255 scale
+    }
+    return output_image;
+}
+
+cv::Mat a_space(cv::Mat input_image)
+{
+    cv::Mat output_image,lab_image;
+    cv::cvtColor(input_image,lab_image,CV_RGB2Lab);
+    output_image.create(input_image.size(), CV_8U);
+    int num_pix = input_image.rows*input_image.cols;
+
+    uchar* data = output_image.ptr<uchar>(0);
+    uchar* old_data = lab_image.ptr<uchar>(0);
+    for(int i = 0; i<num_pix;i++)
+    {
+        data[i] = 1.0625*(120+old_data[3*i+1]);//conversion to 0-255 scale
+    }
+    return output_image;
+}
+
+cv::Mat b_space(cv::Mat input_image)
+{
+    cv::Mat output_image,lab_image;
+    cv::cvtColor(input_image,lab_image,CV_RGB2Lab);
+    output_image.create(input_image.size(), CV_8U);
+    int num_pix = input_image.rows*input_image.cols;
+
+    uchar* data = output_image.ptr<uchar>(0);
+    uchar* old_data = lab_image.ptr<uchar>(0);
+    for(int i = 0; i<num_pix;i++)
+    {
+        data[i] = 1.0625*(120+old_data[3*i+2]);//conversion to 0-255 scale
+    }
+    return output_image;
+}
+
+
+
+

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
+#include <QTime>
 #include <QTimer>
 
 
@@ -43,6 +44,9 @@ public slots:
 
     void runVideo();
     //void processImageAndUpdateGUI();
+
+private:
+    void hide_all_seg_boxes();
 
 private slots:
     void on_actionOpen_Image_triggered();
@@ -149,9 +153,9 @@ private:
     cv::Mat image;
     cv::Mat image_from_file;
     cv::Mat processed_image;
-    cv::Mat XYZ_image;
-    cv::Mat XYZ2;
-    cv::Mat Lab_image;
+    // cv::Mat XYZ_image;
+   // cv::Mat XYZ2;
+   // cv::Mat Lab_image;
     cv::Mat Segmented_image;
     cv::Mat float_Seg_image;
     cv::Mat hole_detected_image;

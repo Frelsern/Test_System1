@@ -3,6 +3,18 @@
 #include <QDebug>
 
 
+void MainWindow::hide_all_seg_boxes()
+{
+    ui->Global_Sobel_box->hide();
+    ui->Local_Sobel_box->hide();
+    ui->Global_Scharr_box->hide();
+    ui->Local_Scharr_box->hide();
+    ui->Global_Otsu_box->hide();
+    ui->Local_Otsu_box->hide();
+    ui->Thresholding_box->hide();
+    ui->Adaptive_Thresholding_box->hide();
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -12,14 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle(QString("System 1, v.0.2.11"));
 
     //hide the Segmentation boxes
-    ui->Global_Sobel_box->hide();
-    ui->Local_Sobel_box->hide();
-    ui->Global_Scharr_box->hide();
-    ui->Local_Scharr_box->hide();
-    ui->Global_Otsu_box->hide();
-    ui->Local_Otsu_box->hide();
-    ui->Thresholding_box->hide();
-    ui->Adaptive_Thresholding_box->hide();
+    hide_all_seg_boxes();
 
     //initializing parameters.
     Global_Sobel_hist_percentile = 90;
@@ -56,6 +61,7 @@ MainWindow::~MainWindow()
 void MainWindow::processFrameAndUpdateGUI(cv::Mat input_image)
 {
     //cv::Mat processed_image,Segmented_image,hole_detected_image;//kan lage de her, men da må jeg lage de en gang hver frame, unødvendig?
+
     //Converting to the given color space
     switch(cspace)
     {
@@ -89,19 +95,17 @@ void MainWindow::processFrameAndUpdateGUI(cv::Mat input_image)
         processed_image = standard_Y(input_image);
         break;
     case LAB:
-        cv::cvtColor(input_image,Lab_image,CV_RGB2Lab);
+        cv::Mat lab_image;
+        cv::cvtColor(input_image,lab_image,CV_RGB2Lab);
         break;
     case L:
-        cv::cvtColor(input_image,Lab_image,CV_RGB2Lab);
-        on_L_clicked();
+        processed_image = L_space(input_image);
         break;
     case A:
-        cv::cvtColor(input_image,Lab_image,CV_RGB2Lab);
-        on_a_clicked();
+        processed_image = a_space(input_image);
         break;
     case B:
-        cv::cvtColor(input_image,Lab_image,CV_RGB2Lab);
-        on_b_clicked();
+        processed_image = b_space(input_image);
         break;
     }
 
@@ -117,22 +121,18 @@ void MainWindow::processFrameAndUpdateGUI(cv::Mat input_image)
     case THRESH_NONE:
         break;
     case GLOBAL_SOBEL:
-        //on_Global_Sobel_clicked();
         Segmented_image = Global_Sobel(processed_image,Global_Sobel_kernel_size,Global_Sobel_hist_percentile,
                                        Global_Sobel_dx,Global_Sobel_dy,ui->Otsu_in_edge_checkBox->isChecked());
         break;
     case LOCAL_SOBEL:
-        //on_Local_Sobel_clicked();
         Segmented_image = Local_Sobel(processed_image,Local_Sobel_numberofSubImages, Local_Sobel_kernel_size,
                                       Local_Sobel_hist_percentile,Local_Sobel_dx,Local_Sobel_dy,ui->Otsu_in_edge_checkBox->isChecked());
         break;
     case GLOBAL_SCHARR:
-        //on_Global_Scharr_clicked();
         Segmented_image = Global_Scharr(processed_image,Global_Scharr_hist_percentile,ui->Global_Scharr_dx_checkBox->isChecked(),
                                         ui->Global_Scharr_dy_checkBox->isChecked(),ui->Otsu_in_edge_checkBox->isChecked());
         break;
     case LOCAL_SCHARR:
-        //on_Local_Scharr_clicked();
         Segmented_image = Local_Scharr(processed_image,Local_Scharr_numberofSubImages,Local_Scharr_hist_percentile,
                                        ui->Local_Scharr_dx_checkBox->isChecked(),ui->Local_Scharr_dy_checkBox->isChecked(),
                                        ui->Otsu_in_edge_checkBox->isChecked());
@@ -152,28 +152,16 @@ void MainWindow::processFrameAndUpdateGUI(cv::Mat input_image)
         break;
     }
 
-
     //operations to improve the segmentation result
     if(!Segmented_image.empty())
     {        
         if(ui->Inversion_checkbox->isChecked())
         {
-            int nl = Segmented_image.rows;
-            int nc = Segmented_image.cols;
-            if(Segmented_image.isContinuous())
+            int num_pix = Segmented_image.rows*Segmented_image.cols;
+            uchar* data = Segmented_image.ptr<uchar>(0);
+            for(int i = 0; i<num_pix;i++)
             {
-                nc = nc*nl;
-                nl = 1; //1D array;
-            }
-
-            //loop exectued only once if the image is continious
-            for(int j = 0; j<nl;j++)
-            {
-                uchar* data = Segmented_image.ptr<uchar>(j);
-                for(int i = 0; i<nc;i++)
-                {
-                    data[i] = 255-data[i];
-                }
+                data[i] = 255-data[i];
             }
         }
         if(ui->Dilation_checkBox->isChecked())
@@ -181,7 +169,6 @@ void MainWindow::processFrameAndUpdateGUI(cv::Mat input_image)
             cv::Mat Seg_copy;
             Segmented_image.copyTo(Seg_copy);
             cv::dilate(Seg_copy,Segmented_image,cv::Mat(),cv::Point(-1,-1),Dilation_iterations,cv::BORDER_CONSTANT,cv::morphologyDefaultBorderValue());
-
         }
     }
 
@@ -192,8 +179,8 @@ void MainWindow::processFrameAndUpdateGUI(cv::Mat input_image)
         //putting the correct color space image and segmented image on display.
         if(ui->Lab->isChecked())
         {
-            QImage color_space_image = QImage((const unsigned char*)(Lab_image.data),
-                                Lab_image.cols,Lab_image.rows,QImage::Format_RGB888);
+            QImage color_space_image = QImage((const unsigned char*)(lab_image.data),
+                                lab_image.cols,lab_image.rows,QImage::Format_RGB888);
             ui->label->setPixmap(QPixmap::fromImage(color_space_image));
             ui->label->resize(ui->label->pixmap()->size());
         }
@@ -269,48 +256,24 @@ void MainWindow::on_actionOpen_Image_triggered()
 void MainWindow::on_Global_Sobel_clicked()
 {
      thresh_met = GLOBAL_SOBEL;
-
     //hide the different group boxes and show the global sobel one.
+    hide_all_seg_boxes();
     ui->Global_Sobel_box->show();
-    ui->Local_Sobel_box->hide();
-    ui->Global_Scharr_box->hide();
-    ui->Local_Scharr_box->hide();
-    ui->Global_Otsu_box->hide();
-    ui->Local_Otsu_box->hide();
-    ui->Thresholding_box->hide();
-    ui->Adaptive_Thresholding_box->hide();
-
 }
 void MainWindow::on_Local_Sobel_clicked()
 {
     thresh_met = LOCAL_SOBEL;
-
     //hide the different group boxes and show the local sobel one.
-    ui->Global_Sobel_box->hide();
+    hide_all_seg_boxes();
     ui->Local_Sobel_box->show();
-    ui->Global_Scharr_box->hide();
-    ui->Local_Scharr_box->hide();
-    ui->Global_Otsu_box->hide();
-    ui->Local_Otsu_box->hide();
-    ui->Thresholding_box->hide();
-    ui->Adaptive_Thresholding_box->hide();
-
 }
 
 void MainWindow::on_Global_Scharr_clicked()
 {
     thresh_met = GLOBAL_SCHARR;
-
     //hide the different group boxes and show the global sobel one.
-    ui->Global_Sobel_box->hide();
-    ui->Local_Sobel_box->hide();
+    hide_all_seg_boxes();
     ui->Global_Scharr_box->show();
-    ui->Local_Scharr_box->hide();
-    ui->Global_Otsu_box->hide();
-    ui->Local_Otsu_box->hide();
-    ui->Thresholding_box->hide();
-    ui->Adaptive_Thresholding_box->hide();
-
 }
 
 void MainWindow::on_Local_Scharr_clicked()
@@ -318,75 +281,40 @@ void MainWindow::on_Local_Scharr_clicked()
     thresh_met = LOCAL_SCHARR;
 
     //hide the different group boxes and show the global sobel one.
-    ui->Global_Sobel_box->hide();
-    ui->Local_Sobel_box->hide();
-    ui->Global_Scharr_box->hide();
+    hide_all_seg_boxes();
     ui->Local_Scharr_box->show();
-    ui->Global_Otsu_box->hide();
-    ui->Local_Otsu_box->hide();
-    ui->Thresholding_box->hide();
-    ui->Adaptive_Thresholding_box->hide();
+
 }
 
 void MainWindow::on_Global_Otsu_clicked()
 {
     thresh_met = GLOBAL_OTSU;
     //hide the different group boxes and show the global sobel one.
-    ui->Global_Sobel_box->hide();
-    ui->Local_Sobel_box->hide();
-    ui->Global_Scharr_box->hide();
-    ui->Local_Scharr_box->hide();
+    hide_all_seg_boxes();
     ui->Global_Otsu_box->show();
-    ui->Local_Otsu_box->hide();
-    ui->Thresholding_box->hide();
-    ui->Adaptive_Thresholding_box->hide();
-
 }
 void MainWindow::on_Local_Otsu_clicked()
 {
     thresh_met = LOCAL_OTSU;
-
     //hide the different group boxes and show the global sobel one.
-    ui->Global_Sobel_box->hide();
-    ui->Local_Sobel_box->hide();
-    ui->Global_Scharr_box->hide();
-    ui->Local_Scharr_box->hide();
-    ui->Global_Otsu_box->hide();
+    hide_all_seg_boxes();
     ui->Local_Otsu_box->show();
-    ui->Thresholding_box->hide();
-    ui->Adaptive_Thresholding_box->hide();
-
 }
 
 void MainWindow::on_Thresholding_clicked()
 {
     thresh_met = THRESHOLDING;
-
     //hide the different group boxes and show the thresholding one.
-    ui->Global_Sobel_box->hide();
-    ui->Local_Sobel_box->hide();
-    ui->Global_Scharr_box->hide();
-    ui->Local_Scharr_box->hide();
-    ui->Global_Otsu_box->hide();
-    ui->Local_Otsu_box->hide();
+    hide_all_seg_boxes();
     ui->Thresholding_box->show();
-    ui->Adaptive_Thresholding_box->hide();
 }
 
 void MainWindow::on_Adaptive_Thresholding_clicked()
 {
     thresh_met = ADAPTIVE_THRESHOLDING;
-
     //hide the different group boxes and show the thresholding one.
-    ui->Global_Sobel_box->hide();
-    ui->Local_Sobel_box->hide();
-    ui->Global_Scharr_box->hide();
-    ui->Local_Scharr_box->hide();
-    ui->Global_Otsu_box->hide();
-    ui->Local_Otsu_box->hide();
-    ui->Thresholding_box->hide();
+    hide_all_seg_boxes();
     ui->Adaptive_Thresholding_box->show();
-
 }
 
 void MainWindow::on_Local_Sobel_horizontalSlider_valueChanged(int value)
@@ -411,18 +339,13 @@ void MainWindow::on_Capture_clicked()
 {
     if(!Segmented_image.empty())
     {
-        imwrite( "Segmented_Image.png", Segmented_image );
-        //new - use captured segmented image to find % of foreground
-        //Percentage_foreground_clean_net = percentage_foreground(Segmented_image);
+        imwrite("Segmented_Image.png", Segmented_image );
     }
 
     if(!hole_detected_image.empty())
     {
-        imwrite( "Hole_detected_Image.png", hole_detected_image );
+        imwrite("Hole_detected_Image.png", hole_detected_image );
     }
-
-
-
 }
 
 void MainWindow::on_Global_Sobel_histogram_slider_valueChanged(int value)
