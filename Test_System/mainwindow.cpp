@@ -646,9 +646,9 @@ void MainWindow::on_Video_source_radioButton_clicked()
 {
     capWebcam.release();
     QString fileName = QFileDialog::getOpenFileName(this,tr("Open Video"),".",tr("Image Files (*.png *.jpg *.jpeg *.bmp)"));
-    image_from_file = cv::imread(fileName.toLatin1().data()) ;//.toAscii().data()
+  //  image_from_file = cv::imread(fileName.toLatin1().data()) ;//.toAscii().data()
 
-
+    //skit her
 }
 
 void MainWindow::runCamera()
