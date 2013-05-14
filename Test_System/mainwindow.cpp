@@ -61,7 +61,7 @@ MainWindow::~MainWindow()
 void MainWindow::processFrameAndUpdateGUI(cv::Mat input_image)
 {
     //cv::Mat processed_image,Segmented_image,hole_detected_image;//kan lage de her, men da må jeg lage de en gang hver frame, unødvendig?
-
+    cv::Mat lab_image;
     //Converting to the given color space
     switch(cspace)
     {
@@ -95,7 +95,7 @@ void MainWindow::processFrameAndUpdateGUI(cv::Mat input_image)
         processed_image = standard_Y(input_image);
         break;
     case LAB:
-        cv::Mat lab_image;
+
         cv::cvtColor(input_image,lab_image,CV_RGB2Lab);
         break;
     case L:
@@ -179,10 +179,10 @@ void MainWindow::processFrameAndUpdateGUI(cv::Mat input_image)
         //putting the correct color space image and segmented image on display.
         if(ui->Lab->isChecked())
         {
-            QImage color_space_image = QImage((const unsigned char*)(lab_image.data),
+            /*QImage color_space_image = QImage((const unsigned char*)(lab_image.data),
                                 lab_image.cols,lab_image.rows,QImage::Format_RGB888);
             ui->label->setPixmap(QPixmap::fromImage(color_space_image));
-            ui->label->resize(ui->label->pixmap()->size());
+            ui->label->resize(ui->label->pixmap()->size());*/
         }
         else if(processed_image.channels()==1)
         {
@@ -439,7 +439,7 @@ void MainWindow::on_Lab_clicked()
 
 void MainWindow::on_L_clicked()
 {
-    if(!Lab_image.empty())
+    /*if(!Lab_image.empty())
     {
         processed_image.create(Lab_image.size(), CV_8U);
         int nl = Lab_image.rows;
@@ -460,14 +460,14 @@ void MainWindow::on_L_clicked()
                 data[i] = 2.55*old_data[3*i];
             }
         }
-    }
+    }*/
     cspace = L;
 
 }
 
 void MainWindow::on_a_clicked()
 {
-    if(!Lab_image.empty())
+    /*if(!Lab_image.empty())
     {
         processed_image.create(Lab_image.size(), CV_8U);
         int nl = Lab_image.rows;
@@ -488,14 +488,14 @@ void MainWindow::on_a_clicked()
                 data[i] = 1.0625*(120+old_data[3*i+1]);
             }
         }
-    }
+    }*/
     cspace = A;
 
 }
 
 void MainWindow::on_b_clicked()
 {
-    if(!Lab_image.empty())
+    /*if(!Lab_image.empty())
     {
         processed_image.create(Lab_image.size(), CV_8U);
         int nl = Lab_image.rows;
@@ -516,7 +516,7 @@ void MainWindow::on_b_clicked()
                 data[i] = 1.0625*(120+old_data[3*i+2]);
             }
         }
-    }
+    }*/
     cspace = B;
 
 }
