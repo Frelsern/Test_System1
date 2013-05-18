@@ -31,6 +31,7 @@ FORMS    += mainwindow.ui
 
 INCLUDEPATH += C:\\OpenCV\\opencv\\build\\include
 
+
 LIBS += -LC:\\OpenCV\\myBuild\\lib\\Debug \
     -lopencv_calib3d240d \
     -lopencv_core240d \

@@ -182,6 +182,8 @@ private:
 
     double Percentage_foreground_clean_net;
 
+    double video_file_FPS;
+
     Color_Space cspace;
     Thresholding_Method thresh_met;
     Mode mode;

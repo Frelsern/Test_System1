@@ -656,8 +656,8 @@ void MainWindow::on_Video_source_radioButton_clicked()
     }
 
 
-    double rate = capWebcam.get(CV_CAP_PROP_FPS);
-    qDebug() << "FPS " << rate;
+    video_file_FPS = capWebcam.get(CV_CAP_PROP_FPS);
+    qDebug() << "FPS " << video_file_FPS;
 
 
     tmrTimer = new QTimer(this);
@@ -727,14 +727,17 @@ void MainWindow::runVideo()
 
 
     //capWebcam.read(video_frame);
-    //capWebcam >> video_frame;
-    qDebug() << video_frame.cols << video_frame.rows;
+
+
+    //lag en ting som sykler ut frames på balgrunn av framerate kontra prosseseringstid
+    capWebcam >> video_frame;
+  //  qDebug() << video_frame.cols << video_frame.rows;
 
     //cv::cvtColor(video_frame,video_frame,CV_BGR2RGB);
 
     if(!video_frame.empty())
     {
-        qDebug() << video_frame.cols << video_frame.rows;
+        qDebug() << "valid frame" << video_frame.cols << video_frame.rows;
         MainWindow::processFrameAndUpdateGUI(video_frame);
     }
 

@@ -25,7 +25,6 @@
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
-#include <QtWidgets/QScrollBar>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -191,7 +190,6 @@ public:
     QRadioButton *Webcam_source_radioButton;
     QRadioButton *Image_source_radioButton;
     QRadioButton *Video_source_radioButton;
-    QScrollBar *horizontalScrollBar;
     QMenuBar *menuBar;
     QMenu *menuFile;
 
@@ -952,10 +950,6 @@ public:
 
         horizontalLayout_13->addWidget(Video_source_radioButton);
 
-        horizontalScrollBar = new QScrollBar(centralWidget);
-        horizontalScrollBar->setObjectName(QStringLiteral("horizontalScrollBar"));
-        horizontalScrollBar->setGeometry(QRect(0, 360, 1401, 20));
-        horizontalScrollBar->setOrientation(Qt::Horizontal);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
