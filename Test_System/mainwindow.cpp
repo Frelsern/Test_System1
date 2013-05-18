@@ -621,10 +621,10 @@ void MainWindow::on_Webcam_source_radioButton_clicked()
 void MainWindow::on_Image_source_radioButton_clicked()
 {
     capWebcam.release();
-    cv::Mat file_image;
+    //cv::Mat file_image;
     QString fileName = QFileDialog::getOpenFileName(this,tr("Open Image"),".",tr("Image Files (*.png *.jpg *.jpeg *.bmp)"));
     image_from_file = cv::imread(fileName.toLatin1().data()) ;//.toAscii().data()
-    file_image = cv::imread(fileName.toLatin1().data()) ;
+    //file_image = cv::imread(fileName.toLatin1().data()) ;
 
     //change color channel ordering
     cv::cvtColor(image_from_file,image_from_file,CV_BGR2RGB);
@@ -645,10 +645,27 @@ void MainWindow::on_Image_source_radioButton_clicked()
 void MainWindow::on_Video_source_radioButton_clicked()
 {
     capWebcam.release();
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Open Video"),".",tr("Image Files (*.png *.jpg *.jpeg *.bmp)"));
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Open Video"),".",tr("Video Files (*.avi *.mp4 *.wmv)"));
   //  image_from_file = cv::imread(fileName.toLatin1().data()) ;//.toAscii().data()
+    //cv::VideoCapture capWebcam(fileName.toLatin1().data());
+    capWebcam.open(fileName.toLatin1().data());
+    if(capWebcam.isOpened() == false)
+    {
+        ui->Total_time_spent->appendPlainText("error: File not accessed succesfully");
+        return;
+    }
 
-    //skit her
+
+    double rate = capWebcam.get(CV_CAP_PROP_FPS);
+    qDebug() << "FPS " << rate;
+
+
+    tmrTimer = new QTimer(this);
+    connect(tmrTimer, SIGNAL(timeout()),this,SLOT(runVideo()));
+    //tmrTimer->start(1.0/60); //lavprioritet funksjon, hvis systemet bruker lenger tid får det lov til å btuke lenger tid
+    tmrTimer->start(100);
+
+
 }
 
 void MainWindow::runCamera()
@@ -691,10 +708,36 @@ void MainWindow::runVideo()
     double duration;
     duration = static_cast<double>(cv::getTickCount());
 
-    /*//change color channel ordering
-    cv::cvtColor(image,image,CV_BGR2RGB);
+    cv::Mat video_frame;
 
-    MainWindow::processFrameAndUpdateGUI(image);*/
+   // int delay = 1000/rate;
+
+ //   while(true)
+  //  {
+    //    if(!capWebcam.read(frame))
+      //  {
+        //    break;
+//        }
+        //process frame
+  //      if(cv::waitKey(delay)>=0)
+    //    {
+      //      break;
+    //    }
+  //  }
+
+
+    //capWebcam.read(video_frame);
+    //capWebcam >> video_frame;
+    qDebug() << video_frame.cols << video_frame.rows;
+
+    //cv::cvtColor(video_frame,video_frame,CV_BGR2RGB);
+
+    if(!video_frame.empty())
+    {
+        qDebug() << video_frame.cols << video_frame.rows;
+        MainWindow::processFrameAndUpdateGUI(video_frame);
+    }
+
 
     //time measurment part
     duration = static_cast<double>(cv::getTickCount())-duration;

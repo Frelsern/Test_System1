@@ -148,7 +148,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QTimer* tmrTimer;
-    cv::VideoCapture capWebcam;
+    cv::VideoCapture capWebcam; 
 
     cv::Mat image;
     cv::Mat image_from_file;
