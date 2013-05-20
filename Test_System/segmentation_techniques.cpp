@@ -247,6 +247,7 @@ cv::Mat Global_Otsu(cv::Mat input_img)
     return output_img;
 }
 
+//add function that inverts sub-image when necessary
 cv::Mat Local_Otsu(cv::Mat input_img, int sub_images)
 {
     cv::Mat output_img;
