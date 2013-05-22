@@ -34,8 +34,8 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *actionOpen_Image;
-    QAction *actionOpen_Video;
+    QAction *actionPause;
+    QAction *actionDont_Process;
     QWidget *centralWidget;
     QLabel *label;
     QLabel *processed_image_label;
@@ -204,10 +204,10 @@ public:
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
         MainWindow->setMinimumSize(QSize(1400, 400));
-        actionOpen_Image = new QAction(MainWindow);
-        actionOpen_Image->setObjectName(QStringLiteral("actionOpen_Image"));
-        actionOpen_Video = new QAction(MainWindow);
-        actionOpen_Video->setObjectName(QStringLiteral("actionOpen_Video"));
+        actionPause = new QAction(MainWindow);
+        actionPause->setObjectName(QStringLiteral("actionPause"));
+        actionDont_Process = new QAction(MainWindow);
+        actionDont_Process->setObjectName(QStringLiteral("actionDont_Process"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         label = new QLabel(centralWidget);
@@ -959,8 +959,8 @@ public:
         MainWindow->setMenuBar(menuBar);
 
         menuBar->addAction(menuFile->menuAction());
-        menuFile->addAction(actionOpen_Image);
-        menuFile->addAction(actionOpen_Video);
+        menuFile->addAction(actionPause);
+        menuFile->addAction(actionDont_Process);
 
         retranslateUi(MainWindow);
         QObject::connect(Local_Scharr_histogram_slider, SIGNAL(valueChanged(int)), Local_Scharr_histogram_lcdNumber, SLOT(display(int)));
@@ -981,8 +981,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        actionOpen_Image->setText(QApplication::translate("MainWindow", "Open Image", 0));
-        actionOpen_Video->setText(QApplication::translate("MainWindow", "Open Video", 0));
+        actionPause->setText(QApplication::translate("MainWindow", "Pause", 0));
+        actionDont_Process->setText(QApplication::translate("MainWindow", "Do not Process", 0));
         label->setText(QString());
         processed_image_label->setText(QString());
         Segmentation_groupBox->setTitle(QApplication::translate("MainWindow", "Segmentation methods", 0));

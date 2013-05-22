@@ -49,8 +49,6 @@ private:
     void hide_all_seg_boxes();
 
 private slots:
-    void on_actionOpen_Image_triggered();
-
     void on_Global_Sobel_clicked();
 
     void on_Local_Sobel_clicked();
@@ -145,10 +143,15 @@ private slots:
 
     void on_Video_source_radioButton_clicked();
 
+    void on_actionPause_triggered();
+
+    void on_actionDont_Process_triggered();
+
 private:
     Ui::MainWindow *ui;
     QTimer* tmrTimer;
     cv::VideoCapture capWebcam; 
+    bool PAUSE;
 
     cv::Mat image;
     cv::Mat image_from_file;
@@ -182,6 +185,7 @@ private:
 
     double Percentage_foreground_clean_net;
 
+    QString fileName;
     double video_file_FPS;
 
     Color_Space cspace;

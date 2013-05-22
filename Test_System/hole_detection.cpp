@@ -25,7 +25,7 @@ cv::Mat Hole_detection_algo(cv::Mat input_img)
                 {
                     region = Region_Growing(output_img,j,i,color);
                     color = color + 50;
-                    if(color>250)
+                    if(color>200)
                     {
                         color = 50;
                     }

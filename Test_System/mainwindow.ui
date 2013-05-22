@@ -1592,19 +1592,19 @@ Edge Segmentation
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionOpen_Image"/>
-    <addaction name="actionOpen_Video"/>
+    <addaction name="actionPause"/>
+    <addaction name="actionDont_Process"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
-  <action name="actionOpen_Image">
+  <action name="actionPause">
    <property name="text">
-    <string>Open Image</string>
+    <string>Pause</string>
    </property>
   </action>
-  <action name="actionOpen_Video">
+  <action name="actionDont_Process">
    <property name="text">
-    <string>Open Video</string>
+    <string>Do not Process</string>
    </property>
   </action>
  </widget>
