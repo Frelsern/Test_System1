@@ -641,26 +641,41 @@ void MainWindow::runVideo()
 
         cv::Mat video_frame;
 
-        capWebcam.read(video_frame);
+
 
         //lag en ting som sykler ut frames på balgrunn av framerate kontra prosseseringstid
+        bool end_of_video = false;
+        int frame_not_found = 0; //gives the system the chance to process videos missing frames
+        while(end_of_video==false)
+        {
+            capWebcam.read(video_frame);
 
-        if(!video_frame.empty())
-        {
-            cv::cvtColor(video_frame,video_frame,CV_BGR2RGB);
-            //qDebug() << "valid frame" << video_frame.cols << video_frame.rows;
-            MainWindow::processFrameAndUpdateGUI(video_frame);
-        }
-        else
-        {
-            capWebcam.release();
-            capWebcam.open(fileName.toLatin1().data());
-            if(capWebcam.isOpened() == false)
+            if(!video_frame.empty())
             {
-                ui->Total_time_spent->appendPlainText("error: Video not accessed succesfully");
-                return;
+                cv::cvtColor(video_frame,video_frame,CV_BGR2RGB);
+                //qDebug() << "valid frame" << video_frame.cols << video_frame.rows;
+                MainWindow::processFrameAndUpdateGUI(video_frame);
+                end_of_video = true;
             }
+            else
+            {
+                frame_not_found +=1;
+            }
+
+            if(frame_not_found >100)
+            {
+                capWebcam.release();
+                capWebcam.open(fileName.toLatin1().data());
+                if(capWebcam.isOpened() == false)
+                {
+                    ui->Total_time_spent->appendPlainText("error: Video not accessed succesfully");
+                    return;
+                }
+                end_of_video = true;
+            }
+
         }
+
 
         //time measurment part
         duration = static_cast<double>(cv::getTickCount())-duration;
